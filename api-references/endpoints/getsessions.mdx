@@ -1,0 +1,70 @@
+---
+title: "Get Sessions"
+openapi: "GET /api/v1/workspace/{id}/sessions"
+description: "Retrieve upcoming and past sessions with date and category filtering."
+tags: ["sessions"]
+icon: "calendar"
+---
+
+## Summary
+
+Fetch workspace sessions organized by date. Filter by date range and session category to find specific events.
+Session 'status' returns are automatically updated every minute. By default, Orbit already runs the current statuses:
+
+| **Status**  | **Description**                             |
+| :---------  | :------------------------------------------ |
+| ended       | Session has passed, and ended.              |
+| in-progress | Session start time has been met.            |
+| scheduled   | Session is upcoming.                        |
+| missed      | Session passed with no assignments          |
+
+### Request
+
+```
+GET https://api.planetaryapp.us/v1/workspace/{workspace_id}/sessions/calendar
+```
+
+#### Query Parameters
+
+| **Parameter** | **Type** | **Description**                             |
+| :------------ | :------- | :------------------------------------------ |
+| startDate     | ISO 8601 | Filter by date (e.g., 2024-01-01T00:00:00Z) |
+| endDate       | ISO 8601 | Filter by date (e.g., 2024-01-01T00:00:00Z) |
+| category      | string   | Filter by Session Type (lowercase)          |
+
+### Response example
+
+```
+{
+  "success": true,
+  "sessions": [...],
+  "sessionsByDate": {
+    "2023-10-19": [
+      {
+        "id": "session-uuid",
+        "name": "Weekly Training",
+        "date": "2023-10-19T14:00:00.000Z",
+        "type": {
+          "id": "pattern-uuid",
+          "description": "Training Session",
+          "category": "training",
+          "gameId": 123456789,
+          "slots": [...]
+        },
+        "host": {
+          "userId": 123456789,
+          "username": "host123",
+          "thumbnail": "https://..."
+        },
+        "participants": [...],
+        "status": "scheduled"
+      }
+    ]
+  },
+  "dateRange": {
+    "startDate": "2023-10-19T00:00:00.000Z",
+    "endDate": "2023-10-25T23:59:59.999Z"
+  },
+  "total": 1
+}
+```

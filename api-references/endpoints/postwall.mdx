@@ -1,0 +1,54 @@
+---
+title: "Post Wall"
+openapi: "POST /api/v1/workspace/{id}/wall"
+description: "Create a new wall post with optional image attachment."
+tags: ["content"]
+icon: "send"
+---
+
+## Summary
+
+Publish a new post to the workspace wall. Include content, author ID, and optional image URL.
+
+### Request
+
+```
+POST https://api.planetaryapp.us/v1/workspace/{workspace_id}/wall
+```
+
+#### Request body
+
+```json
+{
+  "content": "Hello from the API!",
+  "authorId": 123456,
+  "image": "https://example.com/image.jpg"
+}
+```
+
+**Required fields:**
+- `content` (string) – Post text
+- `authorId` (number) – User ID (must be workspace member)
+
+**Optional fields:**
+- `image` (string) – Image URL
+
+### Response example
+
+```json
+{
+  "success": true,
+  "post": {
+    "id": "clz1234abcd",
+    "content": "Hello from the API!",
+    "author": {
+      "userId": 123456,
+      "username": "john_doe",
+      "displayName": "John Doe",
+      "thumbnail": "https://example.com/avatar.png"
+    },
+    "createdAt": "2024-01-01T00:00:00Z",
+    "image": "https://example.com/image.jpg"
+  }
+}
+```

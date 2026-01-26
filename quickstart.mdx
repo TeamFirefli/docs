@@ -1,80 +1,75 @@
 ---
 title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+description: "Professional documentation for Planetary Orbit's workspace automation platform."
+version: "v1.0 (beta)"
+icon: "play"
 ---
 
-## Get started in three steps
+<div className="flex items-center gap-2 mb-4">
+  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-800 text-sm font-semibold text-slate-100">
+    1
+  </span>
+  <h3 className="!mt-0">Choose your deployment option</h3>
+</div>
+<Steps>
+  <Step>
+    <h4>Choose your preferred deployment</h4>
+    <Accordion title="View all deployment options">
+      <CardGroup cols={3}>
+        <Card title="Planetary Cloud" icon="cloud" accent="primary">
+          Launch in seconds with a fully managed stack optimized for Orbit. Auto-updates, backups, and SSL are included.
+          <Divider />
+          <strong>Best for:</strong> Teams that want instant access without infrastructure work.
+        </Card>
+        <Card title="Vercel" icon="zap">
+          Deploy via Git, plug in secrets, and push updates instantly. Supports serverless functions where needed.
+          <Divider />
+          <strong>Best for:</strong> Developers seeking Git-centric workflows and preview deployments.
+        </Card>
+        <Card title="Self-host" icon="server">
+          Full control over performance, networking, and compliance. Works with Docker, Docker Compose, or bare Metal.
+          <Divider />
+          <strong>Best for:</strong> Advanced teams with internal hosting policies.
+        </Card>
+      </CardGroup>
+      
+      <Info>
+        Each lane shares the same admin experiences, so you can prototype on Planetary Cloud and migrate to Vercel or self-host later.
+      </Info>
+    </Accordion>
+  </Step>
+</Steps>
 
-Get your documentation site running locally and make your first customization.
+<div className="flex items-center gap-2 mb-4">
+  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-800 text-sm font-semibold text-slate-100">
+    2
+  </span>
+  <h3 className="!mt-0">Invite collaborators</h3>
+</div>
+<Steps>
+  <Step>
+    <h4>Send invites</h4>
+    <p>Go to **Workspace → Members → Invites** and send magic links or set role-based permissions.</p>
+  </Step>
+  <Step>
+    <h4>Set API roles</h4>
+    <p>For APIs, include the `role` field when creating a member to control access (see the Workspaces guides).</p>
+  </Step>
+  <Step>
+    <h4>Enable 2FA</h4>
+    <p>Enable two-factor authentication for admins in **Workspace → Security** for extra protection.</p>
+  </Step>
+</Steps>
 
-### Step 1: Set up your local environment
-
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
-    
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
-    
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
-
-### Step 2: Deploy your changes
-
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
-    
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
-
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
-
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
-
-### Step 3: Go live
-
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
-
-## Next steps
-
-Now that you have your docs running, explore these key features:
-
-<CardGroup cols={2}>
-
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
-
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
-
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
-
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
-
+## **Quicklinks**
+<CardGroup cols={3}>
+  <Card title="Github" icon="github" href="https://github.com/PlanetaryOrbit/orbit/">
+    View the brains of the operation!
+  </Card>
+  <Card title="Support" icon="bug" href="https://discord.gg/planetary">
+    Get support and let us know about bugs!
+  </Card>
+  <Card title="Changelog" icon="sparkles" href="https://changelog.planetaryapp.us/">
+    View our Features and Updates!
+  </Card>
 </CardGroup>
-
-<Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
-</Note>

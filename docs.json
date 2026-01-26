@@ -23,7 +23,7 @@
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://app.firefli.net",
+      "href": "https://app.firefli.net"
     }
   },
   "navigation": {
@@ -283,6 +283,6 @@
   "integrations": {
     "ga4": {
       "measurementId": "G-9YDDN8QEXZ"
-    },
+    }
   }
 }

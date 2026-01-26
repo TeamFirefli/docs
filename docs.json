@@ -47,8 +47,7 @@
                 "group": "Deployment",
                 "icon": "cloud-upload",
                 "pages": [
-                  "/how-to/selfhost",
-                  "/deployment/vercel",
+                  "/deployment/selfhost",
                   "/deployment/automation"
                 ]
               },
@@ -150,8 +149,7 @@
                 "icon": "rocket",
                 "pages": [
                   "/index",
-                  "/quickstart",
-                  "/design-system"
+                  "/quickstart"
                 ]
               },
               {
@@ -159,7 +157,6 @@
                 "icon": "cloud-upload",
                 "pages": [
                   "/deployment/selfhost",
-                  "/deployment/vercel",
                   "/deployment/automation"
                 ]
               },

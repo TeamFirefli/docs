@@ -18,7 +18,7 @@ GET https://api.planetaryapp.us/v1/workspace/{workspace_id}/info
 
 #### Headers
 
-- `Authorization: Bearer orbit_<api_key>`
+- `Authorization: Bearer firefli_<api_key>`
 
 ### Response example
 
@@ -51,12 +51,12 @@ GET https://api.planetaryapp.us/v1/workspace/{workspace_id}/info
 <CodeGroup>
 ```http
 GET https://api.planetaryapp.us/v1/workspace/14144149/info
-Authorization: Bearer orbit_your_api_key
+Authorization: Bearer firefli_your_api_key
 ```
 ```javascript
 const info = await fetch(
   "https://api.planetaryapp.us/v1/workspace/14144149/info",
-  { headers: { Authorization: "Bearer orbit_your_api_key" } }
+  { headers: { Authorization: "Bearer firefli_your_api_key" } }
 ).then((r) => r.json());
 console.log(info.workspace.name);
 ```
@@ -65,7 +65,7 @@ import requests
 
 info = requests.get(
     "https://api.planetaryapp.us/v1/workspace/14144149/info",
-    headers={"Authorization": "Bearer orbit_your_api_key"}
+    headers={"Authorization": "Bearer firefli_your_api_key"}
 ).json()
 print(info["workspace"]["name"])
 ```

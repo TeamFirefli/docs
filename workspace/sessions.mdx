@@ -5,7 +5,7 @@ icon: "bar-chart"
 ---
 
 ## Overview
-Orbit tracks Roblox activity by reading from your exported session logs and syncing them to the workspace timeline. Follow these steps to connect your game with the monitoring pipeline.
+Firefli tracks Roblox activity by reading from your exported session logs and syncing them to the workspace timeline. Follow these steps to connect your game with the monitoring pipeline.
 
 <div className="flex items-center gap-2 mb-4">
   <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-800 text-sm font-semibold text-slate-100">
@@ -32,7 +32,7 @@ Orbit tracks Roblox activity by reading from your exported session logs and sync
   <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-800 text-sm font-semibold text-slate-100">
     2
   </span>
-  <h3 className="!mt-0">Import the Orbit Loader</h3>
+  <h3 className="!mt-0">Import the Firefli Loader</h3>
 </div>
 
 <Steps>
@@ -46,7 +46,7 @@ Orbit tracks Roblox activity by reading from your exported session logs and sync
   </Step>
   <Step>
     <h4>Configure the script</h4>
-    <p>Locate the generated `OrbitActivity` script and open the `Configuration` section. Update fields such as `minutesTillAFK`, `minTrackedRank`, `groupId`, `rankChecking`, `cooldownPeriod`, and `bansEnabled`.</p>
+    <p>Locate the generated `FirefliActivity` script and open the `Configuration` section. Update fields such as `minutesTillAFK`, `minTrackedRank`, `groupId`, `rankChecking`, `cooldownPeriod`, and `bansEnabled`.</p>
   </Step>
   <Step>
     <h4>Publish your place</h4>
@@ -67,7 +67,7 @@ Orbit tracks Roblox activity by reading from your exported session logs and sync
 <Steps>
   <Step>
     <h4>Wait for data</h4>
-    <p>Once published, Orbit polls events from your game. Expect data to arrive within a few minutes—use the Activity feed to confirm members are appearing.</p>
+    <p>Once published, Firefli polls events from your game. Expect data to arrive within a few minutes—use the Activity feed to confirm members are appearing.</p>
   </Step>
 </Steps>
 
@@ -79,11 +79,11 @@ Orbit tracks Roblox activity by reading from your exported session logs and sync
 - ✅ Script enabled in Roblox Studio.
 - ✅ HTTPS service turned on in your game settings.
 - ✅ Configuration values correct aside from secrets (do not modify `URL` or `AUTH`).
-- 🛠 Self-hosted? Check your Orbit server logs for HTTP/timeout issues.
+- 🛠 Self-hosted? Check your Firefli server logs for HTTP/timeout issues.
 
 ### Getting support
 - **Planetary Cloud**: Use the live chat in the dashboard for fast replies.
-- **Self-hosted**: Join [Discord](https://discord.gg/WtEkchUKqe) (support channel) and include `X-Request-ID` from the Orbit logs if you hit API errors.
+- **Self-hosted**: Join [Discord](https://discord.gg/WtEkchUKqe) (support channel) and include `X-Request-ID` from the Firefli logs if you hit API errors.
 
 ## Next steps
 <CardGroup cols={3} gap="medium">

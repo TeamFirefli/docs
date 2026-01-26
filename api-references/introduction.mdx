@@ -1,33 +1,30 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: "API Reference"
+description: "Everything you need to build with the Firefli public API."
+version: "v1"
+icon: "book-open"
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## Firefli API v1 🚀
 
-## Welcome
+Welcome to the Firefli Public API. This RESTful surface helps you automate workspace operations, sync activity, and power admin tooling. All endpoints return JSON and follow consistent success/error patterns.
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+<Tip>
+  Each response mirrors the workspace configuration you are scoped to, so multi-workspace teams can build predictable automations.
+</Tip>
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+### Authentication
 
-## Authentication
+Every request must include an `Authorization` header with a bearer token:
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
-
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+```http
+Authorization: Bearer firefli_your_api_key_here
 ```
+
+Create keys in **Workspace → Settings → Public API** and store them in a secrets manager. Keys inherit the creator's permissions—create scoped keys per integration.
+
+### Rate limits
+
+<Warning>
+  **Rate limits:** 100 requests/minute per API key. Bursts are smoothed with a leaky bucket—implement exponential backoff on 429 responses.
+</Warning>

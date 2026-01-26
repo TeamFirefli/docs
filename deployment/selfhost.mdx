@@ -8,7 +8,7 @@ icon: "server"
 
 <Warning>
   You require basic knowledge in usage of terminal as well as NextJS.\
-  Planetary is **not responsible** for any user errors caused during the setup process or usage.
+  Team Firefli is **not responsible** for any user errors caused during the setup process or usage.
 </Warning>
 
 ### Prerequisites
@@ -19,7 +19,7 @@ icon: "server"
 - Package manager (e.g. npm)
 - Domain and SSL Encryption
 
-### Installing Orbit
+### Installing Firefli
 
 Once you're connected to your server, follow the command guide below in your terminal/console session.
 
@@ -67,8 +67,8 @@ sudo -u postgres psql
 ```
 
 ```
-CREATE USER orbituser WITH PASSWORD 'strongpassword';
-CREATE DATABASE orbitdb OWNER orbituser;
+CREATE USER firefliuser WITH PASSWORD 'strongpassword';
+CREATE DATABASE fflidb OWNER firefliuser;
 \q
 ```
 
@@ -78,15 +78,15 @@ CREATE DATABASE orbitdb OWNER orbituser;
   </Step>
 
   <Step>
-    <h4>Clone Orbit Repository</h4>
+    <h4>Clone Firefli Repository</h4>
 
 ```
-git clone https://github.com/PlanetaryOrbit/orbit && cd orbit
+git clone https://github.com/TeamFirefli/firefli && cd firefli
 ```
   </Step>
 
   <Step>
-    <h4>Install Orbit Dependencies</h4>
+    <h4>Install Firefli Dependencies</h4>
 
 <CodeGroup>
 
@@ -117,7 +117,7 @@ nano .env
 <p>Paste the following:</p>
 
 ```
-DATABASE_URL="postgresql://orbituser:strongpassword@localhost:5432/orbitdb"
+DATABASE_URL="postgresql://firefliuser:strongpassword@localhost:5432/fflidb"
 SESSION_SECRET="your_32_character_generated_key"
 ```
 
@@ -131,7 +131,7 @@ SESSION_SECRET="your_32_character_generated_key"
   </Step>
 
   <Step>
-    <h4>Build Orbit</h4>
+    <h4>Build Firefli</h4>
 
 <CodeGroup>
 
@@ -183,14 +183,14 @@ yarn run start
   </Step>
 
   <Step>
-    <h4>Run Orbit in Background with PM2 **(RECOMMENDED)**</h4>
+    <h4>Run Firefli in Background with PM2 **(RECOMMENDED)**</h4>
 
 ```
 npm install -g pm2
 ```
 
 ```
-pm2 start npm --name="Orbit" -- start
+pm2 start npm --name="Firefli" -- start
 ```
 
 ```
@@ -206,7 +206,7 @@ pm2 save
   <Step>
     <h4>Complete setup via Web Interface</h4>
 
-    <p>1. Go to https://your.server.com - Must be SSL</p>
+    <p>1. Go to https://your.domain.com - Must be SSL</p>
     <p>2. Enter your **Roblox Group ID**</p>
     <p>3. Enter your **Roblox username** and a password</p>
     <p>4. 🎉 You're all set!</p>
@@ -214,17 +214,17 @@ pm2 save
 </Steps>
 
 ### Looking to make your syncing automatic?
-View our Automation Setup guide [here](https://docs.planetaryapp.us/deployment/automation).
+View our Automation Setup guide [here](https://docs.firefli.net/deployment/automation).
 
 ## **Quicklinks**
 <CardGroup cols={3}>
-  <Card title="Github" icon="github" href="https://github.com/PlanetaryOrbit/orbit/">
+  <Card title="Github" icon="github" href="https://github.com/TeamFirefli/firefli">
     View the brains of the operation!
   </Card>
-  <Card title="Support" icon="bug" href="https://discord.gg/planetary">
+  <Card title="Support" icon="bug" href="https://discord.gg/WtEkchUKqe">
     Get support and let us know about bugs!
   </Card>
-  <Card title="Changelog" icon="sparkles" href="https://changelog.planetaryapp.us/">
+  <Card title="Changelog" icon="sparkles" href="https://feedback.firefli.net/changelog">
     View our Features and Updates!
   </Card>
 </CardGroup>

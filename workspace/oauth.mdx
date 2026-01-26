@@ -1,5 +1,5 @@
 ---
-description: "Signing in could never be easier. Orbit now supports Roblox OAuth allowing users to signin with two clicks!"
+description: "Signing in could never be easier. Firefli now supports Roblox OAuth allowing users to signin with two clicks!"
 title: "OAuth"
 icon: "key"
 ---
@@ -15,7 +15,7 @@ icon: "key"
 <Steps>
   <Step>
     <h4>Create OAuth Application</h4>
-    <p>You'll require an active Open Cloud OAuth Application to link with Orbit. Create an application [here](https://create.roblox.com/dashboard/credentials?activeTab=OAuthTab).</p>
+    <p>You'll require an active Open Cloud OAuth Application to link with Firefli. Create an application [here](https://create.roblox.com/dashboard/credentials?activeTab=OAuthTab).</p>
   </Step>
   <Step>
     <h4>Name your application</h4>
@@ -31,13 +31,13 @@ icon: "key"
 
 ```
 Entry Link:
-https://instance.planetaryapp.cloud/login
+https://your.domain.com/login
 
 Privacy Policy:
-https://www.planetaryapp.us/privacy
+https://www.firefli.net/privacy
 
 Terms of Service:
-https://www.planetaryapp.us/terms
+https://www.firefli.net/terms
 ```
   </Step>
   <Step>
@@ -46,7 +46,7 @@ https://www.planetaryapp.us/terms
   </Step>
   <Step>
     <h4>Setup redirect URL</h4>
-    <p>Setup a redirect URL. You can find this on the home page of your Instance (Blue settings Icon).</p>
+    <p>Setup a redirect URL (e.g. https://your.domain.com/api/auth/roblox/callback).</p>
   </Step>
   <Step>
     <h4>Review and Publish</h4>
@@ -54,24 +54,31 @@ https://www.planetaryapp.us/terms
   </Step>
 </Steps>
 
-### Orbit Settings
+### Firefli Settings
 <Steps>
   <Step>
     <h4>Enter credentials</h4>
-    <p>In the same section as your unique redirect URL, you'll see two input boxes. Fill out your **Client ID** and **Secret** that you saved earlier, and click save.</p>
+    <p>You'll need to add your credentials securely to your projects .env</p>
+  </Step>
+  <Step>
+    <h4>Env Variables</h4>
+    <p>ROBLOX_CLIENT_ID – Roblox oAuth ID (e.g. 1312974419555602493 .)/p>
+    <p>ROBLOX_CLIENT_SECRET – Your client secret (e.g. RBX-GLEmbz3yrU.. .)/p>
+    <p>ROBLOX_REDIRECT_URI – Your Domain Callback URI (e.g. https://your.domain.com/api/auth/roblox/callback .)/p>
+    <p>ROBLOX_OAUTH_ONLY – Force oAuth as only login method (e.g. true/false .)/p>
   </Step>
   <Step>
     <h4>Complete!</h4>
-    <p>Orbit will now show a Signin / Signup with Roblox button on your Login page!</p>
+    <p>Firefli will now show a Signin / Signup with Roblox button on your Login page!</p>
   </Step>
 </Steps>
 
 ## **Need help?**
 <CardGroup cols={3}>
-  <Card title="Github" icon="github" href="https://github.com/PlanetaryOrbit/orbit/">
+  <Card title="Github" icon="github" href="https://github.com/teamfirefli/firefli/">
     Create a Github issue and let us know about bugs!
   </Card>
-  <Card title="Support" icon="discord" href="https://discord.gg/planetary">
+  <Card title="Support" icon="discord" href="https://discord.gg/WtEkchUKqe">
     Get support from us and members of the community
   </Card>
   <Card title="Livechat" icon="mailbox" href="https://planetaryapp.us/">

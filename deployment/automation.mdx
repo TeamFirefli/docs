@@ -1,22 +1,22 @@
 ---
 title: "Automation (Cronjobs)"
-description: "Orbit now has 3 ready-to-go cronjobs available to make changes in the background."
+description: "Firefli has 3 ready-to-go cronjobs available to make changes in the background."
 icon: "briefcase"
 ---
 
-Automation is optional and ran independently from Orbit.\
+Automation is optional and ran independently from Firefli.\
 Without these, you'll need to manually refresh certain aspects of your Workspace.
 
-You'll only need to set these up if you're self-hosting or using vercel.\
-We handle it for you on [Cloud](https://planetaryapp.us/) Instances.
+You'll only need to set these up if you're self-hosting.\
+We handle it for you on [App](https://wwwfirefli.net/).
 
 <Warning>
-  You must be on Orbit 2.1.4beta5 or later.
+  You must be on Firefli 1.0.1 or later.
 </Warning>
 
 ### Self-Hosting
 
-This section is for anyone running Orbit on a dedicated or virtual linux based operating system.
+This section is for anyone running Firefli on a dedicated or virtual linux based operating system.
 
 <Steps>
   <Step>
@@ -36,7 +36,7 @@ This section is for anyone running Orbit on a dedicated or virtual linux based o
    ```
   </Step>
   <Step>
-    <h4>Add to Orbit .env</h4>
+    <h4>Add to Firefli .env</h4>
     <p>Next, you'll need to add this to your Orbit **.env** and save (**X** -\> **Y** -\> **Enter**).</p>
 
    ```
@@ -59,9 +59,10 @@ This section is for anyone running Orbit on a dedicated or virtual linux based o
    Once done, save. (**X** -\> **Y** -\> **Enter**)</p>
 
    ```
-   * * * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://instance.planetaryapp.cloud/api/cron/update-sessions' -H "x-cron-secret: $CRON_SECRET" | /usr/bin/jq -r || true
-   0 * * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://instance.planetaryapp.cloud/api/cron/update-roles' -H "x-cron-secret: $CRON_SECRET" | /usr/bin/jq -r || true
-   0 0 * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://instance.planetaryapp.cloud/api/cron/birthdays' -H "x-cron-secret: $CRON_SECRET" | /usr/bin/jq -r || true
+   * * * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://your.domain.com/api/cron/update-sessions' -H "x-cron-secret: $CRON_SECRET" | /usr/bin/jq -r || true
+   0 * * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://your.domain.com/api/cron/update-roles' -H "x-cron-secret: $CRON_SECRET" | /usr/bin/jq -r || true
+   0 0 * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://your.domain.com/api/cron/birthdays' -H "x-cron-secret: $CRON_SECRET" | /usr/bin/jq -r || true
+   0 2 * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://your.domain.com/api/cron/reset-activity' -H "x-cron-secret: $CRON_SECRET" | /usr/bin/jq -r || true
    ```
   </Step>
   <Step>
@@ -69,111 +70,18 @@ This section is for anyone running Orbit on a dedicated or virtual linux based o
     <p>- Your group roles will now automatically sync every hour adding any new members to your workspace.</p>
     <p>- Your session statuses will now update in accordance with the statuses setup enhancing your API Development Opportunities.</p>
     <p>- Your birthdays will now announce in Discord at midnight (UTC).</p>
-  </Step>
-</Steps>
-
-### Vercel
-
-<Steps>
-  <Step>
-    <h4>Add GitHub secret</h4>
-    <p>In your GitHub repo, add a secret `CRON_SECRET` (Settings → Secrets & variables → Actions → New repository secret). Put the same value you set in Vercel env.</p>
-  </Step>
-  <Step>
-    <h4>Create workflow file</h4>
-    <p>Create a workflow file: `.github/workflows/cron-session-webhooks.yml`</p>
-  </Step>
-  <Step>
-    <h4>Add workflow configuration</h4>
-    <p>Example workflow (copy/paste):</p>
-
-   ```
-   name: Update Roles Cron
-   
-   on:
-     schedule:
-       - cron: '0 * * * *' # every hour
-     workflow_dispatch: {}
-   
-   jobs:
-     call-cron:
-       runs-on: ubuntu-latest
-       steps:
-         - name: Call Vercel cron endpoint
-           env:
-             CRON_SECRET: ${{ secrets.CRON_SECRET }}
-             TARGET_URL: https://instance.planetaryapp.cloud/api/cron/update-roles
-           run: |
-             # Use curl, fail if non-2xx
-             echo "Calling $TARGET_URL"
-             curl -sS -X POST "$TARGET_URL" -H "x-cron-secret: $CRON_SECRET" -H "Content-Type: application/json" --fail -o /dev/null
-             echo "OK"
-   ```
-
-   ```
-   name: Update Sessions Cron
-   
-   on:
-     schedule:
-       - cron: '0 * * * *' # every minute
-     workflow_dispatch: {}
-   
-   jobs:
-     call-cron:
-       runs-on: ubuntu-latest
-       steps:
-         - name: Call Vercel cron endpoint
-           env:
-             CRON_SECRET: ${{ secrets.CRON_SECRET }}
-             TARGET_URL: https://instance.planetaryapp.cloud/api/cron/update-sessions
-           run: |
-             # Use curl, fail if non-2xx
-             echo "Calling $TARGET_URL"
-             curl -sS -X POST "$TARGET_URL" -H "x-cron-secret: $CRON_SECRET" -H "Content-Type: application/json" --fail -o /dev/null
-             echo "OK"
-   ```
-
-   ```
-   name: Send Birthdays Cron
-   
-   on:
-     schedule:
-       - cron: '0 0 * * *' # every hour
-     workflow_dispatch: {}
-   
-   jobs:
-     call-cron:
-       runs-on: ubuntu-latest
-       steps:
-         - name: Call Vercel cron endpoint
-           env:
-             CRON_SECRET: ${{ secrets.CRON_SECRET }}
-             TARGET_URL: https://instance.planetaryapp.cloud/api/cron/birthdays
-           run: |
-             # Use curl, fail if non-2xx
-             echo "Calling $TARGET_URL"
-             curl -sS -X POST "$TARGET_URL" -H "x-cron-secret: $CRON_SECRET" -H "Content-Type: application/json" --fail -o /dev/null
-             echo "OK"
-   ```
-  </Step>
-  <Step>
-    <h4>Replace domain</h4>
-    <p>Replace `https://instance.planetaryapp.cloud` with your real domain (or Vercel preview URL if calling preview).</p>
-  </Step>
-  <Step>
-    <h4>Test manually</h4>
-    <p>Use `workflow_dispatch` to trigger manually for testing.</p>
+    <p>- Activity will now be reset in according to your frequency defined in settings.</p>
   </Step>
 </Steps>
 
 ## Next steps
 
 <CardGroup cols={3} gap="medium">
+  <Card title="Self-hosting deployment" icon="server" href="/quickstart">
+    QuickStart guide.
+  </Card>
   <Card title="Self-hosting deployment" icon="server" href="/deployment/selfhost">
     Review the full self-hosting checklist to make sure your environment is production ready.
-  </Card>
-  <Card title="Vercel deployment" icon="zap" href="/deployment/vercel">
-    Walk through the one-click Vercel deployment flow and environment setup.
   </Card>
   <Card title="Activity & roles APIs" icon="brackets" href="/api-references/introduction">
     Combine automation with the public API to build dashboards, bots, or external tooling.

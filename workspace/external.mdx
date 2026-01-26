@@ -1,0 +1,113 @@
+---
+title: "External Integrations"
+description: "Connect Orbit with external services such as ranking providers and monitoring platforms."
+icon: "plug"
+---
+
+<img 
+  className="block dark:hidden" 
+  src="/images/banners/light/external.png" 
+  alt="Light mode interface"
+/>
+  
+<img 
+  className="hidden dark:block" 
+  src="/images/banners/dark/external.png" 
+  alt="Dark mode interface"
+/>
+
+## Overview
+<div className="space-y-2">
+  <p className="text-sm text-slate-200">
+    Orbit integrates with external services to automate ranking workflows and surface
+    analytics in your workspace.
+  </p>
+  <Info>
+    Only enable the services you actively use. Disabling a provider stops further syncs
+    but keeps historical data intact.
+  </Info>
+</div>
+
+<div className="mt-4 space-y-3">
+  <h3 className="text-sm font-semibold tracking-wide text-slate-300 uppercase">
+    Setup workflow
+  </h3>
+  <ol className="space-y-2 text-sm text-slate-200">
+    <p>
+      <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-800 text-sm font-semibold text-slate-100">
+        1
+      </span>
+      <span className="ml-2">Open <strong>Settings → External services</strong> from the sidebar.</span>
+    </p>
+    <p>
+      <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-800 text-sm font-semibold text-slate-100">
+        2
+      </span>
+      <span className="ml-2">Choose the integration card that matches your provider.</span>
+    </p>
+    <p>
+       <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-800 text-sm font-semibold text-slate-100">
+        3
+      </span>
+      <span className="ml-2">Follow the provider-specific instructions below.</span>
+    </p>
+    <p>
+      <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-800 text-sm font-semibold text-slate-100">
+        4
+      </span>
+      <span className="ml-2">Click <strong>Save</strong> to persist credentials.</span>
+    </p>
+  </ol>
+</div>
+
+<div className="mt-4 space-y-2">
+  <h3 className="text-sm font-semibold tracking-wide text-slate-300 uppercase">
+    Ranking automation
+  </h3>
+  <p className="text-sm text-slate-200">
+     Once connected, ranking actions appear in the UserBook so staff can promote, demote,
+     or term users directly from Orbit.
+  </p>
+   <Note>
+    Ranking actions trigger the external service API. Ensure your provider account has the
+    correct permissions before enabling.
+   </Note>
+</div>
+
+## Providers
+
+### RankGun
+
+RankGun drives advanced rank automation. Link your workspace with these steps:
+
+<Steps>
+  <Step>
+    <h4>Enter API key</h4>
+    <p>Enter the RankGun API key provided in your RankGun dashboard.</p>
+  </Step>
+  <Step>
+    <h4>Provide Workspace ID</h4>
+    <p>Provide the RankGun Workspace ID (e.g., <code>VDzWOQ1BqHnOeaa</code>).</p>
+  </Step>
+  <Step>
+    <h4>Save and verify</h4>
+    <p>Save the configuration and verify the status indicator turns green.</p>
+  </Step>
+</Steps>
+
+<Warning>
+  RankGun enforces request limits—consult their [API Documentation](https://www.rankgun.works/docs/developing/APIRefrence).
+</Warning>
+
+## **Need help?**
+<CardGroup cols={3}>
+  <Card title="Github" icon="github" href="https://github.com/PlanetaryOrbit/orbit/">
+    Create a Github issue and let us know about bugs!
+  </Card>
+  <Card title="Support" icon="discord" href="https://discord.gg/planetary">
+    Get support from us and members of the community
+  </Card>
+  <Card title="Livechat" icon="mailbox" href="https://planetaryapp.us/">
+    Reach out to us directly on our Livechat.
+  </Card>
+</CardGroup>

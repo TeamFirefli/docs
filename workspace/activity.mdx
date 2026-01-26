@@ -1,0 +1,112 @@
+---
+title: "Activity Tracking"
+description: "Enable Roblox activity monitoring so Orbit logs staff performance and workspace engagement."
+icon: "bar-chart"
+---
+
+## Overview
+Orbit tracks Roblox activity by reading from your exported session logs and syncing them to the workspace timeline. Follow these steps to connect your game with the monitoring pipeline.
+
+<div className="flex items-center gap-2 mb-4">
+  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-800 text-sm font-semibold text-slate-100">
+    1
+  </span>
+  <h3 className="!mt-0">Configure the Activity panel</h3>
+</div>
+
+<Steps>
+  <Step>
+    <h4>Open Settings</h4>
+    <p>Open **Settings → Activity** from the workspace sidebar.</p>
+  </Step>
+  <Step>
+    <h4>Select minimum rank</h4>
+    <p>Select the Roblox group role that represents the lowest rank you wish to monitor.</p>
+    <Note>
+      Selecting a role includes all ranks that are equal to or higher than it in the tracking window.
+    </Note>
+  </Step>
+</Steps>
+
+<div className="flex items-center gap-2 mb-4">
+  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-800 text-sm font-semibold text-slate-100">
+    2
+  </span>
+  <h3 className="!mt-0">Import the Orbit Loader</h3>
+</div>
+
+<Steps>
+  <Step>
+    <h4>Download the loader</h4>
+    <p>Download the latest loader from the **Activity** panel.</p>
+  </Step>
+  <Step>
+    <h4>Insert into Roblox Studio</h4>
+    <p>In Roblox Studio, right-click **ServerScriptService → Insert from File** and choose the loader.</p>
+  </Step>
+  <Step>
+    <h4>Configure the script</h4>
+    <p>Locate the generated `OrbitActivity` script and open the `Configuration` section. Update fields such as `minutesTillAFK`, `minTrackedRank`, `groupId`, `rankChecking`, `cooldownPeriod`, and `bansEnabled`.</p>
+  </Step>
+  <Step>
+    <h4>Publish your place</h4>
+    <p>Save and publish your place.</p>
+    <Warning>
+      Roblox requires HTTPS for outgoing requests. Enable HTTPS in Studio before saving the script. Need help? [Roblox HTTPS docs](https://create.roblox.com/docs/security/https-requests).
+    </Warning>
+  </Step>
+</Steps>
+
+<div className="flex items-center gap-2 mb-4">
+  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-800 text-sm font-semibold text-slate-100">
+    3
+  </span>
+  <h3 className="!mt-0">Verify incoming data</h3>
+</div>
+
+<Steps>
+  <Step>
+    <h4>Wait for data</h4>
+    <p>Once published, Orbit polls events from your game. Expect data to arrive within a few minutes—use the Activity feed to confirm members are appearing.</p>
+  </Step>
+</Steps>
+
+<Tip>
+  Use the Activity feed filters to confirm only the expected roles appear before expanding the rank threshold.
+</Tip>
+
+### Troubleshooting checklist
+- ✅ Script enabled in Roblox Studio.
+- ✅ HTTPS service turned on in your game settings.
+- ✅ Configuration values correct aside from secrets (do not modify `URL` or `AUTH`).
+- 🛠 Self-hosted? Check your Orbit server logs for HTTP/timeout issues.
+
+### Getting support
+- **Planetary Cloud**: Use the live chat in the dashboard for fast replies.
+- **Self-hosted**: Join [Discord](https://discord.gg/planetary) (support channel) and include `X-Request-ID` from the Orbit logs if you hit API errors.
+
+## Next steps
+<CardGroup cols={3} gap="medium">
+  <Card title="Tune permissions" icon="lock" href="/workspace/permissions">
+    Align activity tracking with role-based access in your workspace.
+  </Card>
+  <Card title="Configure feature flags" icon="flag" href="/workspace/featureflags">
+    Enable workspace features like Sessions, Documents, and Alliances to unlock advanced capabilities.
+  </Card>
+  <Card title="Explore the Activity API" icon="chart-line" href="/api-references/endpoints/getactivity">
+    Pull activity data into dashboards, reports, or custom bots.
+  </Card>
+</CardGroup>
+
+## **Need help?**
+<CardGroup cols={3}>
+  <Card title="Github" icon="github" href="https://github.com/PlanetaryOrbit/orbit/">
+    Create a Github issue and let us know about bugs!
+  </Card>
+  <Card title="Support" icon="discord" href="https://discord.gg/planetary">
+    Get support from us and members of the community
+  </Card>
+  <Card title="Livechat" icon="mailbox" href="https://planetaryapp.us/">
+    Reach out to us directly on our Livechat.
+  </Card>
+</CardGroup>

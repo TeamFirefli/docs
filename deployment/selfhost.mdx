@@ -1,0 +1,230 @@
+---
+title: "Setting up Self-Hosting"
+description: "In this guide, we'll walk you through installation and maintenance of your Orbit instance. For smaller groups, we recommend using Cloud or Vercel as it is much easier to begin with. Larger groups or groups looking to heavily modify Orbit can consider Vercel too, but may benefit from self-hosting."
+icon: "server"
+---
+
+### Setting up Orbit in your server
+
+<Warning>
+  You require basic knowledge in usage of terminal as well as NextJS.\
+  Planetary is **not responsible** for any user errors caused during the setup process or usage.
+</Warning>
+
+### Prerequisites
+
+- A machine that is capable of running Command/Console tasks (e.g. Ubuntu)
+- Root access
+- PostgreSQL Database
+- Package manager (e.g. npm)
+- Domain and SSL Encryption
+
+### Installing Orbit
+
+Once you're connected to your server, follow the command guide below in your terminal/console session.
+
+<Steps>
+  <Step>
+    <h4>Update your Server</h4>
+
+```
+sudo apt update
+sudo apt upgrade
+```
+  </Step>
+
+  <Step>
+    <h4>Install Required packages</h4>
+
+```
+sudo apt install git curl build-essential -y
+```
+  </Step>
+
+  <Step>
+    <h4>Install Node.js (v20+) and your package manager</h4>
+
+```
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs
+```
+  </Step>
+
+  <Step>
+    <h4>Install PostgresSQL</h4>
+
+```
+sudo apt install postgresql postgresql-contrib -y
+sudo systemctl enable --now postgresql
+```
+  </Step>
+
+  <Step>
+    <h4>Create PostgreSQL User and Database</h4>
+
+```
+sudo -u postgres psql
+```
+
+```
+CREATE USER orbituser WITH PASSWORD 'strongpassword';
+CREATE DATABASE orbitdb OWNER orbituser;
+\q
+```
+
+<Note>
+  Ensure you replace "strongpassword" with your own unique password.
+</Note>
+  </Step>
+
+  <Step>
+    <h4>Clone Orbit Repository</h4>
+
+```
+git clone https://github.com/PlanetaryOrbit/orbit && cd orbit
+```
+  </Step>
+
+  <Step>
+    <h4>Install Orbit Dependencies</h4>
+
+<CodeGroup>
+
+```npm npm
+npm install
+```
+
+
+```pnpm pnpm
+pnpm install
+```
+
+
+```yarn yarn
+yarn install
+```
+
+</CodeGroup>
+  </Step>
+
+  <Step>
+    <h4>Create `.env` configuration file</h4>
+
+```
+nano .env
+```
+
+<p>Paste the following:</p>
+
+```
+DATABASE_URL="postgresql://orbituser:strongpassword@localhost:5432/orbitdb"
+SESSION_SECRET="your_32_character_generated_key"
+```
+
+<Tip>
+  Remember to replace "strongpassword" with your chosen secure password from earlier.
+
+  Generate a 32-character session key here: [1Password Generator](https://1password.com/password-generator/)
+</Tip>
+
+<p>**Save and close (Ctrl + X -\> Y -\> Enter)**</p>
+  </Step>
+
+  <Step>
+    <h4>Build Orbit</h4>
+
+<CodeGroup>
+
+```npm npm
+npm run build
+```
+
+
+```pnpm pnpm
+pnpm run build
+```
+
+
+```yarn yarn
+yarn run build
+```
+
+</CodeGroup>
+  </Step>
+
+  <Step>
+    <h4>Initialize Database</h4>
+
+```
+npx prisma db push
+```
+  </Step>
+
+  <Step>
+    <h4>Start Orbit</h4>
+
+<CodeGroup>
+
+```npm npm
+npm run start
+```
+
+
+```pnpm pnpm
+pnpm run start
+```
+
+
+```yarn yarn
+yarn run start
+```
+
+</CodeGroup>
+  </Step>
+
+  <Step>
+    <h4>Run Orbit in Background with PM2 **(RECOMMENDED)**</h4>
+
+```
+npm install -g pm2
+```
+
+```
+pm2 start npm --name="Orbit" -- start
+```
+
+```
+pm2 startup
+pm2 save
+```
+
+<Warning>
+  Remember to build your database otherwise you won't be able to access your workspace.
+</Warning>
+  </Step>
+
+  <Step>
+    <h4>Complete setup via Web Interface</h4>
+
+    <p>1. Go to https://your.server.com - Must be SSL</p>
+    <p>2. Enter your **Roblox Group ID**</p>
+    <p>3. Enter your **Roblox username** and a password</p>
+    <p>4. 🎉 You're all set!</p>
+  </Step>
+</Steps>
+
+### Looking to make your syncing automatic?
+View our Automation Setup guide [here](https://docs.planetaryapp.us/deployment/automation).
+
+## **Quicklinks**
+<CardGroup cols={3}>
+  <Card title="Github" icon="github" href="https://github.com/PlanetaryOrbit/orbit/">
+    View the brains of the operation!
+  </Card>
+  <Card title="Support" icon="bug" href="https://discord.gg/planetary">
+    Get support and let us know about bugs!
+  </Card>
+  <Card title="Changelog" icon="sparkles" href="https://changelog.planetaryapp.us/">
+    View our Features and Updates!
+  </Card>
+</CardGroup>

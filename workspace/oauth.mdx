@@ -1,0 +1,80 @@
+---
+description: "Signing in could never be easier. Orbit now supports Roblox OAuth allowing users to signin with two clicks!"
+title: "OAuth"
+icon: "key"
+---
+
+<Warning>
+  Roblox only allows up to 10 authenticated users by default.
+
+  You'll need to Verify your application to allow more.\
+  👉 [Click here to learn more](https://create.roblox.com/docs/cloud/auth/oauth2-overview)
+</Warning>
+
+### Open Cloud
+<Steps>
+  <Step>
+    <h4>Create OAuth Application</h4>
+    <p>You'll require an active Open Cloud OAuth Application to link with Orbit. Create an application [here](https://create.roblox.com/dashboard/credentials?activeTab=OAuthTab).</p>
+  </Step>
+  <Step>
+    <h4>Name your application</h4>
+    <p>Name the application name something unique. This will be displayed to everyone that uses it so pick wisely!</p>
+  </Step>
+  <Step>
+    <h4>Save credentials</h4>
+    <p>Save both Client ID and Secret (You'll need this later).</p>
+  </Step>
+  <Step>
+    <h4>Fill out details</h4>
+    <p>Fill out the relevant details, you can use our Policy links. Replace 'instance' with your unique Instance name.</p>
+
+```
+Entry Link:
+https://instance.planetaryapp.cloud/login
+
+Privacy Policy:
+https://www.planetaryapp.us/privacy
+
+Terms of Service:
+https://www.planetaryapp.us/terms
+```
+  </Step>
+  <Step>
+    <h4>Select scopes</h4>
+    <p>In the scopes section, select **OpenID** and **Profile**.</p>
+  </Step>
+  <Step>
+    <h4>Setup redirect URL</h4>
+    <p>Setup a redirect URL. You can find this on the home page of your Instance (Blue settings Icon).</p>
+  </Step>
+  <Step>
+    <h4>Review and Publish</h4>
+    <p>Press Review and Publish! This will trigger Roblox moderation to test your signin page.</p>
+  </Step>
+</Steps>
+
+### Orbit Settings
+<Steps>
+  <Step>
+    <h4>Enter credentials</h4>
+    <p>In the same section as your unique redirect URL, you'll see two input boxes. Fill out your **Client ID** and **Secret** that you saved earlier, and click save.</p>
+  </Step>
+  <Step>
+    <h4>Complete!</h4>
+    <p>Orbit will now show a Signin / Signup with Roblox button on your Login page!</p>
+  </Step>
+</Steps>
+
+## **Need help?**
+<CardGroup cols={3}>
+  <Card title="Github" icon="github" href="https://github.com/PlanetaryOrbit/orbit/">
+    Create a Github issue and let us know about bugs!
+  </Card>
+  <Card title="Support" icon="discord" href="https://discord.gg/planetary">
+    Get support from us and members of the community
+  </Card>
+  <Card title="Livechat" icon="mailbox" href="https://planetaryapp.us/">
+    Reach out to us directly on our Livechat.
+  </Card>
+</CardGroup>

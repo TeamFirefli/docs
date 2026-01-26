@@ -1,122 +1,288 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Firefli",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#3498db",
+    "light": "#3498db",
+    "dark": "#3498db"
   },
-  "favicon": "/favicon.svg",
-  "navigation": {
-    "tabs": [
-      {
-        "tab": "Guides",
-        "groups": [
-          {
-            "group": "Getting started",
-            "pages": [
-              "index",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Customization",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
-          }
-        ]
-      }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
-  },
+  "favicon": "/favicon.ico",
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/logo.png",
+    "dark": "/logo/logo.png"
   },
   "navbar": {
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "https://discord.gg/WtEkchUKqe",
+        "icon": "discord"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://app.firefli.net",
     }
   },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+  "navigation": {
+    "languages": [
+      {
+        "language": "en",
+        "tabs": [
+          {
+            "tab": "Overview",
+            "icon": "compass",
+            "groups": [
+              {
+                "group": "Foundations",
+                "icon": "rocket",
+                "pages": [
+                  "/index",
+                  "/quickstart"
+                ]
+              },
+              {
+                "group": "Deployment",
+                "icon": "cloud-upload",
+                "pages": [
+                  "/how-to/selfhost",
+                  "/deployment/vercel",
+                  "/deployment/automation"
+                ]
+              },
+              {
+                "group": "Workspaces",
+                "icon": "castle",
+                "pages": [
+                  "/workspace/invitations",
+                  "/workspace/permissions",
+                  "/workspace/activity",
+                  "/workspace/flags",
+                  "/workspace/oauth",
+                  "/workspace/external",
+                  "/workspace/notices",
+                  "/workspace/policies"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "API Reference",
+            "icon": "code",
+            "groups": [
+              {
+                "group": "Overview",
+                "icon": "search",
+                "pages": [
+                  "/api-references/introduction"
+                ]
+              },
+              {
+                "group": "General",
+                "icon": "archive",
+                "pages": [
+                  "/api-references/endpoints/getinfo",
+                  "/api-references/endpoints/getmembers",
+                  "/api-references/endpoints/getbirthdays"
+                ]
+              },
+              {
+                "group": "Activity",
+                "icon": "watch",
+                "pages": [
+                  "/api-references/endpoints/getactivity",
+                  "/api-references/endpoints/getuseractivity"
+                ]
+              },
+              {
+                "group": "Sessions",
+                "icon": "clock",
+                "pages": [
+                  "/api-references/endpoints/getsessions"
+                ]
+              },
+              {
+                "group": "Content",
+                "icon": "file",
+                "pages": [
+                  "/api-references/endpoints/getwall",
+                  "/api-references/endpoints/postwall",
+                  "/api-references/endpoints/getdocs",
+                  "/api-references/endpoints/getdocid"
+                ]
+              },
+              {
+                "group": "Allies",
+                "icon": "handshake",
+                "pages": [
+                  "/api-references/endpoints/getalliances"
+                ]
+              }
+            ]
+          }
+        ],
+        "global": {
+          "anchors": [
+            {
+              "anchor": "Community",
+              "href": "https://discord.gg/WtEkchUKqe",
+              "icon": "discord"
+            },
+            {
+              "anchor": "Changelog",
+              "href": "https://feedback.firefli.net/changelog",
+              "icon": "newspaper"
+            }
+          ]
+        }
+      },
+      {
+        "language": "es",
+        "tabs": [
+          {
+            "tab": "Resumen",
+            "icon": "compass",
+            "groups": [
+              {
+                "group": "Fundamentos",
+                "icon": "rocket",
+                "pages": [
+                  "/index",
+                  "/quickstart",
+                  "/design-system"
+                ]
+              },
+              {
+                "group": "Despliegue",
+                "icon": "cloud-upload",
+                "pages": [
+                  "/deployment/selfhost",
+                  "/deployment/vercel",
+                  "/deployment/automation"
+                ]
+              },
+              {
+                "group": "Espacios de trabajo",
+                "icon": "castle",
+                "pages": [
+                  "/workspace/invitations",
+                  "/workspace/permissions",
+                  "/workspace/activity",
+                  "/workspace/flags",
+                  "/workspace/oauth",
+                  "/workspace/external",
+                  "/workspace/notices",
+                  "/workspace/policies"
+                ]
+              }
+            ]
+          },
+          {
+            "tab": "Referencia de API",
+            "icon": "code",
+            "groups": [
+              {
+                "group": "Resumen",
+                "icon": "search",
+                "pages": [
+                  "/api-references/introduction"
+                ]
+              },
+              {
+                "group": "General",
+                "icon": "archive",
+                "pages": [
+                  "/api-references/endpoints/getinfo",
+                  "/api-references/endpoints/getmembers",
+                  "/api-references/endpoints/getbirthdays"
+                ]
+              },
+              {
+                "group": "Actividad",
+                "icon": "watch",
+                "pages": [
+                  "/api-references/endpoints/getactivity",
+                  "/api-references/endpoints/getuseractivity"
+                ]
+              },
+              {
+                "group": "Sesiones",
+                "icon": "clock",
+                "pages": [
+                  "/api-references/endpoints/getsessions"
+                ]
+              },
+              {
+                "group": "Contenido",
+                "icon": "file",
+                "pages": [
+                  "/api-references/endpoints/getwall",
+                  "/api-references/endpoints/postwall",
+                  "/api-references/endpoints/getdocs",
+                  "/api-references/endpoints/getdocid"
+                ]
+              },
+              {
+                "group": "Aliados",
+                "icon": "handshake",
+                "pages": [
+                  "/api-references/endpoints/getalliances"
+                ]
+              }
+            ]
+          }
+        ],
+        "global": {
+          "anchors": [
+            {
+              "anchor": "Comunidad",
+              "href": "https://discord.gg/WtEkchUKqe",
+              "icon": "discord"
+            },
+            {
+              "anchor": "Registro de cambios",
+              "href": "https://feedback.firefli.net/changelog",
+              "icon": "newspaper"
+            }
+          ]
+        }
+      }
+    ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "github": "https://github.com/TeamFirefli/firefli"
     }
+  },
+  "errors": {
+    "404": {
+      "redirect": false,
+      "title": "Page Not Found",
+      "description": "Oops! The page you're looking for doesn't exist. Check out our [documentation](/) or join our [community](https://discord.gg/WtEkchUKqe) for help."
+    }
+  },
+  "redirects": [
+    {
+      "source": "/old-path/:slug*",
+      "destination": "/new-path/:slug*"
+    }
+  ],
+  "seo": {
+    "indexing": "all",
+    "metatags": {
+      "og:type": "website",
+      "og:site_name": "Firefli Documentation",
+      "canonical": "https://docs.firefli.net"
+    }
+  },
+  "search": {
+    "prompt": "Search Firefli..."
+  },
+  "integrations": {
+    "ga4": {
+      "measurementId": "G-9YDDN8QEXZ"
+    },
   }
 }

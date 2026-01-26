@@ -1,0 +1,152 @@
+---
+title: 'Policy Management'
+description: "Master Orbit's policy workflows. Automate distribution, track read-receipts, and audit compliance in real-time."
+icon: 'shield-check'
+---
+
+<img 
+  className="block dark:hidden" 
+  src="/images/banners/light/policies.png" 
+  alt="Light mode interface"
+/>
+
+<img 
+  className="hidden dark:block" 
+  src="/images/banners/dark/policies.png" 
+  alt="Dark mode interface"
+/>
+
+# Overview
+
+Orbit transforms static documents into active workflows. The Policy Management system allows you to target specific user groups, enforce mandatory acknowledgments, and generate audit-ready compliance reports.
+
+
+<CardGroup cols={2}>
+  <Card title="Automated Distribution" icon="bolt">
+    Assign policies based on department, role, or location automatically.
+  </Card>
+  <Card title="Compliance Tracking" icon="list-check">
+    Real-time dashboards showing who has (and hasn't) signed.
+  </Card>
+  <Card title="Version Control" icon="code-branch">
+    Maintain historical records of every policy iteration.
+  </Card>
+  <Card title="Audit Readiness" icon="file-shield">
+    One-click export for legal and regulatory reviews.
+  </Card>
+</CardGroup>
+
+---
+
+# Quick Start Guide
+
+Follow this workflow to launch your first policy campaign.
+
+<Steps>
+  <Step>
+    <h4>Access the Dashboard</h4>
+    <p>Navigate to **Policies** in the sidebar. You will land on the Overview tab, which displays your current compliance rate and overdue items.</p>
+  </Step>
+
+  <Step>
+    <h4>Configure Global Settings</h4>
+    <p>Before creating content, click **Settings** (gear icon) to define your organization's defaults.</p>
+    
+    | Setting | Recommended Value | Description |
+    | :--- | :--- | :--- |
+    | **Ack. Deadline** | `14 Days` | Standard time given to employees to sign. |
+    | **Reminders** | `Day 7` & `Day 3` | Automated nudges before the deadline. |
+    | **Escalation** | `Manager Notify` | CC the user's manager if overdue > 2 days. |
+  </Step>
+
+  <Step>
+    <h4>Create Policy Content</h4>
+    <p>Click the primary action button in the top right:</p>
+    
+    <button style={{background: '#0ea5e9', color: 'white', padding: '8px 16px', borderRadius: '6px', fontWeight: '600', border: 'none', cursor: 'pointer'}}>+ Create New Policy</button>
+
+    <p>Select your **Source Type**:</p>
+    * **Internal Editor:** Use Orbit's rich-text editor for handbooks and codes of conduct.
+    * **External Link:** Link to hosted PDFs or Google Docs (best for rigid legal docs).
+  </Step>
+
+  <Step>
+    <h4>Target Audience & Publish</h4>
+    <p>Assign the policy to **Groups** (e.g., "All Engineering" or "New Hires").</p>
+    
+    <Note type="warning">
+      **Tip:** Always use "Draft" mode first. Send a test copy to yourself using the `Preview` button before rolling out to the entire organization.
+    </Note>
+  </Step>
+</Steps>
+
+---
+
+# Workflow Perspectives
+
+<Tabs>
+  <Tab title="For Admins: Management">
+    ### Managing Active Policies
+    Once a policy is live, use the **Dashboard** to manage lifecycle events.
+
+    <AccordionGroup>
+      <Accordion title="Tracking Compliance" icon="chart-pie">
+        The dashboard provides a visual breakdown:
+        * **Green:** Acknowledged
+        * **Yellow:** Pending (Within deadline)
+        * **Red:** Overdue
+      </Accordion>
+      
+      <Accordion title="Editing & Versioning" icon="pen-to-square">
+        To update a policy, click **Edit**.
+        * **Edit:** Typos/formatting. Does *not* require re-acknowledgment.
+      </Accordion>
+    </AccordionGroup>
+  </Tab>
+
+  <Tab title="For Employees: Acknowledgment">
+    ### The User Experience.
+
+    1.  **Notification:** User sees a visible icon indicating how many they have in their inbox.
+    2.  **Review:** User opens the document and reads it contents.
+    3.  **Action:** User clicks the primary acknowledgment button.
+    
+    <div style={{background: '#f8fafc', padding: '20px', borderRadius: '8px', border: '1px solid #e2e8f0', margin: '15px 0'}}>
+      <p style={{fontStyle: 'italic', color: '#64748b', margin: '0 0 10px 0'}}>Simulated User View:</p>
+      <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+        <input type="checkbox" checked readOnly style={{accentColor: '#10b981'}} />
+        <span style={{fontSize: '14px'}}>I acknowledge that I have read and understood the terms above.</span>
+      </div>
+      <br/>
+      <button style={{background: '#10b981', color: 'white', padding: '8px 16px', borderRadius: '4px', border: 'none', fontWeight: 'bold'}}>✓ Acknowledge Policy</button>
+    </div>
+
+    **Self-Service History**
+    Employees can access the **Policies** tab at any time to view policies they have previously agreed to.
+  </Tab>
+</Tabs>
+
+---
+
+# Configuration Reference
+Use this reference when setting up complex policy rules.
+
+### Policy Types
+| Type | Editable? | Versioning | Best Used For |
+| :--- | :--- | :--- | :--- |
+| **Internal** | ✅ Yes | Auto-increment | Handbooks, HR Guidelines, SOPs |
+| **External** | ❌ No | Manual entry | Legal PDFs, Gov Regulations, Vendor Terms |
+
+
+## **Need help?**
+<CardGroup cols={3}>
+  <Card title="Github" icon="github" href="https://github.com/PlanetaryOrbit/orbit/">
+    Create a Github issue and let us know about bugs!
+  </Card>
+  <Card title="Support" icon="discord" href="https://discord.gg/planetary">
+    Get support from us and members of the community
+  </Card>
+  <Card title="Livechat" icon="mailbox" href="https://planetaryapp.us/">
+    Reach out to us directly on our Livechat.
+  </Card>
+</CardGroup>

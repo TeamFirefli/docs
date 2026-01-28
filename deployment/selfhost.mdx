@@ -131,6 +131,14 @@ SESSION_SECRET="your_32_character_generated_key"
   </Step>
 
   <Step>
+    <h4>Initialize Database</h4>
+
+```
+npx prisma db push
+```
+  </Step>
+
+  <Step>
     <h4>Build Firefli</h4>
 
 <CodeGroup>
@@ -150,14 +158,6 @@ yarn run build
 ```
 
 </CodeGroup>
-  </Step>
-
-  <Step>
-    <h4>Initialize Database</h4>
-
-```
-npx prisma db push
-```
   </Step>
 
   <Step>

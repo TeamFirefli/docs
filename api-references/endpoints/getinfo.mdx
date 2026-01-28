@@ -13,7 +13,7 @@ Return the canonical workspace object for the specified workspace ID. Use this e
 ### Request
 
 ```
-GET https://api.planetaryapp.us/v1/workspace/{workspace_id}/info
+GET https://app.firefli.net/v1/workspace/{workspace_id}/info
 ```
 
 #### Headers
@@ -50,12 +50,12 @@ GET https://api.planetaryapp.us/v1/workspace/{workspace_id}/info
 
 <CodeGroup>
 ```http
-GET https://api.planetaryapp.us/v1/workspace/14144149/info
+GET https://app.firefli.net/v1/workspace/14144149/info
 Authorization: Bearer firefli_your_api_key
 ```
 ```javascript
 const info = await fetch(
-  "https://api.planetaryapp.us/v1/workspace/14144149/info",
+  "https://app.firefli.net/v1/workspace/14144149/info",
   { headers: { Authorization: "Bearer firefli_your_api_key" } }
 ).then((r) => r.json());
 console.log(info.workspace.name);
@@ -64,7 +64,7 @@ console.log(info.workspace.name);
 import requests
 
 info = requests.get(
-    "https://api.planetaryapp.us/v1/workspace/14144149/info",
+    "https://app.firefli.net/v1/workspace/14144149/info",
     headers={"Authorization": "Bearer firefli_your_api_key"}
 ).json()
 print(info["workspace"]["name"])

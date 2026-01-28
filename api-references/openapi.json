@@ -261,11 +261,11 @@
         ],
         "responses": {
           "200": {
-            "description": "User activity response",
+            "description": "User Current activity response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserActivityResponse"
+                  "$ref": "#/components/schemas/UserCurrentActivityResponse"
                 }
               }
             }
@@ -776,6 +776,79 @@
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/ActivitySession"
+                }
+              }
+            }
+          }
+        }
+      },
+      "UserCurrentActivityResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "userId": {
+                "type": "integer"
+              },
+              "username": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              },
+              "role": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "resetInfo": {
+            "type": "object",
+            "properties": {
+              "lastResetDate": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "resetById": {
+                "type": "integer",
+                "nullable": true
+              }
+            }
+          },
+          "activity": {
+            "type": "object",
+            "properties": {
+              "sessions": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ActivitySession"
+                }
+              },
+              "totalSessions": {
+                "type": "integer"
+              },
+              "totalActivityTime": {
+                "type": "integer"
+              },
+              "averageSessionLength": {
+                "type": "integer"
+              },
+              "notices": {
+                "type": "array",
+                "items": {
+                  "type": "object"
                 }
               }
             }

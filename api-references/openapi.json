@@ -225,6 +225,54 @@
         }
       }
     },
+    "/v1/workspace/{id}/user/{userid}/pactivity": {
+      "get": {
+        "summary": "Get Current Activity",
+        "description": "Retrieve detailed activity logs for a specific workspace member",
+        "tags": ["activity"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "description": "User ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User activity response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserActivityResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/workspace/{id}/user/{userid}/activity": {
       "get": {
         "summary": "Get User Activity",

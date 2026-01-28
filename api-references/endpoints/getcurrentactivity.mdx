@@ -1,0 +1,51 @@
+---
+title: "Get Current Activity"
+openapi: "GET /v1/workspace/{id}/user/{userid}/pactivity"
+description: "Retrieve detailed activity logs for a specific workspace member."
+tags: ["activity"]
+icon: "user"
+---
+
+## Summary
+
+Fetch current activity for a specific user, including session duration, message count, and detailed session logs from the last reset date till current.
+
+### Request
+
+```
+GET https://app.firefli.net/v1/workspace/{workspace_id}/user/{user_id}/pactivity
+```
+
+#### Query Parameters
+
+| **Parameter** | **Type** | **Description**                                   |
+| :------------ | :------- | :------------------------------------------------ |
+| limit         | number   | Items per page (default: 50, max: 100)            |
+
+### Response example
+
+```
+{
+  "success": true,
+  "user": {
+    "userId": 123456,
+    "username": "test1234",
+    "thumbnail": "/api/workspace/[id]/avatar/123456",
+    "role": {
+      "id": "4feb539a-624c-4399-9260-3d43e01c1085",
+      "name": "Default"
+    }
+  },
+  "resetInfo": {
+    "lastResetDate": null,
+    "resetById": null
+  },
+  "activity": {
+    "sessions": [],
+    "totalSessions": 0,
+    "totalActivityTime": 0,
+    "averageSessionLength": 0,
+    "notices": []
+  }
+}
+```

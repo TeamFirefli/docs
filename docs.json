@@ -92,7 +92,8 @@
                 "icon": "watch",
                 "pages": [
                   "/api-references/endpoints/getactivity",
-                  "/api-references/endpoints/getuseractivity"
+                  "/api-references/endpoints/getuseractivity",
+                  "/api-references/endpoints/getcurrentactivity"
                 ]
               },
               {
@@ -201,7 +202,8 @@
                 "icon": "watch",
                 "pages": [
                   "/api-references/endpoints/getactivity",
-                  "/api-references/endpoints/getuseractivity"
+                  "/api-references/endpoints/getuseractivity",
+                  "/api-references/endpoints/getcurrentactivity"
                 ]
               },
               {

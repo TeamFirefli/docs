@@ -1,0 +1,76 @@
+---
+title: "Update Notice Status"
+openapi: "PATCH /api/public/v1/workspace/{workspaceId}/notices/{noticeId}"
+description: "Update the status of a notice to approve, reject, or modify details."
+tags: ["notices"]
+icon: "pen-to-square"
+---
+
+## Summary
+
+Modify a notice's status, add review comments, update end time, or revoke the notice.
+
+### Request
+
+```
+PATCH https://app.firefli.net/api/public/v1/workspace/{workspaceId}/notices/{noticeId}
+```
+
+#### Path Parameters
+
+| **Parameter** | **Type** | **Description**      |
+| :------------ | :------- | :------------------- |
+| workspaceId   | string   | The workspace ID     |
+| noticeId      | string   | The notice UUID      |
+
+#### Request Body (all fields optional)
+
+| **Field**      | **Type**  | **Description**                                   |
+| :------------- | :-------- | :------------------------------------------------ |
+| approved       | boolean   | Approve (true) or reject (false) the notice       |
+| reviewComment  | string    | Comment from reviewer                             |
+| endTime        | ISO 8601  | Update end date (null for indefinite)             |
+| revoked        | boolean   | Revoke the notice                                 |
+
+### Request example (Approve)
+
+```json
+{
+  "approved": true,
+  "reviewComment": "Approved"
+}
+```
+
+### Request example (Reject)
+
+```json
+{
+  "approved": false,
+  "reviewComment": "Insufficient coverage during this period"
+}
+```
+
+### Response example
+
+```json
+{
+  "success": true,
+  "notice": {
+    "id": "uuid",
+    "userId": 12345,
+    "user": {
+      "userId": 12345,
+      "username": "john_doe",
+      "displayname": "John Doe",
+      "thumbnail": "https://..."
+    },
+    "startTime": "2024-01-15T00:00:00.000Z",
+    "endTime": "2024-01-20T00:00:00.000Z",
+    "reason": "Vacation",
+    "approved": true,
+    "reviewed": true,
+    "revoked": false,
+    "reviewComment": "Approved"
+  }
+}
+```

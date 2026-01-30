@@ -1,0 +1,67 @@
+---
+title: "Create Notice"
+openapi: "POST /api/public/v1/workspace/{workspaceId}/notices"
+description: "Create a new notice/timeoff request for a user."
+tags: ["notices"]
+icon: "plus"
+---
+
+## Summary
+
+Create a new timeoff notice for a workspace member. The notice will be created in pending status awaiting review.
+
+### Request
+
+```
+POST https://app.firefli.net/api/public/v1/workspace/{workspaceId}/notices
+```
+
+#### Path Parameters
+
+| **Parameter** | **Type** | **Description**    |
+| :------------ | :------- | :----------------- |
+| workspaceId   | string   | The workspace ID   |
+
+#### Request Body
+
+| **Field**  | **Type**  | **Required** | **Description**                                      |
+| :--------- | :-------- | :----------- | :--------------------------------------------------- |
+| userId     | number    | Yes          | User ID                                              |
+| startTime  | ISO 8601  | Yes          | Start date/time (e.g., 2024-01-15T00:00:00.000Z)    |
+| endTime    | ISO 8601  | No           | End date/time (null for indefinite)                  |
+| reason     | string    | Yes          | Reason for timeoff                                   |
+
+### Request example
+
+```json
+{
+  "userId": 12345,
+  "startTime": "2024-01-15T00:00:00.000Z",
+  "endTime": "2024-01-20T00:00:00.000Z",
+  "reason": "Vacation"
+}
+```
+
+### Response example
+
+```json
+{
+  "success": true,
+  "notice": {
+    "id": "uuid",
+    "userId": 12345,
+    "user": {
+      "userId": 12345,
+      "username": "john_doe",
+      "displayname": "John Doe",
+      "thumbnail": "https://..."
+    },
+    "startTime": "2024-01-15T00:00:00.000Z",
+    "endTime": "2024-01-20T00:00:00.000Z",
+    "reason": "Vacation",
+    "approved": false,
+    "reviewed": false,
+    "revoked": false
+  }
+}
+```

@@ -119,6 +119,19 @@
                 "pages": [
                   "/api-references/endpoints/getalliances"
                 ]
+              },
+              {
+                "group": "Notices",
+                "icon": "calendar-days",
+                "pages": [
+                  "/api-references/endpoints/getnotices",
+                  "/api-references/endpoints/postnotices",
+                  "/api-references/endpoints/getnotice",
+                  "/api-references/endpoints/patchnotice",
+                  "/api-references/endpoints/deletenotice",
+                  "/api-references/endpoints/getusernotices",
+                  "/api-references/endpoints/getnoticesummary"
+                ]
               }
             ]
           }
@@ -228,6 +241,19 @@
                 "icon": "handshake",
                 "pages": [
                   "/api-references/endpoints/getalliances"
+                ]
+              },
+              {
+                "group": "Avisos",
+                "icon": "calendar-days",
+                "pages": [
+                  "/api-references/endpoints/getnotices",
+                  "/api-references/endpoints/postnotices",
+                  "/api-references/endpoints/getnotice",
+                  "/api-references/endpoints/patchnotice",
+                  "/api-references/endpoints/deletenotice",
+                  "/api-references/endpoints/getusernotices",
+                  "/api-references/endpoints/getnoticesummary"
                 ]
               }
             ]

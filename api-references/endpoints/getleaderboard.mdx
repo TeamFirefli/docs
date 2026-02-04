@@ -10,19 +10,18 @@ icon: "trophy"
 
 Return leaderboard rankings for the specified workspace, including top players by playtime and session count. Use this endpoint to display competitive rankings and track your position.
 
-### Request
+#### Path Parameters
 
-```
-GET https://app.firefli.net/v1/workspace/{workspace_id}/leaderboard?userId={user_id}
-```
-
-#### Headers
-
-- `Authorization: Bearer firefli_<api_key>`
+| **Parameter** | **Type** | **Description**      |
+| :------------ | :------- | :------------------- |
+| workspaceId   | string   | The workspace ID     |
 
 #### Query Parameters
 
-- `userId` (optional) - When provided, the response includes a `you` object showing the specified user's position and stats on the leaderboard
+| **Parameter** | **Type** | **Description**                                   |
+| :------------ | :------- | :------------------------------------------------ |
+| userId        | number   | Specific users stats and position                 |
+
 
 ### Response example
 

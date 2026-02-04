@@ -10,11 +10,12 @@ icon: "user"
 
 Fetch activity history for a specific user, including session duration, message count, and detailed session logs with date filtering.
 
-### Request
+#### Path Parameters
 
-```
-GET https://app.firefli.net/v1/workspace/{workspace_id}/user/{user_id}/activity
-```
+| **Parameter** | **Type** | **Description**  |
+| :------------ | :------- | :--------------- |
+| id            | string   | Workspace ID     |
+| userId        | number   | Specific userId  |
 
 #### Query Parameters
 

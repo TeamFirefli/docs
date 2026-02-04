@@ -46,6 +46,45 @@
         }
       }
     },
+    "/v1/workspace/{id}/leaderboard": {
+      "get": {
+        "summary": "Get Workspace Leaderboard",
+        "description": "Retrieve workspace leaderboard data including top players by playtime and sessions.",
+        "tags": ["general"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "description": "User ID to include their position in the 'you' object",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Leaderboard response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeaderboardResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/workspace/{id}/members": {
       "get": {
         "summary": "Get Members",
@@ -1161,6 +1200,86 @@
           "updatedAt": {
             "type": "string",
             "format": "date-time"
+          }
+        }
+      },
+      "LeaderboardResponse": {
+        "type": "object",
+        "properties": {
+          "playtime": {
+            "type": "object",
+            "properties": {
+              "top_three": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "description": "User ID"
+                    },
+                    "position": {
+                      "type": "integer",
+                      "description": "Leaderboard position"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "description": "Total playtime in minutes"
+                    },
+                    "in_game": {
+                      "type": "boolean",
+                      "description": "Whether user is currently in game"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "you": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "Your user ID"
+              },
+              "position": {
+                "type": "integer",
+                "description": "Your leaderboard position"
+              },
+              "total": {
+                "type": "integer",
+                "description": "Your total playtime in minutes"
+              },
+              "in_game": {
+                "type": "boolean",
+                "description": "Whether you are currently in game"
+              }
+            }
+          },
+          "sessions": {
+            "type": "object",
+            "properties": {
+              "top_three": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "description": "User ID"
+                    },
+                    "position": {
+                      "type": "integer",
+                      "description": "Leaderboard position"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "description": "Total number of sessions"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },

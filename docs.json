@@ -83,6 +83,7 @@
                 "icon": "archive",
                 "pages": [
                   "/api-references/endpoints/getinfo",
+                  "/api-references/endpoints/getleaderboard",
                   "/api-references/endpoints/getmembers",
                   "/api-references/endpoints/getbirthdays"
                 ]
@@ -206,6 +207,7 @@
                 "icon": "archive",
                 "pages": [
                   "/api-references/endpoints/getinfo",
+                  "/api-references/endpoints/getleaderboard",
                   "/api-references/endpoints/getmembers",
                   "/api-references/endpoints/getbirthdays"
                 ]

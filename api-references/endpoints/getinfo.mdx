@@ -42,28 +42,3 @@ Return the canonical workspace object for the specified workspace ID. Use this e
 <Info>
   Cached results update every 30 seconds—expect eventual consistency for member counts and role changes.
 </Info>
-
-### Code samples
-
-<CodeGroup>
-```http
-GET https://app.firefli.net/v1/workspace/14144149/info
-Authorization: Bearer firefli_your_api_key
-```
-```javascript
-const info = await fetch(
-  "https://app.firefli.net/v1/workspace/14144149/info",
-  { headers: { Authorization: "Bearer firefli_your_api_key" } }
-).then((r) => r.json());
-console.log(info.workspace.name);
-```
-```python
-import requests
-
-info = requests.get(
-    "https://app.firefli.net/v1/workspace/14144149/info",
-    headers={"Authorization": "Bearer firefli_your_api_key"}
-).json()
-print(info["workspace"]["name"])
-```
-</CodeGroup>

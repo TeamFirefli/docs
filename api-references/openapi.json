@@ -628,6 +628,412 @@
         }
       }
     },
+    "/api/public/v1/workspace/{workspaceId}/notices": {
+      "get": {
+        "summary": "List Notices",
+        "description": "Retrieve a list of all notices/timeoff requests with optional filtering.",
+        "tags": ["notices"],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by status: pending, approved, rejected, active",
+            "schema": {
+              "type": "string",
+              "enum": ["pending", "approved", "rejected", "active"]
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "Filter by specific user ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "Filter by start date (ISO 8601)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "Filter by end date (ISO 8601)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results (default: 50, max: 100)",
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Pagination offset (default: 0)",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notices list response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticesListResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Notice",
+        "description": "Create a new notice/timeoff request for a user.",
+        "tags": ["notices"],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["userId", "startTime", "reason"],
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "User ID"
+                  },
+                  "startTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Start date/time (ISO 8601)"
+                  },
+                  "endTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "End date/time (null for indefinite)",
+                    "nullable": true
+                  },
+                  "reason": {
+                    "type": "string",
+                    "description": "Reason for timeoff"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Notice created response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/notices/{noticeId}": {
+      "get": {
+        "summary": "Get Specific Notice",
+        "description": "Retrieve detailed information about a specific notice.",
+        "tags": ["notices"],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "noticeId",
+            "in": "path",
+            "required": true,
+            "description": "Notice UUID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notice response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Notice Status",
+        "description": "Update the status of a notice to approve, reject, or modify details.",
+        "tags": ["notices"],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "noticeId",
+            "in": "path",
+            "required": true,
+            "description": "Notice UUID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "approved": {
+                    "type": "boolean",
+                    "description": "Approve (true) or reject (false) the notice"
+                  },
+                  "reviewComment": {
+                    "type": "string",
+                    "description": "Comment from reviewer"
+                  },
+                  "endTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Update end date (null for indefinite)",
+                    "nullable": true
+                  },
+                  "revoked": {
+                    "type": "boolean",
+                    "description": "Revoke the notice"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Notice updated response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Stop Active Notice",
+        "description": "Immediately stop an active notice by setting end time to now.",
+        "tags": ["notices"],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "noticeId",
+            "in": "path",
+            "required": true,
+            "description": "Notice UUID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notice stopped response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "notice": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "userId": {
+                          "type": "integer"
+                        },
+                        "endTime": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/notices/user/{userId}": {
+      "get": {
+        "summary": "Get User's Notices",
+        "description": "Retrieve all notices for a specific user with optional filtering.",
+        "tags": ["notices"],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "User ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by status: pending, approved, rejected, active",
+            "schema": {
+              "type": "string",
+              "enum": ["pending", "approved", "rejected", "active"]
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "Filter by start date (ISO 8601)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "Filter by end date (ISO 8601)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User notices response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNoticesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/notices/summary": {
+      "get": {
+        "summary": "Get Summary Statistics",
+        "description": "Retrieve summary statistics for all notices in the workspace.",
+        "tags": ["notices"],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notice summary response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeSummaryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/public/v1/workspace/{id}/allies": {
       "get": {
         "summary": "Get Alliances",
@@ -1339,6 +1745,197 @@
                     "type": "string"
                   }
                 }
+              }
+            }
+          }
+        }
+      },
+      "Notice": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Notice UUID"
+          },
+          "userId": {
+            "type": "integer",
+            "description": "User ID"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "userId": {
+                "type": "integer"
+              },
+              "username": {
+                "type": "string"
+              },
+              "displayname": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            }
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Start date/time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "End date/time (null for indefinite)"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for timeoff"
+          },
+          "approved": {
+            "type": "boolean",
+            "description": "Whether the notice is approved"
+          },
+          "reviewed": {
+            "type": "boolean",
+            "description": "Whether the notice has been reviewed"
+          },
+          "revoked": {
+            "type": "boolean",
+            "description": "Whether the notice has been revoked"
+          },
+          "reviewComment": {
+            "type": "string",
+            "description": "Comment from reviewer"
+          }
+        }
+      },
+      "NoticesListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "notices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Notice"
+            }
+          },
+          "total": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "offset": {
+            "type": "integer"
+          }
+        }
+      },
+      "NoticeResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "notice": {
+            "$ref": "#/components/schemas/Notice"
+          }
+        }
+      },
+      "UserNoticesResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "userId": {
+                "type": "integer"
+              },
+              "username": {
+                "type": "string"
+              },
+              "displayname": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            }
+          },
+          "notices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "startTime": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "endTime": {
+                  "type": "string",
+                  "format": "date-time",
+                  "nullable": true
+                },
+                "reason": {
+                  "type": "string"
+                },
+                "approved": {
+                  "type": "boolean"
+                },
+                "reviewed": {
+                  "type": "boolean"
+                },
+                "revoked": {
+                  "type": "boolean"
+                },
+                "reviewComment": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      },
+      "NoticeSummaryResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "summary": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "description": "Total notices"
+              },
+              "pending": {
+                "type": "integer",
+                "description": "Pending notices awaiting review"
+              },
+              "approved": {
+                "type": "integer",
+                "description": "Approved notices"
+              },
+              "rejected": {
+                "type": "integer",
+                "description": "Rejected notices"
+              },
+              "active": {
+                "type": "integer",
+                "description": "Currently active notices"
               }
             }
           }

@@ -172,6 +172,7 @@
                 "icon": "cloud-upload",
                 "pages": [
                   "/deployment/selfhost",
+                  "/deployment/docker",
                   "/deployment/automation"
                 ]
               },

@@ -1,0 +1,101 @@
+---
+title: "Setting up Docker"
+description: "In this guide, we'll walk you through installation and maintenance of your Firefli instance. For smaller groups, we recommend using Cloud as it is much easier to begin with. Larger groups or groups looking to heavily modify Firefli can consider Vercel too, but may benefit from self-hosting."
+icon: "server"
+---
+
+### Setting up Firefli in your server
+
+<Warning>
+  You require basic knowledge in usage of terminal as well as NextJS.\
+  Team Firefli is **not responsible** for any user errors caused during the setup process or usage.
+</Warning>
+
+### Prerequisites
+
+- A machine that is capable of running Command/Console tasks (e.g. Ubuntu)
+- Root access
+- PostgreSQL Database
+- Docker Compose
+- Domain and SSL Encryption
+
+### Installing Firefli
+
+Once you're connected to your server, follow the command guide below in your terminal/console session.
+
+<Steps>
+  <Step>
+    <h4>Update your Server</h4>
+
+```
+sudo apt update
+sudo apt upgrade
+```
+  </Step>
+  
+  <Step>
+    <h4>Clone Firefli Repository</h4>
+
+```
+git clone https://github.com/TeamFirefli/firefli && cd firefli
+```
+  </Step>
+<Step>
+<h4>Setting up your .env file</h4>
+Just simply run this command in your console.
+
+```bash
+echo "SESSION_SECRET=$(openssl rand -base64 36 | tr -d '\n')" >> .env
+echo "POSTGRES_PASSWORD=$(openssl rand -base64 36 | tr -d '\n')" >> .env
+echo 'POSTGRES_DB=Firefli' >> .env
+echo 'POSTGRES_USER=Firefli' >> .env
+echo 'POSTGRES_PORT=5432' >> .env
+```
+</Step>
+
+
+<Step>
+  <h4>Starting Firefli</h4>
+
+  ```
+docker compose up --build -d
+  ```
+</Step>
+
+<Step>
+<h4>Database Initialization</h4>
+
+Run the following command:
+
+```bash
+docker exec -it firefli-firefli-1 npx prisma generate
+docker exec -it firefli-firefli-1 npx prisma db push
+```
+</Step>
+
+
+  <Step>
+    <h4>Complete setup via Web Interface</h4>
+
+    <p>1. Go to https://your.domain.com - Must be SSL</p>
+    <p>2. Enter your **Roblox Group ID**</p>
+    <p>3. Enter your **Roblox username** and a password</p>
+    <p>4. 🎉 You're all set!</p>
+  </Step>
+</Steps>
+
+### Looking to make your syncing automatic?
+View our Automation Setup guide [here](https://docs.firefli.net/deployment/automation).
+
+## **Quicklinks**
+<CardGroup cols={3}>
+  <Card title="Github" icon="github" href="https://github.com/TeamFirefli/firefli">
+    View the brains of the operation!
+  </Card>
+  <Card title="Support" icon="bug" href="https://discord.gg/WtEkchUKqe">
+    Get support and let us know about bugs!
+  </Card>
+  <Card title="Changelog" icon="sparkles" href="https://feedback.firefli.net/changelog">
+    View our Features and Updates!
+  </Card>
+</CardGroup>

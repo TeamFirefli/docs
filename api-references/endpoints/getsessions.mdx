@@ -34,36 +34,74 @@ Session 'status' returns are automatically updated every minute. By default, Fir
 
 ### Response example
 
-```
+```json
 {
   "success": true,
-  "sessions": [...],
+  "sessions": [
+    {
+      "id": "0325f1e1-45bf-43a9-9be5-1a88c957506e",
+      "name": "test",
+      "date": "2026-02-07T21:14:00.000Z",
+      "startedAt": null,
+      "ended": null,
+      "type": {
+        "id": "a10d5c23-8ba3-48b4-bed9-ab4aa426ac0c",
+        "description": "test",
+        "category": "shift",
+        "gameId": 95777976516565,
+        "slots": [
+          {
+            "id": "e7c34dc2-ad95-4b33-81c5-348262d852d8",
+            "name": "Co-Host",
+            "slots": 1
+          }
+        ]
+      },
+      "tag": {
+        "id": "c742cf55-275d-4a2e-8194-b96b355291f5",
+        "name": "Security",
+        "color": "bg-green-500"
+      },
+      "host": null,
+      "participants": [],
+      "status": "missed"
+    }
+  ],
   "sessionsByDate": {
-    "2023-10-19": [
+    "2026-02-07": [
       {
-        "id": "session-uuid",
-        "name": "Weekly Training",
-        "date": "2023-10-19T14:00:00.000Z",
+        "id": "0325f1e1-45bf-43a9-9be5-1a88c957506e",
+        "name": "test",
+        "date": "2026-02-07T21:14:00.000Z",
+        "startedAt": null,
+        "ended": null,
         "type": {
-          "id": "pattern-uuid",
-          "description": "Training Session",
-          "category": "training",
-          "gameId": 123456789,
-          "slots": [...]
+          "id": "a10d5c23-8ba3-48b4-bed9-ab4aa426ac0c",
+          "description": "test",
+          "category": "shift",
+          "gameId": 95777976516565,
+          "slots": [
+            {
+              "id": "e7c34dc2-ad95-4b33-81c5-348262d852d8",
+              "name": "Co-Host",
+              "slots": 1
+            }
+          ]
         },
-        "host": {
-          "userId": 123456789,
-          "username": "host123",
-          "thumbnail": "https://..."
+        "tag": {
+          "id": "c742cf55-275d-4a2e-8194-b96b355291f5",
+          "name": "Security",
+          "color": "bg-green-500"
         },
-        "participants": [...],
-        "status": "scheduled"
+        "host": null,
+        "participants": [],
+        "status": "missed"
       }
     ]
   },
   "dateRange": {
-    "startDate": "2023-10-19T00:00:00.000Z",
-    "endDate": "2023-10-25T23:59:59.999Z"
+    "startDate": "2026-02-01",
+    "endDate": "2026-02-28"
   },
   "total": 1
 }

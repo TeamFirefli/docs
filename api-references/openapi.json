@@ -1320,6 +1320,22 @@
                 "$ref": "#/components/schemas/Session"
               }
             }
+          },
+          "dateRange": {
+            "type": "object",
+            "properties": {
+              "startDate": {
+                "type": "string",
+                "format": "date"
+              },
+              "endDate": {
+                "type": "string",
+                "format": "date"
+              }
+            }
+          },
+          "total": {
+            "type": "integer"
           }
         }
       },
@@ -1544,6 +1560,16 @@
             "type": "string",
             "format": "date-time"
           },
+          "startedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "ended": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
           "type": {
             "type": "object",
             "properties": {
@@ -1555,8 +1581,68 @@
               },
               "category": {
                 "type": "string"
+              },
+              "gameId": {
+                "type": "integer"
+              },
+              "slots": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "slots": {
+                      "type": "integer"
+                    }
+                  }
+                }
               }
             }
+          },
+          "tag": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "color": {
+                "type": "string"
+              }
+            }
+          },
+          "host": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "userId": {
+                "type": "integer"
+              },
+              "username": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            }
+          },
+          "participants": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": ["scheduled", "in-progress", "ended", "missed"]
           }
         }
       },

@@ -117,14 +117,15 @@ nano .env
 <p>Paste the following:</p>
 
 ```
-DATABASE_URL="postgresql://firefliuser:strongpassword@localhost:5432/fflidb"
-SESSION_SECRET="your_32_character_generated_key"
+DATABASE_URL="postgresql://firefliuser:strongpassword@localhost:5432/fflidb" - Your connection string (e.g. hosted on Supabase, Railway, Neon, etc.)
+SESSION_SECRET="" - A strong secret string (e.g. generated via openssl rand -base64 32)
+ENCRYPTION_KEY="" - Encrypt your Discord intergration (e.g. generated via openssl rand -base64 64)
+NEXTAUTH_URL="" - Your Domain/Connection URL (e.g. https://domain.domain.com - no / at end.)
 ```
 
 <Tip>
   Remember to replace "strongpassword" with your chosen secure password from earlier.
-
-  Generate a 32-character session key here: [1Password Generator](https://1password.com/password-generator/)
+  Generate a 32/64-character session key here: [1Password Generator](https://1password.com/password-generator/)
 </Tip>
 
 <p>**Save and close (Ctrl + X -\> Y -\> Enter)**</p>

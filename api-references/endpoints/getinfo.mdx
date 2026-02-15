@@ -10,35 +10,6 @@ icon: "info"
 
 Return the canonical workspace object for the specified workspace ID. Use this endpoint to display workspace branding or seed dashboards.
 
-#### Path Parameters
-
-| **Parameter** | **Type** | **Description**      |
-| :------------ | :------- | :------------------- |
-| workspaceId   | string   | The workspace ID     |
-
-
-### Response example
-
-```
-{
-  "success": true,
-  "workspace": {
-    "groupId": 14144149,
-    "name": "My Workspace",
-    "description": "Workspace description",
-    "logo": "https://example.com/logo.png",
-    "memberCount": 42,
-    "roles": [
-      {
-        "id": "clz1234abcd",
-        "name": "Owner",
-        "permissions": ["MANAGE_MEMBERS", "MANAGE_ROLES", "MANAGE_SESSIONS"]
-      }
-    ]
-  }
-}
-```
-
 <Info>
   Cached results update every 30 seconds—expect eventual consistency for member counts and role changes.
 </Info>

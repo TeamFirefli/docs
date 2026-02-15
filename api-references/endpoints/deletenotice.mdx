@@ -9,24 +9,3 @@ icon: "stop"
 ## Summary
 
 Stop an active notice immediately. This sets the `endTime` to the current timestamp and marks the notice as revoked.
-
-#### Path Parameters
-
-| **Parameter** | **Type** | **Description**      |
-| :------------ | :------- | :------------------- |
-| workspaceId   | string   | The workspace ID     |
-| noticeId      | string   | The notice UUID      |
-
-### Response example
-
-```json
-{
-  "success": true,
-  "message": "Notice stopped successfully",
-  "notice": {
-    "id": "uuid",
-    "userId": 12345,
-    "endTime": "2024-01-18T14:30:00.000Z"
-  }
-}
-```

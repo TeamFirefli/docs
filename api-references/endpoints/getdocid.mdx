@@ -9,32 +9,3 @@ icon: "file-text"
 ## Summary
 
 Fetch a single document by its ID. Returns the full document content, title, description, and author details.
-
-#### Path Parameters
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| workspace_id | string | Workspace ID |
-| doc_id | string | Document ID |
-
-### Response example
-
-```
-{
-  "success": true,
-  "document": {
-    "id": "clz1234abcd",
-    "title": "Getting Started Guide",
-    "description": "How to get started with our workspace",
-    "content": "# Getting Started\n\nWelcome to our workspace! Here's how to get started...",
-    "author": {
-      "userId": 123456,
-      "username": "john_doe",
-      "displayName": "John Doe",
-      "thumbnail": "https://example.com/avatar.png"
-    },
-    "createdAt": "2024-01-01T00:00:00Z",
-    "updatedAt": "2024-01-02T00:00:00Z"
-  }
-}
-```

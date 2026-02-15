@@ -10,45 +10,6 @@ icon: "trophy"
 
 Return leaderboard rankings for the specified workspace, including top players by playtime and session count. Use this endpoint to display competitive rankings and track your position.
 
-#### Path Parameters
-
-| **Parameter** | **Type** | **Description**      |
-| :------------ | :------- | :------------------- |
-| workspaceId   | string   | The workspace ID     |
-
-#### Query Parameters
-
-| **Parameter** | **Type** | **Description**                                   |
-| :------------ | :------- | :------------------------------------------------ |
-| userId        | number   | Specific users stats and position                 |
-
-
-### Response example
-
-```json
-{
-  "playtime": {
-    "top_three": [
-      {
-        "_id": "123456",
-        "position": 1,
-        "total": 60,
-        "in_game": false
-      }
-    ]
-  },
-  "sessions": {
-    "top_three": [
-      {
-        "_id": "123456",
-        "position": 1,
-        "total": 0
-      }
-    ]
-  }
-}
-```
-
 <Info>
   The `playtime.total` field represents total playtime in minutes. The `you` object is only included when the `userId` query parameter is provided, showing that user's position on the leaderboard.
 </Info>

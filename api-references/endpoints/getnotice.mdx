@@ -9,35 +9,3 @@ icon: "file"
 ## Summary
 
 Fetch complete details of a specific notice by its ID, including review status and comments.
-
-#### Query Parameters
-
-| **Parameter** | **Type** | **Description**      |
-| :------------ | :------- | :------------------- |
-| workspaceId   | string   | The workspace ID     |
-| noticeId      | string   | The notice UUID      |
-
-### Response example
-
-```json
-{
-  "success": true,
-  "notice": {
-    "id": "uuid",
-    "userId": 12345,
-    "user": {
-      "userId": 12345,
-      "username": "john_doe",
-      "displayname": "John Doe",
-      "thumbnail": "https://..."
-    },
-    "startTime": "2024-01-15T00:00:00.000Z",
-    "endTime": "2024-01-20T00:00:00.000Z",
-    "reason": "Vacation",
-    "approved": true,
-    "reviewed": true,
-    "revoked": false,
-    "reviewComment": "Approved"
-  }
-}
-```

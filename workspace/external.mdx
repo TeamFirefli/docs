@@ -87,6 +87,35 @@ RankGun drives advanced rank automation. Link your workspace with these steps:
   RankGun enforces request limits—consult their [API Documentation](https://www.rankgun.works/docs/developing/APIRefrence).
 </Warning>
 
+### Roblox Open Cloud
+
+Roblox has changed how it's public api endpoints work.
+This means it is now **required** for users to setup a Open Cloud API key in order to SYNC Members.
+
+Additionally, this now means that you can natively rank with Firefli, without any additional services.
+
+<Steps>
+  <Step>Create an API Key</h4>
+    <p>Head to (create.roblox.com/dashboard/credentials)[https://create.roblox.com/dashboard/credentials] and create an API Key, on an account/group with correct permissions.</p>
+  </Step>
+  <Step>
+    <h4>Access Permissions</h4>
+    <p>As a minimum, you'll need to add the 'groups' access permission with 'read' operations.</p>
+    <p>If you'd like to use ranking too, please add the 'write' operation.</p>
+  </Step>
+  <Step>
+    <h4>Save changes to key</h4>
+    <p>Save the configuration on Roblox.</p>
+    <p>Select 'Copy Key to clipboard'.</p>
+  </Step>
+  <Step>
+    <h4>Open Services Settings on Firefli</h4>
+    <p>Paste in your API Key.</p>
+    <p>Select 'Test Key' and ensure a 'Valid' response is returned.</p>
+    <p>Press 'Save Settings' to ensure this is stored on your workspace.</p>
+  </Step>
+</Steps>
+
 ## **Need help?**
 <CardGroup cols={3}>
   <Card title="Github" icon="github" href="https://github.com/teamfirefli/firefli/">

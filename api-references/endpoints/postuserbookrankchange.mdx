@@ -1,0 +1,11 @@
+---
+title: "Create Rank Change"
+openapi: "POST /api/public/v1/workspace/{workspaceId}/userbook/rank-change"
+description: "Add a rank change entry to a user's logbook and set them to a specific rank."
+tags: ["userbook"]
+icon: "arrows-up-down"
+---
+
+## Summary
+
+Create a rank change entry in a user's logbook. If a ranking system is configured, the user will be set to the specified target rank number. Requires the `targetRank` field in the request body.

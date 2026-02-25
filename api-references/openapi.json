@@ -1080,6 +1080,316 @@
           }
         }
       }
+    },
+    "/api/public/v1/workspace/{workspaceId}/userbook/note": {
+      "post": {
+        "summary": "Create Note",
+        "description": "Add a note entry to a user's logbook.",
+        "tags": ["userbook"],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["userId", "reason"],
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "Roblox user ID"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "description": "Note content"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Note entry created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBookEntryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/userbook/warning": {
+      "post": {
+        "summary": "Create Warning",
+        "description": "Add a warning entry to a user's logbook.",
+        "tags": ["userbook"],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["userId", "reason"],
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "Roblox user ID"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "description": "Warning reason"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Warning entry created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBookEntryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/userbook/promotion": {
+      "post": {
+        "summary": "Create Promotion",
+        "description": "Add a promotion entry to a user's logbook and rank them up one rank if a ranking system is configured.",
+        "tags": ["userbook"],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["userId", "reason"],
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "Roblox user ID"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "description": "Promotion reason"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Promotion entry created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBookEntryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/userbook/demotion": {
+      "post": {
+        "summary": "Create Demotion",
+        "description": "Add a demotion entry to a user's logbook and rank them down one rank if a ranking system is configured.",
+        "tags": ["userbook"],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["userId", "reason"],
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "Roblox user ID"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "description": "Demotion reason"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Demotion entry created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBookEntryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/userbook/termination": {
+      "post": {
+        "summary": "Create Termination",
+        "description": "Add a termination entry to a user's logbook. Sets rank to lowest and removes workspace roles if a ranking system is configured.",
+        "tags": ["userbook"],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["userId", "reason"],
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "Roblox user ID"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "description": "Termination reason"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Termination entry created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBookTerminationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/userbook/rank-change": {
+      "post": {
+        "summary": "Create Rank Change",
+        "description": "Add a rank change entry to a user's logbook and set them to a specific rank if a ranking system is configured.",
+        "tags": ["userbook"],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["userId", "reason", "targetRank"],
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "Roblox user ID"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "description": "Rank change reason"
+                  },
+                  "targetRank": {
+                    "type": "integer",
+                    "description": "Target rank number to set the user to"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Rank change entry created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBookEntryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2021,6 +2331,104 @@
                 "description": "Currently active notices"
               }
             }
+          }
+        }
+      },
+      "UserBookEntry": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Entry UUID"
+          },
+          "userId": {
+            "type": "string",
+            "description": "Roblox user ID"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["note", "warning", "promotion", "demotion", "termination", "rank_change"],
+            "description": "Entry type"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason or notes for the entry"
+          },
+          "adminId": {
+            "type": "string",
+            "description": "Admin user ID who created the entry"
+          },
+          "workspaceGroupId": {
+            "type": "integer",
+            "description": "Workspace ID"
+          },
+          "rankBefore": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Rank number before the action (null if no ranking configured)"
+          },
+          "rankAfter": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Rank number after the action (null if no ranking configured)"
+          },
+          "rankNameBefore": {
+            "type": "string",
+            "nullable": true,
+            "description": "Rank name before the action"
+          },
+          "rankNameAfter": {
+            "type": "string",
+            "nullable": true,
+            "description": "Rank name after the action"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the entry was created"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the entry was last updated"
+          },
+          "admin": {
+            "type": "object",
+            "description": "Admin user who created the entry",
+            "properties": {
+              "userid": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "UserBookEntryResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "entry": {
+            "$ref": "#/components/schemas/UserBookEntry"
+          }
+        }
+      },
+      "UserBookTerminationResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "entry": {
+            "$ref": "#/components/schemas/UserBookEntry"
+          },
+          "terminated": {
+            "type": "boolean",
+            "description": "Whether the user was terminated (always true for this endpoint)"
           }
         }
       }

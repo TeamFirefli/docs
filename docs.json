@@ -134,6 +134,18 @@
                   "/api-references/endpoints/getusernotices",
                   "/api-references/endpoints/getnoticesummary"
                 ]
+              },
+              {
+                "group": "Userbook",
+                "icon": "book",
+                "pages": [
+                  "/api-references/endpoints/postuserbooknote",
+                  "/api-references/endpoints/postuserbookwarning",
+                  "/api-references/endpoints/postuserbookpromotion",
+                  "/api-references/endpoints/postuserbookdemotion",
+                  "/api-references/endpoints/postuserbooktermination",
+                  "/api-references/endpoints/postuserbookrankchange"
+                ]
               }
             ]
           }
@@ -258,6 +270,18 @@
                   "/api-references/endpoints/deletenotice",
                   "/api-references/endpoints/getusernotices",
                   "/api-references/endpoints/getnoticesummary"
+                ]
+              },
+              {
+                "group": "Libro de usuario",
+                "icon": "book",
+                "pages": [
+                  "/api-references/endpoints/postuserbooknote",
+                  "/api-references/endpoints/postuserbookwarning",
+                  "/api-references/endpoints/postuserbookpromotion",
+                  "/api-references/endpoints/postuserbookdemotion",
+                  "/api-references/endpoints/postuserbooktermination",
+                  "/api-references/endpoints/postuserbookrankchange"
                 ]
               }
             ]

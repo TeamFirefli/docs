@@ -1,6 +1,6 @@
 ---
 title: "Automation (Cronjobs)"
-description: "Firefli has 4 ready-to-go cronjobs available to make changes in the background."
+description: "Firefli has 5 ready-to-go cronjobs available to make changes in the background."
 icon: "briefcase"
 ---
 
@@ -63,6 +63,7 @@ This section is for anyone running Firefli on a dedicated or virtual linux based
    0 * * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://your.domain.com/api/cron/update-roles' -H "x-cron-secret: $CRON_SECRET" | /usr/bin/jq -r || true
    0 0 * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://your.domain.com/api/cron/birthdays' -H "x-cron-secret: $CRON_SECRET" | /usr/bin/jq -r || true
    0 2 * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://your.domain.com/api/cron/reset-activity' -H "x-cron-secret: $CRON_SECRET" | /usr/bin/jq -r || true
+   0 */4 * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://your.domain.com/api/cron/update-users' -H "Authorization: Bearer $CRON_SECRET" | /usr/bin/jq -r || true
    ```
 
    If you're using NEXT_MULTI in .env, please use the following cronjob for updating roles.
@@ -76,6 +77,7 @@ This section is for anyone running Firefli on a dedicated or virtual linux based
     <p>- Your session statuses will now update in accordance with the statuses setup enhancing your API Development Opportunities.</p>
     <p>- Your birthdays will now announce in Discord at midnight (UTC).</p>
     <p>- Activity will now be reset in according to your frequency defined in settings.</p>
+    <p>- Usernames and Displaynames will update every 4 hours.</p>
   </Step>
 </Steps>
 

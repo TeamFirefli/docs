@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://app.firefli.net/api"
+      "url": "https://app.firefli.net"
     }
   ],
   "security": [

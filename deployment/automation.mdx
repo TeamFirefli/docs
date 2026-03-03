@@ -63,7 +63,7 @@ This section is for anyone running Firefli on a dedicated or virtual linux based
    0 * * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://your.domain.com/api/cron/update-roles' -H "x-cron-secret: $CRON_SECRET" | /usr/bin/jq -r || true
    0 0 * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://your.domain.com/api/cron/birthdays' -H "x-cron-secret: $CRON_SECRET" | /usr/bin/jq -r || true
    0 2 * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://your.domain.com/api/cron/reset-activity' -H "x-cron-secret: $CRON_SECRET" | /usr/bin/jq -r || true
-   0 */4 * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://your.domain.com/api/cron/update-users' -H "Authorization: Bearer $CRON_SECRET" | /usr/bin/jq -r || true
+   0 */4 * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://your.domain.com/api/cron/update-users' -H "x-cron-secret: Bearer $CRON_SECRET" | /usr/bin/jq -r || true
    ```
 
    If you're using NEXT_MULTI in .env, please use the following cronjob for updating roles.

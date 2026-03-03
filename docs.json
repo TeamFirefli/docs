@@ -139,6 +139,7 @@
                 "group": "Userbook",
                 "icon": "book",
                 "pages": [
+                  "/api-references/endpoints/getuserbooknotes",
                   "/api-references/endpoints/postuserbooknote",
                   "/api-references/endpoints/postuserbookwarning",
                   "/api-references/endpoints/postuserbookpromotion",
@@ -276,6 +277,7 @@
                 "group": "Libro de usuario",
                 "icon": "book",
                 "pages": [
+                  "/api-references/endpoints/getuserbooknotes",
                   "/api-references/endpoints/postuserbooknote",
                   "/api-references/endpoints/postuserbookwarning",
                   "/api-references/endpoints/postuserbookpromotion",

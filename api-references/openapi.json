@@ -1390,6 +1390,86 @@
           }
         }
       }
+    },
+    "/api/public/v1/workspace/{id}/userbook/entries": {
+      "get": {
+        "summary": "Get Userbook Entries",
+        "description": "Returns userbook entries (warnings, promotions, demotions, terminations, rank changes, notes) for the specified workspace with full author and user details.",
+        "tags": ["userbook"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "description": "Filter entries for a specific user ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "description": "Filter by entry type",
+            "schema": {
+              "type": "string",
+              "enum": ["warning", "promotion", "demotion", "termination", "rank-change", "note"]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Number of entries to return (default: 50, max: 100)",
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "description": "Number of entries to skip for pagination",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "includeRedacted",
+            "in": "query",
+            "required": false,
+            "description": "Include redacted entries",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Userbook entries response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBookEntriesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2392,6 +2472,21 @@
             "format": "date-time",
             "description": "When the entry was last updated"
           },
+          "redacted": {
+            "type": "boolean",
+            "description": "Whether this entry has been redacted"
+          },
+          "redactedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "When the entry was redacted"
+          },
+          "redactedBy": {
+            "type": "string",
+            "nullable": true,
+            "description": "ID of the admin who redacted the entry"
+          },
           "admin": {
             "type": "object",
             "description": "Admin user who created the entry",
@@ -2401,6 +2496,26 @@
               },
               "username": {
                 "type": "string"
+              },
+              "picture": {
+                "type": "string",
+                "description": "URL to admin's profile picture"
+              }
+            }
+          },
+          "user": {
+            "type": "object",
+            "description": "User the entry is for",
+            "properties": {
+              "userid": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "picture": {
+                "type": "string",
+                "description": "URL to user's profile picture"
               }
             }
           }
@@ -2429,6 +2544,41 @@
           "terminated": {
             "type": "boolean",
             "description": "Whether the user was terminated (always true for this endpoint)"
+          }
+        }
+      },
+      "UserBookEntriesResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserBookEntry"
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "description": "Total number of entries available"
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Number of entries returned in this response"
+              },
+              "offset": {
+                "type": "integer",
+                "description": "Number of entries skipped"
+              },
+              "hasMore": {
+                "type": "boolean",
+                "description": "Whether there are more entries available"
+              }
+            }
           }
         }
       }

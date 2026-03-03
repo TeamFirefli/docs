@@ -16,7 +16,7 @@ icon: "server"
 - A machine that is capable of running Command/Console tasks (e.g. Ubuntu)
 - Root access
 - PostgreSQL Database
-- Package manager (e.g. npm)
+- Package manager (e.g. pnpm)
 - Domain and SSL Encryption
 
 ### Installing Firefli
@@ -90,18 +90,8 @@ git clone https://github.com/TeamFirefli/firefli && cd firefli
 
 <CodeGroup>
 
-```npm npm
-npm install
-```
-
-
 ```pnpm pnpm
 pnpm install
-```
-
-
-```yarn yarn
-yarn install
 ```
 
 </CodeGroup>
@@ -144,18 +134,8 @@ npx prisma db push
 
 <CodeGroup>
 
-```npm npm
-npm run build
-```
-
-
 ```pnpm pnpm
 pnpm run build
-```
-
-
-```yarn yarn
-yarn run build
 ```
 
 </CodeGroup>
@@ -166,18 +146,9 @@ yarn run build
 
 <CodeGroup>
 
-```npm npm
-npm run start
-```
-
 
 ```pnpm pnpm
 pnpm run start
-```
-
-
-```yarn yarn
-yarn run start
 ```
 
 </CodeGroup>
@@ -191,7 +162,7 @@ npm install -g pm2
 ```
 
 ```
-pm2 start npm --name="Firefli" -- start
+pm2 start pnpm --name="Firefli" -- start
 ```
 
 ```

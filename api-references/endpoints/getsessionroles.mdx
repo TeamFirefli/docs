@@ -1,0 +1,40 @@
+---
+title: "Get Session Roles"
+openapi: "GET /api/public/v1/workspace/{workspaceId}/sessions/{sessionId}/roles"
+description: "Retrieve a session with all role assignments and slot information."
+tags: ["sessions"]
+icon: "users"
+---
+
+## Summary
+
+Fetch detailed information about a session including all defined role slots and their current assignments. This endpoint returns the session metadata along with a structured view of all roles, showing which users are assigned to each slot.
+
+Use this endpoint to:
+- View all role slots defined in a session's type
+- Check which users are assigned to specific roles
+- See available slots for role assignments
+- Get user information for all assigned participants
+
+## Response Structure
+
+The response includes:
+- **Session details**: ID, name, date, owner information
+- **Roles array**: Each role includes:
+  - `roleId`: Unique identifier for the role
+  - `roleName`: Display name of the role
+  - `totalSlots`: Number of available slots for this role
+  - `assignments`: Array of user assignments with slot numbers
+
+## Example Use Cases
+
+**Check available co-host slots:**
+```bash
+GET /api/public/v1/workspace/752856518/sessions/{sessionId}/roles
+```
+
+**View all trainers assigned to a session:**
+Filter the roles array for the "trainer" roleId and check assignments.
+
+**Verify session capacity:**
+Compare the number of assignments to totalSlots for each role.

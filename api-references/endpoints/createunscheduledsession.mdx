@@ -1,0 +1,122 @@
+---
+title: "Create Unscheduled Session"
+openapi: "POST /api/public/v1/workspace/{workspaceId}/sessions/create-unscheduled"
+description: "Create an unscheduled session with optional inline session type creation."
+tags: ["sessions"]
+icon: "calendar-plus"
+---
+
+## Summary
+
+Create an unscheduled (one-time) session with flexible session type handling. You can either reference an existing session type or create a new one inline with custom role slots and statuses.
+
+## Two Creation Modes
+
+### Mode 1: Use Existing Session Type
+
+Reference an existing session type by ID:
+
+```json
+{
+  "sessionTypeId": "existing-uuid-here",
+  "date": "2026-03-15",
+  "time": "14:00",
+  "ownerId": "123456"
+}
+```
+
+### Mode 2: Create Session Type Inline
+
+Define a new session type with the session:
+
+```json
+{
+  "sessionType": {
+    "name": "Special Training",
+    "description": "One-time special training event",
+    "slots": [
+      {
+        "id": "cohost",
+        "name": "Co-Host",
+        "number": 2
+      },
+      {
+        "id": "trainer",
+        "name": "Trainer",
+        "number": 3
+      }
+    ],
+    "statues": [
+      {
+        "id": "completed",
+        "name": "Completed"
+      }
+    ]
+  },
+  "date": "2026-03-15",
+  "time": "14:00",
+  "ownerId": "123456"
+}
+```
+
+## Parameters
+
+### Required
+- **date**: Session date in YYYY-MM-DD format
+- **sessionTypeId** OR **sessionType**: Must provide one (not both)
+
+### Optional
+- **time**: Session time in HH:MM format (24-hour UTC). Defaults to 00:00 if omitted
+- **name**: Custom session name (overrides session type name)
+- **type**: Session category (default: "other")
+- **ownerId**: Session host user ID
+- **duration**: Session length in minutes (default: 30)
+- **sessionTagId**: Tag UUID for categorization
+- **logs**: Array of initial status entries
+
+## Session Type Object
+
+When creating inline, the `sessionType` object supports:
+
+- **name** (required): Session type name
+- **description**: Session type description
+- **slots**: Array of role definitions
+  - `id`: Unique role identifier
+  - `name`: Display name
+  - `number`: Number of slots for this role
+- **statues**: Array of custom status definitions
+  - `id`: Status identifier
+  - `name`: Status display name
+
+## Activity Logging
+
+The endpoint automatically creates:
+1. A `session_created` log entry with creation metadata
+2. Any additional log entries provided in the `logs` array
+
+## Example: Training with Roles
+
+```json
+{
+  "sessionType": {
+    "name": "Advanced Combat Training",
+    "slots": [
+      {"id": "cohost", "name": "Co-Host", "number": 1},
+      {"id": "trainer", "name": "Trainer", "number": 3},
+      {"id": "assistant", "name": "Assistant", "number": 2}
+    ]
+  },
+  "date": "2026-03-20",
+  "time": "15:30",
+  "ownerId": "123456",
+  "duration": 60,
+  "logs": [
+    {
+      "action": "preparation_started",
+      "metadata": {"note": "Setting up training area"}
+    }
+  ]
+}
+```
+
+This creates a complete session with defined roles ready for assignments.

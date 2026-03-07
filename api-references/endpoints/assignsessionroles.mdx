@@ -1,0 +1,73 @@
+---
+title: "Assign Session Roles"
+openapi: "POST /api/public/v1/workspace/{workspaceId}/sessions/{sessionId}/assign"
+description: "Assign or unassign users to session roles, or update the session host."
+tags: ["sessions"]
+icon: "user-plus"
+---
+
+## Summary
+
+Manage user assignments for session roles or change the session host. This endpoint supports two distinct operations:
+
+1. **Role Assignment/Unassignment**: Add or remove users from specific role slots (co-host, trainer, etc.)
+2. **Host Change**: Update the session's primary owner/host
+
+Both operations automatically create activity log entries to track changes.
+
+## Assignment Operations
+
+### Assign User to Role
+
+Assign a user to a specific role slot:
+
+```json
+{
+  "action": "assign",
+  "userId": "12345678",
+  "roleId": "cohost",
+  "slot": 0
+}
+```
+
+- `action`: Must be "assign"
+- `userId`: Roblox user ID (does not need to be workspace member)
+- `roleId`: Role identifier from session type (e.g., "cohost", "trainer")
+- `slot`: Zero-based slot index for this role
+
+### Unassign User from Role
+
+Remove a user from a role slot:
+
+```json
+{
+  "action": "unassign",
+  "userId": "12345678",
+  "roleId": "cohost",
+  "slot": 0
+}
+```
+
+### Change Session Host
+
+Update the session's owner:
+
+```json
+{
+  "ownerId": "87654321"
+}
+```
+
+## Important Notes
+
+- **No workspace membership required**: Users can be assigned to roles even if they're not workspace members
+- **Activity logging**: All assignments create audit log entries
+- **Slot validation**: Slot numbers must be within the role's defined slot count
+- **Duplicate prevention**: Cannot assign the same user to the same role+slot combination
+
+## Response
+
+Returns the updated session with:
+- Updated owner information (if host changed)
+- Complete list of all role assignments
+- User details for all assigned participants

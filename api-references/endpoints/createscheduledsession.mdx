@@ -1,0 +1,144 @@
+---
+title: "Create Scheduled Session"
+openapi: "POST /api/public/v1/workspace/{workspaceId}/sessions/create-scheduled"
+description: "Create a scheduled session with optional inline session type and schedule creation."
+tags: ["sessions"]
+icon: "calendar-check"
+---
+
+## Summary
+
+Create a scheduled session that's part of a recurring schedule. You can either reference an existing schedule or create a new session type with schedule inline. This is ideal for recurring sessions like weekly trainings or daily meetings.
+
+## Two Creation Modes
+
+### Mode 1: Use Existing Schedule
+
+Reference an existing schedule by ID:
+
+```json
+{
+  "scheduleId": "existing-schedule-uuid",
+  "date": "2026-03-15"
+}
+```
+
+The session will be created for the specified date using the schedule's configured time and session type.
+
+### Mode 2: Create Session Type + Schedule Inline
+
+Define a new session type with schedule:
+
+```json
+{
+  "sessionType": {
+    "name": "Weekly Training",
+    "description": "Recurring training sessions",
+    "slots": [
+      {
+        "id": "cohost",
+        "name": "Co-Host",
+        "number": 2
+      },
+      {
+        "id": "trainer",
+        "name": "Trainer",
+        "number": 3
+      }
+    ],
+    "schedule": {
+      "days": [1, 3, 5],
+      "hour": 14,
+      "minute": 30
+    }
+  },
+  "date": "2026-03-17"
+}
+```
+
+This creates both the session type and schedule, then creates a session for the specified date.
+
+## Parameters
+
+### Required
+- **date**: Session date in YYYY-MM-DD format
+- **scheduleId** OR **sessionType**: Must provide one (not both)
+
+### Optional
+- **name**: Custom session name (overrides session type name)
+- **type**: Session category (default: "other")
+- **ownerId**: Session host user ID
+- **duration**: Session length in minutes (default: 30)
+- **sessionTagId**: Tag UUID for categorization
+- **logs**: Array of initial status entries
+
+## Session Type with Schedule
+
+When creating inline, the `sessionType` object must include a `schedule`:
+
+- **name** (required): Session type name
+- **description**: Session type description
+- **slots**: Array of role definitions (same as unscheduled)
+- **statues**: Array of custom status definitions
+- **schedule** (required):
+  - `days`: Array of weekday numbers (0=Sunday, 1=Monday, ..., 6=Saturday)
+  - `hour`: Hour in 24-hour format, UTC (0-23)
+  - `minute`: Minute (0-59)
+
+## Date Validation
+
+The `date` parameter must fall on one of the days specified in the schedule. For example:
+
+- If schedule has `days: [1, 3, 5]` (Monday, Wednesday, Friday)
+- The date must be a Monday, Wednesday, or Friday
+- Otherwise, the request will fail with a validation error
+
+## Activity Logging
+
+The endpoint automatically creates:
+1. A `session_created` log entry with creation metadata including schedule ID
+2. Any additional log entries provided in the `logs` array
+
+## Example: Weekly Combat Training
+
+```json
+{
+  "sessionType": {
+    "name": "Combat Training",
+    "description": "Weekly combat skills development",
+    "slots": [
+      {"id": "lead", "name": "Lead Trainer", "number": 1},
+      {"id": "assistant", "name": "Assistant", "number": 2}
+    ],
+    "statues": [
+      {"id": "completed", "name": "Completed"},
+      {"id": "cancelled", "name": "Cancelled"}
+    ],
+    "schedule": {
+      "days": [2, 4],
+      "hour": 18,
+      "minute": 0
+    }
+  },
+  "date": "2026-03-09",
+  "ownerId": "123456",
+  "duration": 90,
+  "logs": [
+    {
+      "action": "session_scheduled",
+      "metadata": {
+        "note": "First session of the month",
+        "expectedAttendees": 15
+      }
+    }
+  ]
+}
+```
+
+This creates:
+1. A new session type "Combat Training"
+2. A recurring schedule for Tuesdays and Thursdays at 6:00 PM UTC
+3. A session instance for March 9, 2026 (which must be a Tuesday or Thursday)
+4. Initial status log entry
+
+Future sessions can be created using `scheduleId` mode with the returned schedule UUID.

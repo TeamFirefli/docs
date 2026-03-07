@@ -1081,6 +1081,453 @@
         }
       }
     },
+    "/api/public/v1/workspace/{workspaceId}/sessions/{sessionId}/roles": {
+      "get": {
+        "summary": "Get Session Roles",
+        "description": "Retrieve a session with all role assignments and slot information.",
+        "tags": ["sessions"],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sessionId",
+            "in": "path",
+            "required": true,
+            "description": "Session UUID",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Session with roles response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionRolesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/sessions/{sessionId}/assign": {
+      "post": {
+        "summary": "Assign Users to Session Roles",
+        "description": "Assign or unassign users to session roles, or update the session host.",
+        "tags": ["sessions"],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sessionId",
+            "in": "path",
+            "required": true,
+            "description": "Session UUID",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "required": ["action", "userId", "roleId", "slot"],
+                    "properties": {
+                      "action": {
+                        "type": "string",
+                        "enum": ["assign", "unassign"],
+                        "description": "Action to perform"
+                      },
+                      "userId": {
+                        "type": "string",
+                        "description": "Roblox user ID"
+                      },
+                      "roleId": {
+                        "type": "string",
+                        "description": "Role ID from session type slots"
+                      },
+                      "slot": {
+                        "type": "integer",
+                        "description": "Slot number (0-based index)"
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "required": ["ownerId"],
+                    "properties": {
+                      "ownerId": {
+                        "type": "string",
+                        "description": "New session owner/host user ID"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Session updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionAssignResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/sessions/create-unscheduled": {
+      "post": {
+        "summary": "Create Unscheduled Session",
+        "description": "Create an unscheduled session with optional inline session type creation.",
+        "tags": ["sessions"],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["date"],
+                "properties": {
+                  "sessionTypeId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Existing session type ID (use this OR sessionType, not both)"
+                  },
+                  "sessionType": {
+                    "type": "object",
+                    "description": "Create session type inline (use this OR sessionTypeId, not both)",
+                    "required": ["name"],
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Session type name"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Session type description"
+                      },
+                      "slots": {
+                        "type": "array",
+                        "description": "Role slots for the session",
+                        "items": {
+                          "type": "object",
+                          "required": ["id", "name", "number"],
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "Role ID"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Role name"
+                            },
+                            "number": {
+                              "type": "integer",
+                              "description": "Number of slots for this role"
+                            }
+                          }
+                        }
+                      },
+                      "statues": {
+                        "type": "array",
+                        "description": "Custom status definitions",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Session date (YYYY-MM-DD)"
+                  },
+                  "time": {
+                    "type": "string",
+                    "description": "Session time in HH:MM format (24-hour, UTC)"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Custom session name (overrides session type name)"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Session type category",
+                    "default": "other"
+                  },
+                  "ownerId": {
+                    "type": "string",
+                    "description": "Session host/owner user ID"
+                  },
+                  "duration": {
+                    "type": "integer",
+                    "description": "Session duration in minutes",
+                    "default": 30
+                  },
+                  "sessionTagId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Session tag ID for categorization"
+                  },
+                  "logs": {
+                    "type": "array",
+                    "description": "Initial status log entries",
+                    "items": {
+                      "type": "object",
+                      "required": ["action"],
+                      "properties": {
+                        "action": {
+                          "type": "string",
+                          "description": "Log action/status"
+                        },
+                        "metadata": {
+                          "type": "object",
+                          "description": "Additional log metadata"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Session created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionCreateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/sessions/create-scheduled": {
+      "post": {
+        "summary": "Create Scheduled Session",
+        "description": "Create a scheduled session with optional inline session type and schedule creation.",
+        "tags": ["sessions"],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["date"],
+                "properties": {
+                  "scheduleId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Existing schedule ID (use this OR sessionType, not both)"
+                  },
+                  "sessionType": {
+                    "type": "object",
+                    "description": "Create session type and schedule inline (use this OR scheduleId, not both)",
+                    "required": ["name", "schedule"],
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Session type name"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Session type description"
+                      },
+                      "slots": {
+                        "type": "array",
+                        "description": "Role slots for the session",
+                        "items": {
+                          "type": "object",
+                          "required": ["id", "name", "number"],
+                          "properties": {
+                            "id": {
+                              "type": "string",
+                              "description": "Role ID"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Role name"
+                            },
+                            "number": {
+                              "type": "integer",
+                              "description": "Number of slots for this role"
+                            }
+                          }
+                        }
+                      },
+                      "statues": {
+                        "type": "array",
+                        "description": "Custom status definitions",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "schedule": {
+                        "type": "object",
+                        "required": ["days", "hour", "minute"],
+                        "properties": {
+                          "days": {
+                            "type": "array",
+                            "description": "Days of week (0=Sunday, 6=Saturday)",
+                            "items": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 6
+                            }
+                          },
+                          "hour": {
+                            "type": "integer",
+                            "description": "Hour in 24-hour format (UTC)",
+                            "minimum": 0,
+                            "maximum": 23
+                          },
+                          "minute": {
+                            "type": "integer",
+                            "description": "Minute",
+                            "minimum": 0,
+                            "maximum": 59
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Session date (YYYY-MM-DD) - must match a day in schedule"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Custom session name (overrides session type name)"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Session type category",
+                    "default": "other"
+                  },
+                  "ownerId": {
+                    "type": "string",
+                    "description": "Session host/owner user ID"
+                  },
+                  "duration": {
+                    "type": "integer",
+                    "description": "Session duration in minutes",
+                    "default": 30
+                  },
+                  "sessionTagId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Session tag ID for categorization"
+                  },
+                  "logs": {
+                    "type": "array",
+                    "description": "Initial status log entries",
+                    "items": {
+                      "type": "object",
+                      "required": ["action"],
+                      "properties": {
+                        "action": {
+                          "type": "string",
+                          "description": "Log action/status"
+                        },
+                        "metadata": {
+                          "type": "object",
+                          "description": "Additional log metadata"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Session created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionCreateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/public/v1/workspace/{workspaceId}/userbook/note": {
       "post": {
         "summary": "Create Note",
@@ -2577,6 +3024,254 @@
               "hasMore": {
                 "type": "boolean",
                 "description": "Whether there are more entries available"
+              }
+            }
+          }
+        }
+      },
+      "SessionRolesResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "session": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "name": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "ownerId": {
+                "type": "string"
+              },
+              "owner": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "displayName": {
+                    "type": "string"
+                  },
+                  "picture": {
+                    "type": "string"
+                  }
+                }
+              },
+              "roles": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "roleId": {
+                      "type": "string"
+                    },
+                    "roleName": {
+                      "type": "string"
+                    },
+                    "totalSlots": {
+                      "type": "integer"
+                    },
+                    "assignments": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "slot": {
+                            "type": "integer"
+                          },
+                          "user": {
+                            "type": "object",
+                            "properties": {
+                              "userId": {
+                                "type": "string"
+                              },
+                              "username": {
+                                "type": "string"
+                              },
+                              "displayName": {
+                                "type": "string"
+                              },
+                              "picture": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "SessionAssignResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "session": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "name": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "ownerId": {
+                "type": "string"
+              },
+              "owner": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "displayName": {
+                    "type": "string"
+                  },
+                  "picture": {
+                    "type": "string"
+                  }
+                }
+              },
+              "assignments": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "displayName": {
+                      "type": "string"
+                    },
+                    "picture": {
+                      "type": "string"
+                    },
+                    "roleId": {
+                      "type": "string"
+                    },
+                    "slot": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "SessionCreateResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "session": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "duration": {
+                "type": "integer"
+              },
+              "sessionType": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "slots": {
+                    "type": "array"
+                  },
+                  "statues": {
+                    "type": "array"
+                  }
+                }
+              },
+              "owner": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "displayName": {
+                    "type": "string"
+                  },
+                  "picture": {
+                    "type": "string"
+                  }
+                }
+              },
+              "sessionTag": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "color": {
+                    "type": "string"
+                  }
+                }
               }
             }
           }

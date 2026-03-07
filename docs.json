@@ -102,7 +102,11 @@
                 "group": "Sessions",
                 "icon": "clock",
                 "pages": [
-                  "/api-references/endpoints/getsessions"
+                  "/api-references/endpoints/getsessions",
+                  "/api-references/endpoints/getsessionroles",
+                  "/api-references/endpoints/assignsessionroles",
+                  "/api-references/endpoints/createunscheduledsession",
+                  "/api-references/endpoints/createscheduledsession"
                 ]
               },
               {
@@ -240,7 +244,11 @@
                 "group": "Sesiones",
                 "icon": "clock",
                 "pages": [
-                  "/api-references/endpoints/getsessions"
+                  "/api-references/endpoints/getsessions",
+                  "/api-references/endpoints/getsessionroles",
+                  "/api-references/endpoints/assignsessionroles",
+                  "/api-references/endpoints/createunscheduledsession",
+                  "/api-references/endpoints/createscheduledsession"
                 ]
               },
               {

@@ -20,7 +20,9 @@
       "get": {
         "summary": "Get Workspace Info",
         "description": "Retrieve workspace metadata, branding, and member overview.",
-        "tags": ["general"],
+        "tags": [
+          "general"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -50,7 +52,9 @@
       "get": {
         "summary": "Get Workspace Leaderboard",
         "description": "Retrieve workspace leaderboard data including top players by playtime and sessions.",
-        "tags": ["general"],
+        "tags": [
+          "general"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -89,7 +93,9 @@
       "get": {
         "summary": "Get Members",
         "description": "Get all workspace members with their roles and permissions",
-        "tags": ["general"],
+        "tags": [
+          "general"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -146,7 +152,9 @@
       "get": {
         "summary": "Get Birthdays",
         "description": "Retrieve upcoming birthdays from your workspace members",
-        "tags": ["general"],
+        "tags": [
+          "general"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -193,7 +201,9 @@
       "get": {
         "summary": "Get Activity",
         "description": "Retrieve activity logs for workspace members with filtering options",
-        "tags": ["activity"],
+        "tags": [
+          "activity"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -268,7 +278,9 @@
       "get": {
         "summary": "Get Current Activity",
         "description": "Retrieve detailed activity logs for a specific workspace member",
-        "tags": ["activity"],
+        "tags": [
+          "activity"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -316,7 +328,9 @@
       "get": {
         "summary": "Get User Activity",
         "description": "Retrieve detailed activity logs for a specific workspace member",
-        "tags": ["activity"],
+        "tags": [
+          "activity"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -390,7 +404,9 @@
       "get": {
         "summary": "Get Sessions",
         "description": "Retrieve upcoming and past sessions with date and category filtering",
-        "tags": ["sessions"],
+        "tags": [
+          "sessions"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -446,7 +462,9 @@
       "get": {
         "summary": "Get Wall",
         "description": "Retrieve workspace wall posts with pagination and author information",
-        "tags": ["content"],
+        "tags": [
+          "content"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -491,7 +509,9 @@
       "post": {
         "summary": "Post Wall",
         "description": "Create a new wall post with optional image attachment",
-        "tags": ["content"],
+        "tags": [
+          "content"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -509,7 +529,10 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["content", "authorId"],
+                "required": [
+                  "content",
+                  "authorId"
+                ],
                 "properties": {
                   "content": {
                     "type": "string",
@@ -546,7 +569,9 @@
       "get": {
         "summary": "Get Documents",
         "description": "Retrieve all workspace documents and guides with pagination",
-        "tags": ["content"],
+        "tags": [
+          "content"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -593,7 +618,9 @@
       "get": {
         "summary": "Get Document by ID",
         "description": "Retrieve a specific document with full content, metadata, and author information",
-        "tags": ["content"],
+        "tags": [
+          "content"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -632,7 +659,9 @@
       "get": {
         "summary": "List Notices",
         "description": "Retrieve a list of all notices/timeoff requests with optional filtering.",
-        "tags": ["notices"],
+        "tags": [
+          "notices"
+        ],
         "parameters": [
           {
             "name": "workspaceId",
@@ -649,7 +678,12 @@
             "description": "Filter by status: pending, approved, rejected, active",
             "schema": {
               "type": "string",
-              "enum": ["pending", "approved", "rejected", "active"]
+              "enum": [
+                "pending",
+                "approved",
+                "rejected",
+                "active"
+              ]
             }
           },
           {
@@ -714,7 +748,9 @@
       "post": {
         "summary": "Create Notice",
         "description": "Create a new notice/timeoff request for a user.",
-        "tags": ["notices"],
+        "tags": [
+          "notices"
+        ],
         "parameters": [
           {
             "name": "workspaceId",
@@ -732,7 +768,11 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["userId", "startTime", "reason"],
+                "required": [
+                  "userId",
+                  "startTime",
+                  "reason"
+                ],
                 "properties": {
                   "userId": {
                     "type": "integer",
@@ -776,7 +816,9 @@
       "get": {
         "summary": "Get Specific Notice",
         "description": "Retrieve detailed information about a specific notice.",
-        "tags": ["notices"],
+        "tags": [
+          "notices"
+        ],
         "parameters": [
           {
             "name": "workspaceId",
@@ -813,7 +855,9 @@
       "patch": {
         "summary": "Update Notice Status",
         "description": "Update the status of a notice to approve, reject, or modify details.",
-        "tags": ["notices"],
+        "tags": [
+          "notices"
+        ],
         "parameters": [
           {
             "name": "workspaceId",
@@ -880,7 +924,9 @@
       "delete": {
         "summary": "Stop Active Notice",
         "description": "Immediately stop an active notice by setting end time to now.",
-        "tags": ["notices"],
+        "tags": [
+          "notices"
+        ],
         "parameters": [
           {
             "name": "workspaceId",
@@ -942,7 +988,9 @@
       "get": {
         "summary": "Get User's Notices",
         "description": "Retrieve all notices for a specific user with optional filtering.",
-        "tags": ["notices"],
+        "tags": [
+          "notices"
+        ],
         "parameters": [
           {
             "name": "workspaceId",
@@ -968,7 +1016,12 @@
             "description": "Filter by status: pending, approved, rejected, active",
             "schema": {
               "type": "string",
-              "enum": ["pending", "approved", "rejected", "active"]
+              "enum": [
+                "pending",
+                "approved",
+                "rejected",
+                "active"
+              ]
             }
           },
           {
@@ -1008,7 +1061,9 @@
       "get": {
         "summary": "Get Summary Statistics",
         "description": "Retrieve summary statistics for all notices in the workspace.",
-        "tags": ["notices"],
+        "tags": [
+          "notices"
+        ],
         "parameters": [
           {
             "name": "workspaceId",
@@ -1038,7 +1093,9 @@
       "get": {
         "summary": "Get Alliances",
         "description": "Retrieve all workspace alliances with representatives and recent visit history",
-        "tags": ["allies"],
+        "tags": [
+          "allies"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1085,7 +1142,9 @@
       "get": {
         "summary": "Get Session Roles",
         "description": "Retrieve a session with all role assignments and slot information.",
-        "tags": ["sessions"],
+        "tags": [
+          "sessions"
+        ],
         "parameters": [
           {
             "name": "workspaceId",
@@ -1125,7 +1184,9 @@
       "post": {
         "summary": "Assign Users to Session Roles",
         "description": "Assign or unassign users to session roles, or update the session host.",
-        "tags": ["sessions"],
+        "tags": [
+          "sessions"
+        ],
         "parameters": [
           {
             "name": "workspaceId",
@@ -1155,11 +1216,19 @@
                 "oneOf": [
                   {
                     "type": "object",
-                    "required": ["action", "userId", "roleId", "slot"],
+                    "required": [
+                      "action",
+                      "userId",
+                      "roleId",
+                      "slot"
+                    ],
                     "properties": {
                       "action": {
                         "type": "string",
-                        "enum": ["assign", "unassign"],
+                        "enum": [
+                          "assign",
+                          "unassign"
+                        ],
                         "description": "Action to perform"
                       },
                       "userId": {
@@ -1178,7 +1247,9 @@
                   },
                   {
                     "type": "object",
-                    "required": ["ownerId"],
+                    "required": [
+                      "ownerId"
+                    ],
                     "properties": {
                       "ownerId": {
                         "type": "string",
@@ -1209,7 +1280,9 @@
       "post": {
         "summary": "Create Unscheduled Session",
         "description": "Create an unscheduled session with optional inline session type creation.",
-        "tags": ["sessions"],
+        "tags": [
+          "sessions"
+        ],
         "parameters": [
           {
             "name": "workspaceId",
@@ -1227,7 +1300,9 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["date"],
+                "required": [
+                  "date"
+                ],
                 "properties": {
                   "sessionTypeId": {
                     "type": "string",
@@ -1237,7 +1312,9 @@
                   "sessionType": {
                     "type": "object",
                     "description": "Create session type inline (use this OR sessionTypeId, not both)",
-                    "required": ["name"],
+                    "required": [
+                      "name"
+                    ],
                     "properties": {
                       "name": {
                         "type": "string",
@@ -1252,7 +1329,11 @@
                         "description": "Role slots for the session",
                         "items": {
                           "type": "object",
-                          "required": ["id", "name", "number"],
+                          "required": [
+                            "id",
+                            "name",
+                            "number"
+                          ],
                           "properties": {
                             "id": {
                               "type": "string",
@@ -1323,7 +1404,9 @@
                     "description": "Initial status log entries",
                     "items": {
                       "type": "object",
-                      "required": ["action"],
+                      "required": [
+                        "action"
+                      ],
                       "properties": {
                         "action": {
                           "type": "string",
@@ -1359,7 +1442,9 @@
       "post": {
         "summary": "Create Scheduled Session",
         "description": "Create a scheduled session with optional inline session type and schedule creation.",
-        "tags": ["sessions"],
+        "tags": [
+          "sessions"
+        ],
         "parameters": [
           {
             "name": "workspaceId",
@@ -1377,7 +1462,9 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["date"],
+                "required": [
+                  "date"
+                ],
                 "properties": {
                   "scheduleId": {
                     "type": "string",
@@ -1387,7 +1474,10 @@
                   "sessionType": {
                     "type": "object",
                     "description": "Create session type and schedule inline (use this OR scheduleId, not both)",
-                    "required": ["name", "schedule"],
+                    "required": [
+                      "name",
+                      "schedule"
+                    ],
                     "properties": {
                       "name": {
                         "type": "string",
@@ -1402,7 +1492,11 @@
                         "description": "Role slots for the session",
                         "items": {
                           "type": "object",
-                          "required": ["id", "name", "number"],
+                          "required": [
+                            "id",
+                            "name",
+                            "number"
+                          ],
                           "properties": {
                             "id": {
                               "type": "string",
@@ -1436,7 +1530,11 @@
                       },
                       "schedule": {
                         "type": "object",
-                        "required": ["days", "hour", "minute"],
+                        "required": [
+                          "days",
+                          "hour",
+                          "minute"
+                        ],
                         "properties": {
                           "days": {
                             "type": "array",
@@ -1496,7 +1594,9 @@
                     "description": "Initial status log entries",
                     "items": {
                       "type": "object",
-                      "required": ["action"],
+                      "required": [
+                        "action"
+                      ],
                       "properties": {
                         "action": {
                           "type": "string",
@@ -1532,7 +1632,9 @@
       "post": {
         "summary": "Create Note",
         "description": "Add a note entry to a user's logbook.",
-        "tags": ["userbook"],
+        "tags": [
+          "userbook"
+        ],
         "parameters": [
           {
             "name": "workspaceId",
@@ -1550,7 +1652,10 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["userId", "reason"],
+                "required": [
+                  "userId",
+                  "reason"
+                ],
                 "properties": {
                   "userId": {
                     "type": "integer",
@@ -1583,7 +1688,9 @@
       "post": {
         "summary": "Create Warning",
         "description": "Add a warning entry to a user's logbook.",
-        "tags": ["userbook"],
+        "tags": [
+          "userbook"
+        ],
         "parameters": [
           {
             "name": "workspaceId",
@@ -1601,7 +1708,10 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["userId", "reason"],
+                "required": [
+                  "userId",
+                  "reason"
+                ],
                 "properties": {
                   "userId": {
                     "type": "integer",
@@ -1634,7 +1744,9 @@
       "post": {
         "summary": "Create Promotion",
         "description": "Add a promotion entry to a user's logbook and rank them up one rank if a ranking system is configured.",
-        "tags": ["userbook"],
+        "tags": [
+          "userbook"
+        ],
         "parameters": [
           {
             "name": "workspaceId",
@@ -1652,7 +1764,10 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["userId", "reason"],
+                "required": [
+                  "userId",
+                  "reason"
+                ],
                 "properties": {
                   "userId": {
                     "type": "integer",
@@ -1685,7 +1800,9 @@
       "post": {
         "summary": "Create Demotion",
         "description": "Add a demotion entry to a user's logbook and rank them down one rank if a ranking system is configured.",
-        "tags": ["userbook"],
+        "tags": [
+          "userbook"
+        ],
         "parameters": [
           {
             "name": "workspaceId",
@@ -1703,7 +1820,10 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["userId", "reason"],
+                "required": [
+                  "userId",
+                  "reason"
+                ],
                 "properties": {
                   "userId": {
                     "type": "integer",
@@ -1736,7 +1856,9 @@
       "post": {
         "summary": "Create Termination",
         "description": "Add a termination entry to a user's logbook. Sets rank to lowest and removes workspace roles if a ranking system is configured.",
-        "tags": ["userbook"],
+        "tags": [
+          "userbook"
+        ],
         "parameters": [
           {
             "name": "workspaceId",
@@ -1754,7 +1876,10 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["userId", "reason"],
+                "required": [
+                  "userId",
+                  "reason"
+                ],
                 "properties": {
                   "userId": {
                     "type": "integer",
@@ -1787,7 +1912,9 @@
       "post": {
         "summary": "Create Rank Change",
         "description": "Add a rank change entry to a user's logbook and set them to a specific rank if a ranking system is configured.",
-        "tags": ["userbook"],
+        "tags": [
+          "userbook"
+        ],
         "parameters": [
           {
             "name": "workspaceId",
@@ -1805,7 +1932,11 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["userId", "reason", "targetRank"],
+                "required": [
+                  "userId",
+                  "reason",
+                  "targetRank"
+                ],
                 "properties": {
                   "userId": {
                     "type": "integer",
@@ -1842,7 +1973,9 @@
       "get": {
         "summary": "Get Userbook Entries",
         "description": "Returns userbook entries (warnings, promotions, demotions, terminations, rank changes, notes) for the specified workspace with full author and user details.",
-        "tags": ["userbook"],
+        "tags": [
+          "userbook"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1869,7 +2002,15 @@
             "description": "Filter by entry type",
             "schema": {
               "type": "string",
-              "enum": ["warning", "promotion", "demotion", "termination", "rank-change", "note"]
+              "enum": [
+                "warning",
+                "promotion",
+                "demotion",
+                "termination",
+                "rank-change",
+                "resignation",
+                "note"
+              ]
             }
           },
           {
@@ -1914,6 +2055,1038 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/recommendations": {
+      "get": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "List recommendations",
+        "description": "Get a paginated list of recommendations with optional filtering",
+        "operationId": "listRecommendations",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "active",
+                "approved",
+                "rejected",
+                "archived"
+              ]
+            },
+            "description": "Filter by recommendation status"
+          },
+          {
+            "name": "targetUserId",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Filter by target user ID"
+          },
+          {
+            "name": "createdById",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Filter by creator user ID"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "maximum": 100
+            },
+            "description": "Maximum number of results to return"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of results to skip"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "createdAt",
+                "updatedAt"
+              ],
+              "default": "createdAt"
+            },
+            "description": "Field to sort by"
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            },
+            "description": "Sort order"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendationListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Create recommendation",
+        "description": "Create a new recommendation for a member",
+        "operationId": "createRecommendation",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRecommendationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Recommendation created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "recommendation": {
+                      "$ref": "#/components/schemas/Recommendation"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/recommendations/{recommendationId}": {
+      "get": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Get recommendation",
+        "description": "Get a specific recommendation with votes and comments",
+        "operationId": "getRecommendation",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "recommendation": {
+                      "$ref": "#/components/schemas/RecommendationDetailed"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Update recommendation",
+        "description": "Update recommendation status or reason",
+        "operationId": "updateRecommendation",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRecommendationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Recommendation updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "recommendation": {
+                      "$ref": "#/components/schemas/Recommendation"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Delete recommendation",
+        "description": "Delete a recommendation (also deletes all votes and comments)",
+        "operationId": "deleteRecommendation",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "deletedById"
+                ],
+                "properties": {
+                  "deletedById": {
+                    "type": "integer",
+                    "description": "User ID of the person deleting the recommendation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Recommendation deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Recommendation deleted successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/recommendations/{recommendationId}/vote": {
+      "get": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "List votes",
+        "description": "Get all votes for a recommendation",
+        "operationId": "listVotes",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VoteListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Add vote",
+        "description": "Add a vote to a recommendation",
+        "operationId": "addVote",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "userId"
+                ],
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "User ID of the person voting"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Vote added successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "vote": {
+                      "$ref": "#/components/schemas/Vote"
+                    },
+                    "voteCount": {
+                      "type": "integer",
+                      "description": "Total number of votes"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "409": {
+            "description": "User has already voted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "User has already voted on this recommendation"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Remove vote",
+        "description": "Remove a vote from a recommendation",
+        "operationId": "removeVote",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "userId"
+                ],
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "User ID of the person removing their vote"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Vote removed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Vote removed successfully"
+                    },
+                    "voteCount": {
+                      "type": "integer",
+                      "description": "Updated total number of votes"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/recommendations/{recommendationId}/comments": {
+      "get": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "List comments",
+        "description": "Get all comments for a recommendation",
+        "operationId": "listComments",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "maximum": 100
+            },
+            "description": "Maximum number of results to return"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of results to skip"
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            },
+            "description": "Sort order by creation date"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Add comment",
+        "description": "Add a comment to a recommendation",
+        "operationId": "addComment",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCommentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Comment added successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "comment": {
+                      "$ref": "#/components/schemas/Comment"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/recommendations/{recommendationId}/comments/{commentId}": {
+      "get": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Get comment",
+        "description": "Get a specific comment",
+        "operationId": "getComment",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Comment ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "comment": {
+                      "$ref": "#/components/schemas/Comment"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Update comment",
+        "description": "Update a comment's content or image",
+        "operationId": "updateComment",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Comment ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCommentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Comment updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "comment": {
+                      "$ref": "#/components/schemas/Comment"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Delete comment",
+        "description": "Delete a comment from a recommendation",
+        "operationId": "deleteComment",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Comment ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "authorId"
+                ],
+                "properties": {
+                  "authorId": {
+                    "type": "integer",
+                    "description": "User ID of the person deleting the comment"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Comment deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Comment deleted successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
           }
         }
       }
@@ -2476,7 +3649,12 @@
           },
           "status": {
             "type": "string",
-            "enum": ["scheduled", "in-progress", "ended", "missed"]
+            "enum": [
+              "scheduled",
+              "in-progress",
+              "ended",
+              "missed"
+            ]
           }
         }
       },
@@ -2874,7 +4052,14 @@
           },
           "type": {
             "type": "string",
-            "enum": ["note", "warning", "promotion", "demotion", "termination", "rank_change"],
+            "enum": [
+              "note",
+              "warning",
+              "promotion",
+              "demotion",
+              "termination",
+              "rank_change"
+            ],
             "description": "Entry type"
           },
           "reason": {
@@ -3276,6 +4461,393 @@
             }
           }
         }
+      },
+      "Recommendation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique recommendation ID"
+          },
+          "targetUserId": {
+            "type": "integer",
+            "description": "User ID being recommended"
+          },
+          "targetUsername": {
+            "type": "string",
+            "description": "Username of the recommended user"
+          },
+          "targetPicture": {
+            "type": "string",
+            "nullable": true,
+            "description": "Profile picture URL of the recommended user"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for the recommendation"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "approved",
+              "rejected",
+              "archived"
+            ],
+            "description": "Current status of the recommendation"
+          },
+          "createdById": {
+            "type": "integer",
+            "description": "User ID who created the recommendation"
+          },
+          "createdByName": {
+            "type": "string",
+            "nullable": true,
+            "description": "Name of the user who created the recommendation"
+          },
+          "editedById": {
+            "type": "integer",
+            "nullable": true,
+            "description": "User ID who last edited the recommendation"
+          },
+          "editedByName": {
+            "type": "string",
+            "nullable": true,
+            "description": "Name of the user who last edited"
+          },
+          "editedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "When the recommendation was last edited"
+          },
+          "statusChangedById": {
+            "type": "integer",
+            "nullable": true,
+            "description": "User ID who last changed the status"
+          },
+          "statusChangedByName": {
+            "type": "string",
+            "nullable": true,
+            "description": "Name of the user who last changed the status"
+          },
+          "statusChangedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "When the status was last changed"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the recommendation was created"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the recommendation was last updated"
+          },
+          "voteCount": {
+            "type": "integer",
+            "description": "Number of votes"
+          },
+          "commentCount": {
+            "type": "integer",
+            "description": "Number of comments"
+          }
+        }
+      },
+      "RecommendationDetailed": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Recommendation"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "votes": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Vote"
+                }
+              },
+              "comments": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Comment"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Vote": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique vote ID"
+          },
+          "recommendationId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Recommendation ID this vote belongs to"
+          },
+          "userId": {
+            "type": "integer",
+            "description": "User ID who voted"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the vote was created"
+          }
+        }
+      },
+      "Comment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique comment ID"
+          },
+          "recommendationId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Recommendation ID this comment belongs to"
+          },
+          "authorId": {
+            "type": "integer",
+            "description": "User ID of the comment author"
+          },
+          "authorName": {
+            "type": "string",
+            "nullable": true,
+            "description": "Name of the comment author"
+          },
+          "authorPicture": {
+            "type": "string",
+            "nullable": true,
+            "description": "Profile picture URL of the author"
+          },
+          "content": {
+            "type": "string",
+            "description": "Comment text content"
+          },
+          "image": {
+            "type": "string",
+            "nullable": true,
+            "description": "Optional image URL attached to the comment"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the comment was created"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the comment was last updated"
+          }
+        }
+      },
+      "CreateRecommendationRequest": {
+        "type": "object",
+        "required": [
+          "targetUserId",
+          "targetUsername",
+          "reason",
+          "createdById"
+        ],
+        "properties": {
+          "targetUserId": {
+            "type": "integer",
+            "description": "User ID being recommended"
+          },
+          "targetUsername": {
+            "type": "string",
+            "description": "Username of the recommended user"
+          },
+          "targetPicture": {
+            "type": "string",
+            "description": "Profile picture URL (optional)"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for the recommendation"
+          },
+          "createdById": {
+            "type": "integer",
+            "description": "User ID creating the recommendation"
+          },
+          "createdByName": {
+            "type": "string",
+            "description": "Name of the creator (optional)"
+          }
+        }
+      },
+      "UpdateRecommendationRequest": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "approved",
+              "rejected",
+              "archived"
+            ],
+            "description": "New status (requires statusChangedById)"
+          },
+          "statusChangedById": {
+            "type": "integer",
+            "description": "User ID changing the status (required if status is provided)"
+          },
+          "statusChangedByName": {
+            "type": "string",
+            "description": "Name of the user changing status (optional)"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Updated reason (requires editedById)"
+          },
+          "editedById": {
+            "type": "integer",
+            "description": "User ID editing the recommendation (required if reason is provided)"
+          },
+          "editedByName": {
+            "type": "string",
+            "description": "Name of the editor (optional)"
+          }
+        }
+      },
+      "CreateCommentRequest": {
+        "type": "object",
+        "required": [
+          "authorId",
+          "content"
+        ],
+        "properties": {
+          "authorId": {
+            "type": "integer",
+            "description": "User ID of the comment author"
+          },
+          "authorName": {
+            "type": "string",
+            "description": "Name of the author (optional)"
+          },
+          "authorPicture": {
+            "type": "string",
+            "description": "Profile picture URL (optional)"
+          },
+          "content": {
+            "type": "string",
+            "maxLength": 2000,
+            "description": "Comment text (max 2000 characters)"
+          },
+          "image": {
+            "type": "string",
+            "description": "Image URL (optional)"
+          }
+        }
+      },
+      "UpdateCommentRequest": {
+        "type": "object",
+        "required": [
+          "authorId"
+        ],
+        "properties": {
+          "authorId": {
+            "type": "integer",
+            "description": "User ID updating the comment"
+          },
+          "content": {
+            "type": "string",
+            "maxLength": 2000,
+            "description": "Updated comment text (max 2000 characters)"
+          },
+          "image": {
+            "type": "string",
+            "nullable": true,
+            "description": "Updated image URL"
+          }
+        }
+      },
+      "RecommendationListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "recommendations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Recommendation"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "description": "Total number of recommendations"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Number of results per page"
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Number of results skipped"
+          }
+        }
+      },
+      "VoteListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "votes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Vote"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "description": "Total number of votes"
+          }
+        }
+      },
+      "CommentListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "comments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Comment"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "description": "Total number of comments"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Number of results per page"
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Number of results skipped"
+          }
+        }
       }
     },
     "securitySchemes": {
@@ -3283,6 +4855,88 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"
+      }
+    },
+    "responses": {
+      "UnauthorizedError": {
+        "description": "Authentication failed or API key missing",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Invalid API key"
+                }
+              }
+            }
+          }
+        }
+      },
+      "BadRequestError": {
+        "description": "Invalid request parameters",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Missing required fields"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NotFoundError": {
+        "description": "Resource not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Recommendation not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "InternalServerError": {
+        "description": "Internal server error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Internal server error"
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

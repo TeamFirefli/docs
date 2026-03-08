@@ -140,6 +140,23 @@
                 ]
               },
               {
+                "group": "Recommendations",
+                "icon": "star",
+                "pages": [
+                  "/api-references/endpoints/listrecommendations",
+                  "/api-references/endpoints/createrecommendation",
+                  "/api-references/endpoints/getrecommendation",
+                  "/api-references/endpoints/updaterecommendation",
+                  "/api-references/endpoints/deleterecommendation",
+                  "/api-references/endpoints/listvotes",
+                  "/api-references/endpoints/addvote",
+                  "/api-references/endpoints/removevote",
+                  "/api-references/endpoints/listcomments",
+                  "/api-references/endpoints/addcomment",
+                  "/api-references/endpoints/getcomment"
+                ]
+              },
+              {
                 "group": "Userbook",
                 "icon": "book",
                 "pages": [
@@ -279,6 +296,23 @@
                   "/api-references/endpoints/deletenotice",
                   "/api-references/endpoints/getusernotices",
                   "/api-references/endpoints/getnoticesummary"
+                ]
+              },
+              {
+                "group": "Recommendations",
+                "icon": "star",
+                "pages": [
+                  "/api-references/endpoints/listrecommendations",
+                  "/api-references/endpoints/createrecommendation",
+                  "/api-references/endpoints/getrecommendation",
+                  "/api-references/endpoints/updaterecommendation",
+                  "/api-references/endpoints/deleterecommendation",
+                  "/api-references/endpoints/listvotes",
+                  "/api-references/endpoints/addvote",
+                  "/api-references/endpoints/removevote",
+                  "/api-references/endpoints/listcomments",
+                  "/api-references/endpoints/addcomment",
+                  "/api-references/endpoints/getcomment"
                 ]
               },
               {

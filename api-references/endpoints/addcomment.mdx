@@ -1,0 +1,24 @@
+---
+title: "Add Comment"
+openapi: "POST /api/public/v1/workspace/{workspaceId}/recommendations/{recommendationId}/comments"
+description: "Add a comment to a recommendation."
+tags: ["recommendations"]
+icon: "comment-plus"
+---
+
+## Summary
+
+Post a new comment on a recommendation. Comments support text up to 2000 characters and optional image attachments.
+
+## Validation
+
+- Content is required and cannot be empty
+- Maximum content length: 2000 characters
+- Author ID is required for audit tracking
+- Images are optional and should be valid URLs
+
+## Use Cases
+
+- Provide additional context or support for recommendations
+- Discuss qualifications or concerns
+- Build threaded discussion features

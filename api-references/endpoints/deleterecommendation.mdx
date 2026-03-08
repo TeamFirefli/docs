@@ -1,0 +1,22 @@
+---
+title: "Delete Recommendation"
+openapi: "DELETE /api/public/v1/workspace/{workspaceId}/recommendations/{recommendationId}"
+description: "Delete a recommendation and all associated votes and comments."
+tags: ["recommendations"]
+icon: "trash"
+---
+
+## Summary
+
+Permanently delete a recommendation. This action cascades to remove all votes and comments associated with the recommendation.
+
+<Warning>
+  **Destructive Action:** This permanently deletes the recommendation and cannot be undone. All votes and comments will also be deleted.
+</Warning>
+
+## Important Notes
+
+- Requires `deletedById` field to track who performed the deletion
+- All associated votes are automatically deleted
+- All associated comments are automatically deleted
+- Consider using status `archived` instead if you need to preserve history

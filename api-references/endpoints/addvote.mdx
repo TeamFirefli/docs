@@ -1,0 +1,21 @@
+---
+title: "Add Vote"
+openapi: "POST /api/public/v1/workspace/{workspaceId}/recommendations/{recommendationId}/vote"
+description: "Cast a vote in support of a recommendation."
+tags: ["recommendations"]
+icon: "thumbs-up"
+---
+
+## Summary
+
+Add a vote to a recommendation. Users can only vote once per recommendation - duplicate votes return a 409 Conflict error.
+
+## Important Notes
+
+<Info>
+  **Duplicate Prevention:** The API enforces a unique constraint ensuring each user can only vote once per recommendation.
+</Info>
+
+## Response
+
+Returns the created vote and updated total vote count for the recommendation.

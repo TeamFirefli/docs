@@ -1948,7 +1948,7 @@
                   },
                   "targetRank": {
                     "type": "integer",
-                    "description": "Target rank number to set the user to"
+                    "description": "Target role number to set the user to"
                   }
                 }
               }

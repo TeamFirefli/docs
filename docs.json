@@ -377,9 +377,10 @@
   "search": {
     "prompt": "Search Firefli..."
   },
-  "integrations": {
-    "ga4": {
-      "measurementId": "G-9YDDN8QEXZ"
-    }
+  "interaction": {
+    "drilldown": true
+  },
+  "metadata": {
+    "timestamp": true
   }
 }

@@ -1,29 +1,28 @@
 ---
 title: "Sessions"
-description: "Track activity at trainings, sessions, events and more with our Sessions board."
+description: "Display and organise trainings, sessions, events and more with our Sessions feature."
 icon: "bar-chart"
 ---
 
 ## Overview
-Firefli tracks Roblox activity by reading from your exported session logs and syncing them to the workspace timeline. Follow these steps to connect your game with the monitoring pipeline.
+to be written
 
-<div className="flex items-center gap-2 mb-4">
-  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-800 text-sm font-semibold text-slate-100">
-    1
-  </span>
-  <h3 className="!mt-0">Configure the Activity panel</h3>
-</div>
+## Sessions Setup
+to be written
+
+## Session Board
+Firefli now has an open-source sessions board, allowing you easily to display trainings/events inside your game.
+Thanks to @TiiLxm / Planetary for creating the original template.
 
 <Steps>
   <Step>
     <h4>Open Settings</h4>
-    <p>Open **Settings → Activity** from the workspace sidebar.</p>
+    <p>Open **Settings → Sessions** from the workspace sidebar.</p>
   </Step>
   <Step>
-    <h4>Select minimum rank</h4>
-    <p>Select the Roblox group role that represents the lowest rank you wish to monitor.</p>
+    <h4>Select 'Download Module'</h4>
     <Note>
-      Selecting a role includes all ranks that are equal to or higher than it in the tracking window.
+      You configure the Sessions Board in-game.
     </Note>
   </Step>
 </Steps>
@@ -37,16 +36,23 @@ Firefli tracks Roblox activity by reading from your exported session logs and sy
 
 <Steps>
   <Step>
-    <h4>Download the loader</h4>
-    <p>Download the latest loader from the **Activity** panel.</p>
+    <h4>Download the Module</h4>
+    <p>Download the latest module from the **Sessions** panel.</p>
   </Step>
   <Step>
     <h4>Insert into Roblox Studio</h4>
-    <p>In Roblox Studio, right-click **ServerScriptService → Insert from File** and choose the loader.</p>
+    <p>In Roblox Studio, right-click **Workspace → Insert from File** and choose the module.</p>
   </Step>
   <Step>
     <h4>Configure the script</h4>
-    <p>Locate the generated `FirefliActivity` script and open the `Configuration` section. Update fields such as `minutesTillAFK`, `minTrackedRank`, `groupId`, `rankChecking`, `cooldownPeriod`, and `bansEnabled`.</p>
+    <p>Locate the generated `Firefli | Sessions Board` folder, open `Boards`, then your `SessionsBoard`.</p>
+  </Step>
+  <Step>
+    <h4>Navigate to Config</h4>
+    <p>Each `SessionsBoard` should have its own 'Config' file. This allows you to easily configure more than one by duplicating the group.</p>
+    <p>Insert your API Key, created in **Settings** -> **Public API**.</p>
+    <p>Define your groups workspace id (group id).</p>
+    <p>Configure other variabled in the Config file ONLY.</p>
   </Step>
   <Step>
     <h4>Publish your place</h4>
@@ -57,24 +63,6 @@ Firefli tracks Roblox activity by reading from your exported session logs and sy
   </Step>
 </Steps>
 
-<div className="flex items-center gap-2 mb-4">
-  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-800 text-sm font-semibold text-slate-100">
-    3
-  </span>
-  <h3 className="!mt-0">Verify incoming data</h3>
-</div>
-
-<Steps>
-  <Step>
-    <h4>Wait for data</h4>
-    <p>Once published, Firefli polls events from your game. Expect data to arrive within a few minutes—use the Activity feed to confirm members are appearing.</p>
-  </Step>
-</Steps>
-
-<Tip>
-  Use the Activity feed filters to confirm only the expected roles appear before expanding the rank threshold.
-</Tip>
-
 ### Troubleshooting checklist
 - ✅ Script enabled in Roblox Studio.
 - ✅ HTTPS service turned on in your game settings.
@@ -83,7 +71,7 @@ Firefli tracks Roblox activity by reading from your exported session logs and sy
 
 ### Getting support
 - **Firefli App**: Use the live chat in the dashboard for fast replies.
-- **Self-hosted**: Join [Discord](https://discord.gg/WtEkchUKqe) (support channel) and include `X-Request-ID` from the Firefli logs if you hit API errors.
+- **Self-hosted**: Join [Discord](https://discord.gg/firefli) (support channel) and include `X-Request-ID` from the Firefli logs if you hit API errors.
 
 ## Next steps
 <CardGroup cols={3} gap="medium">
@@ -103,7 +91,7 @@ Firefli tracks Roblox activity by reading from your exported session logs and sy
   <Card title="Github" icon="github" href="https://github.com/teamfirefli/firefli/">
     Create a Github issue and let us know about bugs!
   </Card>
-  <Card title="Support" icon="discord" href="https://discord.gg/WtEkchUKqe">
+  <Card title="Support" icon="discord" href="https://discord.gg/firefli">
     Get support from us and members of the community
   </Card>
   <Card title="Livechat" icon="mailbox" href="https://www.firefli.net/">

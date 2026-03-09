@@ -16,7 +16,7 @@
     }
   ],
   "paths": {
-    "/v1/workspace/{id}/info": {
+    "/api/public/v1/workspace/{id}/info": {
       "get": {
         "summary": "Get Workspace Info",
         "description": "Retrieve workspace metadata, branding, and member overview.",
@@ -48,7 +48,7 @@
         }
       }
     },
-    "/v1/workspace/{id}/leaderboard": {
+    "/api/public/v1/workspace/{id}/leaderboard": {
       "get": {
         "summary": "Get Workspace Leaderboard",
         "description": "Retrieve workspace leaderboard data including top players by playtime and sessions.",
@@ -89,7 +89,7 @@
         }
       }
     },
-    "/v1/workspace/{id}/members": {
+    "/api/public/v1/workspace/{id}/members": {
       "get": {
         "summary": "Get Members",
         "description": "Get all workspace members with their roles and permissions",
@@ -148,7 +148,7 @@
         }
       }
     },
-    "/v1/workspace/{id}/birthdays": {
+    "/api/public/v1/workspace/{id}/birthdays": {
       "get": {
         "summary": "Get Birthdays",
         "description": "Retrieve upcoming birthdays from your workspace members",
@@ -197,7 +197,7 @@
         }
       }
     },
-    "/v1/workspace/{id}/activity": {
+    "/api/public/v1/workspace/{id}/activity": {
       "get": {
         "summary": "Get Activity",
         "description": "Retrieve activity logs for workspace members with filtering options",
@@ -274,7 +274,7 @@
         }
       }
     },
-    "/v1/workspace/{id}/user/{userid}/pactivity": {
+    "/api/public/v1/workspace/{id}/user/{userid}/pactivity": {
       "get": {
         "summary": "Get Current Activity",
         "description": "Retrieve detailed activity logs for a specific workspace member",
@@ -324,7 +324,7 @@
         }
       }
     },
-    "/v1/workspace/{id}/user/{userid}/activity": {
+    "/api/public/v1/workspace/{id}/user/{userid}/activity": {
       "get": {
         "summary": "Get User Activity",
         "description": "Retrieve detailed activity logs for a specific workspace member",
@@ -400,7 +400,7 @@
         }
       }
     },
-    "/v1/workspace/{id}/sessions/calendar": {
+    "/api/public/v1/workspace/{id}/sessions/calendar": {
       "get": {
         "summary": "Get Sessions",
         "description": "Retrieve upcoming and past sessions with date and category filtering",
@@ -458,7 +458,7 @@
         }
       }
     },
-    "/v1/workspace/{id}/wall": {
+    "/api/public/v1/workspace/{id}/wall": {
       "get": {
         "summary": "Get Wall",
         "description": "Retrieve workspace wall posts with pagination and author information",
@@ -565,7 +565,7 @@
         }
       }
     },
-    "/v1/workspace/{id}/docs": {
+    "/api/public/v1/workspace/{id}/docs": {
       "get": {
         "summary": "Get Documents",
         "description": "Retrieve all workspace documents and guides with pagination",
@@ -614,7 +614,7 @@
         }
       }
     },
-    "/v1/workspace/{id}/docs/{docid}": {
+    "/api/public/v1/workspace/{id}/docs/{docid}": {
       "get": {
         "summary": "Get Document by ID",
         "description": "Retrieve a specific document with full content, metadata, and author information",

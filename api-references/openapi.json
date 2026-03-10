@@ -3644,7 +3644,34 @@
           "participants": {
             "type": "array",
             "items": {
-              "type": "object"
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "integer",
+                  "description": "The user's Roblox user ID"
+                },
+                "username": {
+                  "type": "string",
+                  "description": "The user's Roblox username"
+                },
+                "thumbnail": {
+                  "type": "string",
+                  "description": "URL to the user's avatar thumbnail"
+                },
+                "slot": {
+                  "type": "integer",
+                  "description": "The slot index the user is assigned to"
+                },
+                "role": {
+                  "type": "string",
+                  "description": "The role/slot ID"
+                },
+                "roleName": {
+                  "type": "string",
+                  "nullable": true,
+                  "description": "The display name of the role/slot"
+                }
+              }
             }
           },
           "status": {

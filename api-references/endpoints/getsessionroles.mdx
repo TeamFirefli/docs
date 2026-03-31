@@ -23,7 +23,11 @@ The response includes:
 - **Roles array**: Each role includes:
   - `roleId`: Unique identifier for the role
   - `roleName`: Display name of the role
-  - `totalSlots`: Number of available slots for this role
+  - `maxSlots`: Number of available slots for this role
+  - `weight`: Display order weight for this role (lower = higher up)
+  - `categoryId`: ID of the category this role belongs to, or `null` for uncategorised roles
+  - `categoryName`: Display name of the category, or `null`
+  - `categoryWeight`: Display order weight of the category (lower = higher up; uncategorised roles always appear last)
   - `assignments`: Array of user assignments with slot numbers
 
 ## Example Use Cases

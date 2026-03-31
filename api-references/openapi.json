@@ -3608,6 +3608,24 @@
                     },
                     "slots": {
                       "type": "integer"
+                    },
+                    "weight": {
+                      "type": "integer",
+                      "description": "Display order weight for this slot (lower = higher up)"
+                    },
+                    "categoryId": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "ID of the category this slot belongs to, or null"
+                    },
+                    "categoryName": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "Display name of the category, or null for uncategorised slots"
+                    },
+                    "categoryWeight": {
+                      "type": "integer",
+                      "description": "Display order weight of the category (uncategorised slots always appear last)"
                     }
                   }
                 }
@@ -3674,6 +3692,24 @@
                   "type": "string",
                   "nullable": true,
                   "description": "The display name of the role/slot"
+                },
+                "weight": {
+                  "type": "integer",
+                  "description": "Display order weight of the assigned role"
+                },
+                "categoryId": {
+                  "type": "string",
+                  "nullable": true,
+                  "description": "ID of the category for the assigned role, or null"
+                },
+                "categoryName": {
+                  "type": "string",
+                  "nullable": true,
+                  "description": "Display name of the category for the assigned role, or null"
+                },
+                "categoryWeight": {
+                  "type": "integer",
+                  "description": "Display order weight of the assigned role's category"
                 }
               }
             }
@@ -4296,8 +4332,27 @@
                     "roleName": {
                       "type": "string"
                     },
-                    "totalSlots": {
-                      "type": "integer"
+                    "maxSlots": {
+                      "type": "integer",
+                      "description": "Number of available slots for this role"
+                    },
+                    "weight": {
+                      "type": "integer",
+                      "description": "Display order weight for this role (lower = higher up)"
+                    },
+                    "categoryId": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "ID of the category this role belongs to, or null"
+                    },
+                    "categoryName": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "Display name of the category, or null for uncategorised roles"
+                    },
+                    "categoryWeight": {
+                      "type": "integer",
+                      "description": "Display order weight of the category (uncategorised roles always appear last)"
                     },
                     "assignments": {
                       "type": "array",

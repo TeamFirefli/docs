@@ -17,3 +17,23 @@ Session 'status' returns are automatically updated every minute. By default, Fir
 | in-progress | Session start time has been met.            |
 | scheduled   | Session is upcoming.                        |
 | missed      | Session passed with no assignments          |
+
+## Response Structure
+
+Each session object in the response includes:
+- **Session metadata**: ID, name, type, date, duration, status, host, tag
+- **slots array**: Role slots defined on the session type, each including:
+  - `id`: Unique slot identifier
+  - `name`: Display name of the role
+  - `slots`: Number of available slots
+  - `weight`: Display order weight (lower = higher up)
+  - `categoryId`: ID of the category, or `null` for uncategorised
+  - `categoryName`: Display name of the category, or `null`
+  - `categoryWeight`: Display order weight of the category (uncategorised slots always appear last)
+- **participants array**: Users assigned to the session, each including:
+  - `userId`, `username`, `thumbnail`
+  - `slot`: Slot index the user occupies
+  - `role`: The slot ID
+  - `roleName`: Display name of the slot
+  - `weight`: Weight of the assigned role
+  - `categoryId`, `categoryName`, `categoryWeight`: Category info for the assigned role

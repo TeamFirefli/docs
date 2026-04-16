@@ -125,7 +125,7 @@ NEXTAUTH_URL="" - Your Domain/Connection URL (e.g. https://domain.domain.com - n
     <h4>Initialize Database</h4>
 
 ```
-npx prisma db push
+npx prisma migrate deploy && npx prisma generate
 ```
   </Step>
 

@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "willow",
+  "theme": "aspen",
   "name": "Firefli",
   "colors": {
     "primary": "#3498db",
@@ -16,7 +16,7 @@
     "links": [
       {
         "label": "Support",
-        "href": "https://discord.gg/WtEkchUKqe",
+        "href": "https://discord.gg/firefli",
         "icon": "discord"
       }
     ],
@@ -337,7 +337,7 @@
           "anchors": [
             {
               "anchor": "Comunidad",
-              "href": "https://discord.gg/WtEkchUKqe",
+              "href": "https://discord.gg/firefli",
               "icon": "discord"
             },
             {
@@ -359,7 +359,7 @@
     "404": {
       "redirect": false,
       "title": "Page Not Found",
-      "description": "Oops! The page you're looking for doesn't exist. Check out our [documentation](/) or join our [community](https://discord.gg/WtEkchUKqe) for help."
+      "description": "Oops! The page you're looking for doesn't exist. Check out our [documentation](/) or join our [community](https://discord.gg/firefli) for help."
     }
   },
   "redirects": [

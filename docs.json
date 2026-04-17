@@ -104,6 +104,7 @@
                 "icon": "clock",
                 "pages": [
                   "/api-references/endpoints/getsessions",
+                  "/api-references/endpoints/getsessionrolesets",
                   "/api-references/endpoints/getsessionroles",
                   "/api-references/endpoints/assignsessionroles",
                   "/api-references/endpoints/createunscheduledsession",
@@ -264,6 +265,7 @@
                 "icon": "clock",
                 "pages": [
                   "/api-references/endpoints/getsessions",
+                  "/api-references/endpoints/getsessionrolesets",
                   "/api-references/endpoints/getsessionroles",
                   "/api-references/endpoints/assignsessionroles",
                   "/api-references/endpoints/createunscheduledsession",

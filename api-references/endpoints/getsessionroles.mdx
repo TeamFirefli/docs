@@ -1,44 +1,35 @@
 ---
 title: "Get Session Roles"
 openapi: "GET /api/public/v1/workspace/{workspaceId}/sessions/{sessionId}/roles"
-description: "Retrieve a session with all role assignments and slot information."
+description: "Retrieve a session with all role slot definitions and current user assignments."
 tags: ["sessions"]
 icon: "users"
 ---
 
 ## Summary
 
-Fetch detailed information about a session including all defined role slots and their current assignments. This endpoint returns the session metadata along with a structured view of all roles, showing which users are assigned to each slot.
-
-Use this endpoint to:
-- View all role slots defined in a session's type
-- Check which users are assigned to specific roles
-- See available slots for role assignments
-- Get user information for all assigned participants
+Fetch all role slots defined on a session's type along with their current user assignments. Use this endpoint to:
+- Get slot UUIDs needed for [Assign Session Roles](/api-references/endpoints/assignsessionroles)
+- Check which slots are occupied and how many remain
+- See `hostRole` to identify primary/secondary host slots vs regular participant slots
 
 ## Response Structure
 
-The response includes:
-- **Session details**: ID, name, date, owner information
-- **Roles array**: Each role includes:
-  - `roleId`: Unique identifier for the role
-  - `roleName`: Display name of the role
-  - `maxSlots`: Number of available slots for this role
-  - `weight`: Display order weight for this role (lower = higher up)
-  - `categoryId`: ID of the category this role belongs to, or `null` for uncategorised roles
-  - `categoryName`: Display name of the category, or `null`
-  - `categoryWeight`: Display order weight of the category (lower = higher up; uncategorised roles always appear last)
-  - `assignments`: Array of user assignments with slot numbers
+The `roles` array contains every slot defined on the session type:
 
-## Example Use Cases
+| Field | Type | Description |
+| :---- | :--- | :---------- |
+| `roleId` | string (UUID) | Slot identifier — use this as `roleId` in assign requests |
+| `roleName` | string | Display name of the role |
+| `hostRole` | `"primary"` \| `"secondary"` \| `null` | Host designation — `null` for regular participant roles |
+| `maxSlots` | integer | Total number of slots available for this role |
+| `weight` | integer | Display order weight (lower = higher up) |
+| `categoryId` | string \| null | Category UUID, or `null` for uncategorised |
+| `categoryName` | string \| null | Category display name |
+| `categoryWeight` | integer | Display order weight of the category |
+| `assignments` | array | Users currently assigned to this role |
 
-**Check available co-host slots:**
-```bash
-GET /api/public/v1/workspace/752856518/sessions/{sessionId}/roles
-```
+Each entry in `assignments`:
+- `userId`, `username`, `displayName`, `picture`
+- `slot` — the zero-based slot index the user occupies
 
-**View all trainers assigned to a session:**
-Filter the roles array for the "trainer" roleId and check assignments.
-
-**Verify session capacity:**
-Compare the number of assignments to totalSlots for each role.

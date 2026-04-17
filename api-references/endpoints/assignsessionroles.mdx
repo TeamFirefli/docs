@@ -1,73 +1,67 @@
 ---
 title: "Assign Session Roles"
 openapi: "POST /api/public/v1/workspace/{workspaceId}/sessions/{sessionId}/assign"
-description: "Assign or unassign users to session roles, or update the session host."
+description: "Assign or unassign users to session role slots."
 tags: ["sessions"]
 icon: "user-plus"
 ---
 
 ## Summary
 
-Manage user assignments for session roles or change the session host. This endpoint supports two distinct operations:
+Assign or unassign users to specific role slots within a session. Use [Get Session Roles](/api-references/endpoints/getsessionroles) to retrieve valid slot IDs and slot indices for the session.
 
-1. **Role Assignment/Unassignment**: Add or remove users from specific role slots (co-host, trainer, etc.)
-2. **Host Change**: Update the session's primary owner/host
+All operations are logged as audit entries.
 
-Both operations automatically create activity log entries to track changes.
+## Request Body
 
-## Assignment Operations
+All four fields are required:
 
-### Assign User to Role
+| Field | Type | Description |
+| :---- | :--- | :---------- |
+| `action` | `"assign"` \| `"unassign"` | Whether to add or remove the user |
+| `userId` | string | Roblox user ID — does not need to be a workspace member |
+| `roleId` | string (UUID) | Slot UUID from the session type. Get this from [Get Session Roles](/api-references/endpoints/getsessionroles) or [Get Session Role Sets](/api-references/endpoints/getsessionrolesets) |
+| `slot` | integer | Zero-based slot index within the role |
 
-Assign a user to a specific role slot:
+### Assign a user
 
 ```json
 {
   "action": "assign",
   "userId": "12345678",
-  "roleId": "cohost",
+  "roleId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "slot": 0
 }
 ```
 
-- `action`: Must be "assign"
-- `userId`: Roblox user ID (does not need to be workspace member)
-- `roleId`: Role identifier from session type (e.g., "cohost", "trainer")
-- `slot`: Zero-based slot index for this role
-
-### Unassign User from Role
-
-Remove a user from a role slot:
+### Unassign a user
 
 ```json
 {
   "action": "unassign",
   "userId": "12345678",
-  "roleId": "cohost",
+  "roleId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "slot": 0
 }
 ```
 
-### Change Session Host
-
-Update the session's owner:
-
-```json
-{
-  "ownerId": "87654321"
-}
-```
-
-## Important Notes
-
-- **No workspace membership required**: Users can be assigned to roles even if they're not workspace members
-- **Activity logging**: All assignments create audit log entries
-- **Slot validation**: Slot numbers must be within the role's defined slot count
-- **Duplicate prevention**: Cannot assign the same user to the same role+slot combination
-
 ## Response
 
-Returns the updated session with:
-- Updated owner information (if host changed)
-- Complete list of all role assignments
-- User details for all assigned participants
+Returns the full updated session split by host designation:
+
+### `primaryHost`
+The user currently in the `"primary"` host slot, or `null` if unassigned.
+- `userId`, `username`, `displayName`, `picture`
+- `roleId` — slot UUID
+- `slot` — slot index
+
+### `secondaryHosts`
+Array of users in `"secondary"` host slots (co-hosts).
+- Same shape as `primaryHost`
+
+### `participants`
+Array of users in regular slots (`hostRole: null`).
+- `userId`, `username`, `displayName`, `picture`
+- `roleId`, `roleName`, `slot`
+- `weight`, `categoryId`, `categoryName`, `categoryWeight`
+

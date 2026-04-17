@@ -1,14 +1,16 @@
 ---
 title: "Create Unscheduled Session"
 openapi: "POST /api/public/v1/workspace/{workspaceId}/sessions/create-unscheduled"
-description: "Create an unscheduled session with optional inline session type creation."
+description: "Create an unscheduled session, optionally creating a new session type inline using role set IDs."
 tags: ["sessions"]
 icon: "calendar-plus"
 ---
 
 ## Summary
 
-Create an unscheduled (one-time) session with flexible session type handling. You can either reference an existing session type or create a new one inline with custom role slots and statuses.
+Create an unscheduled (one-time) session. You can reference an existing session type by ID or create a new session type inline by referencing role sets from the workspace.
+
+To create inline, first use [Get Session Role Sets](/api-references/endpoints/getsessionrolesets) to retrieve the IDs of the roles you want to include.
 
 ## Two Creation Modes
 
@@ -27,29 +29,23 @@ Reference an existing session type by ID:
 
 ### Mode 2: Create Session Type Inline
 
-Define a new session type with the session:
+Define a new session type using role set IDs from the workspace:
 
 ```json
 {
   "sessionType": {
     "name": "Special Training",
     "description": "One-time special training event",
-    "slots": [
-      {
-        "id": "cohost",
-        "name": "Co-Host",
-        "number": 2
-      },
-      {
-        "id": "trainer",
-        "name": "Trainer",
-        "number": 3
-      }
+    "roleSetIds": [
+      "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "b2c3d4e5-f6a7-8901-bcde-f12345678901"
     ],
     "statues": [
       {
         "id": "completed",
-        "name": "Completed"
+        "name": "Completed",
+        "color": "green",
+        "timeAfter": 0
       }
     ]
   },
@@ -58,6 +54,8 @@ Define a new session type with the session:
   "ownerId": "123456"
 }
 ```
+
+Use [Get Session Role Sets](/api-references/endpoints/getsessionrolesets) to find the IDs. Each role set carries its name, host role designation (primary/secondary/none), slot count, and category.
 
 ## Parameters
 
@@ -68,25 +66,22 @@ Define a new session type with the session:
 ### Optional
 - **time**: Session time in HH:MM format (24-hour UTC). Defaults to 00:00 if omitted
 - **name**: Custom session name (overrides session type name)
-- **type**: Session category (default: "other")
-- **ownerId**: Session host user ID
+- **type**: Session category (default: `"other"`)
+- **ownerId**: Session host user ID (Roblox user ID)
 - **duration**: Session length in minutes (default: 30)
-- **sessionTagId**: Tag UUID for categorization
-- **logs**: Array of initial status entries
+- **sessionTagId**: Tag UUID for categorisation
+- **logs**: Array of initial log entries
 
-## Session Type Object
+## Session Type Object (inline creation)
 
-When creating inline, the `sessionType` object supports:
-
-- **name** (required): Session type name
+- **name** *(required)*: Session type name
 - **description**: Session type description
-- **slots**: Array of role definitions
-  - `id`: Unique role identifier
-  - `name`: Display name
-  - `number`: Number of slots for this role
+- **roleSetIds**: Array of role set UUIDs from [Get Session Role Sets](/api-references/endpoints/getsessionrolesets). Each role set defines the role name, host designation, slot count, and eligible Roblox group roles. Omit or pass an empty array for a session with no role slots.
 - **statues**: Array of custom status definitions
   - `id`: Status identifier
   - `name`: Status display name
+  - `color`: Status colour
+  - `timeAfter`: Minutes after session start when this status activates
 
 ## Activity Logging
 
@@ -94,16 +89,16 @@ The endpoint automatically creates:
 1. A `session_created` log entry with creation metadata
 2. Any additional log entries provided in the `logs` array
 
-## Example: Training with Roles
+## Example: Training with Role Sets
 
 ```json
 {
   "sessionType": {
     "name": "Advanced Combat Training",
-    "slots": [
-      {"id": "cohost", "name": "Co-Host", "number": 1},
-      {"id": "trainer", "name": "Trainer", "number": 3},
-      {"id": "assistant", "name": "Assistant", "number": 2}
+    "roleSetIds": [
+      "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+      "c3d4e5f6-a7b8-9012-cdef-123456789012"
     ]
   },
   "date": "2026-03-20",
@@ -119,4 +114,5 @@ The endpoint automatically creates:
 }
 ```
 
-This creates a complete session with defined roles ready for assignments.
+This creates a session whose role slots are driven by the workspace role set configuration, including primary/secondary host designations.
+

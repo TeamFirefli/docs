@@ -1213,51 +1213,27 @@
           "content": {
             "application/json": {
               "schema": {
-                "oneOf": [
-                  {
-                    "type": "object",
-                    "required": [
-                      "action",
-                      "userId",
-                      "roleId",
-                      "slot"
-                    ],
-                    "properties": {
-                      "action": {
-                        "type": "string",
-                        "enum": [
-                          "assign",
-                          "unassign"
-                        ],
-                        "description": "Action to perform"
-                      },
-                      "userId": {
-                        "type": "string",
-                        "description": "Roblox user ID"
-                      },
-                      "roleId": {
-                        "type": "string",
-                        "description": "Role ID from session type slots"
-                      },
-                      "slot": {
-                        "type": "integer",
-                        "description": "Slot number (0-based index)"
-                      }
-                    }
+                "type": "object",
+                "required": ["action", "userId", "roleId", "slot"],
+                "properties": {
+                  "action": {
+                    "type": "string",
+                    "enum": ["assign", "unassign"],
+                    "description": "Whether to assign or unassign the user"
                   },
-                  {
-                    "type": "object",
-                    "required": [
-                      "ownerId"
-                    ],
-                    "properties": {
-                      "ownerId": {
-                        "type": "string",
-                        "description": "New session owner/host user ID"
-                      }
-                    }
+                  "userId": {
+                    "type": "string",
+                    "description": "Roblox user ID of the user to assign/unassign"
+                  },
+                  "roleId": {
+                    "type": "string",
+                    "description": "Slot UUID from the session type (use GET /sessions/sets or GET /sessions/{sessionId}/roles to get slot IDs)"
+                  },
+                  "slot": {
+                    "type": "integer",
+                    "description": "Zero-based slot index within the role"
                   }
-                ]
+                }
               }
             }
           }
@@ -1276,10 +1252,68 @@
         }
       }
     },
+    "/api/public/v1/workspace/{workspaceId}/sessions/sets": {
+      "get": {
+        "summary": "Get Session Role Sets",
+        "description": "Retrieve all active session role sets (role templates) for a workspace. Use the returned IDs in roleSetIds when creating sessions inline.",
+        "tags": [
+          "sessions"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Role sets retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "roleSets": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "string", "format": "uuid", "description": "Role set UUID — use this in roleSetIds" },
+                          "name": { "type": "string", "description": "Role display name" },
+                          "hostRole": { "type": "string", "nullable": true, "enum": ["primary", "secondary", null], "description": "Host designation: primary host, secondary/co-host, or null for regular participant" },
+                          "slots": { "type": "integer", "description": "Number of slots for this role" },
+                          "weight": { "type": "integer", "description": "Display order weight (lower = higher)" },
+                          "groupRoles": { "type": "array", "items": { "type": "integer" }, "description": "Eligible Roblox group role IDs" },
+                          "category": {
+                            "nullable": true,
+                            "type": "object",
+                            "properties": {
+                              "id": { "type": "string", "format": "uuid" },
+                              "name": { "type": "string" },
+                              "weight": { "type": "integer" }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/public/v1/workspace/{workspaceId}/sessions/create-unscheduled": {
       "post": {
         "summary": "Create Unscheduled Session",
-        "description": "Create an unscheduled session with optional inline session type creation.",
+        "description": "Create an unscheduled session, optionally creating a new session type inline using role set IDs from Get Session Role Sets.",
         "tags": [
           "sessions"
         ],
@@ -1324,30 +1358,12 @@
                         "type": "string",
                         "description": "Session type description"
                       },
-                      "slots": {
+                      "roleSetIds": {
                         "type": "array",
-                        "description": "Role slots for the session",
+                        "description": "Array of role set UUIDs from Get Session Role Sets. Defines the role slots for the session including primary/secondary host designations.",
                         "items": {
-                          "type": "object",
-                          "required": [
-                            "id",
-                            "name",
-                            "number"
-                          ],
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "description": "Role ID"
-                            },
-                            "name": {
-                              "type": "string",
-                              "description": "Role name"
-                            },
-                            "number": {
-                              "type": "integer",
-                              "description": "Number of slots for this role"
-                            }
-                          }
+                          "type": "string",
+                          "format": "uuid"
                         }
                       },
                       "statues": {
@@ -1356,12 +1372,10 @@
                         "items": {
                           "type": "object",
                           "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
+                            "id": { "type": "string" },
+                            "name": { "type": "string" },
+                            "color": { "type": "string" },
+                            "timeAfter": { "type": "integer", "description": "Minutes after session start" }
                           }
                         }
                       }
@@ -1441,7 +1455,7 @@
     "/api/public/v1/workspace/{workspaceId}/sessions/create-scheduled": {
       "post": {
         "summary": "Create Scheduled Session",
-        "description": "Create a scheduled session with optional inline session type and schedule creation.",
+        "description": "Create a scheduled session, optionally creating a new session type and schedule inline using role set IDs from Get Session Role Sets.",
         "tags": [
           "sessions"
         ],
@@ -1487,30 +1501,12 @@
                         "type": "string",
                         "description": "Session type description"
                       },
-                      "slots": {
+                      "roleSetIds": {
                         "type": "array",
-                        "description": "Role slots for the session",
+                        "description": "Array of role set UUIDs from Get Session Role Sets. Defines the role slots for the session including primary/secondary host designations.",
                         "items": {
-                          "type": "object",
-                          "required": [
-                            "id",
-                            "name",
-                            "number"
-                          ],
-                          "properties": {
-                            "id": {
-                              "type": "string",
-                              "description": "Role ID"
-                            },
-                            "name": {
-                              "type": "string",
-                              "description": "Role name"
-                            },
-                            "number": {
-                              "type": "integer",
-                              "description": "Number of slots for this role"
-                            }
-                          }
+                          "type": "string",
+                          "format": "uuid"
                         }
                       },
                       "statues": {
@@ -1519,12 +1515,10 @@
                         "items": {
                           "type": "object",
                           "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
+                            "id": { "type": "string" },
+                            "name": { "type": "string" },
+                            "color": { "type": "string" },
+                            "timeAfter": { "type": "integer", "description": "Minutes after session start" }
                           }
                         }
                       },
@@ -3609,6 +3603,12 @@
                     "slots": {
                       "type": "integer"
                     },
+                    "hostRole": {
+                      "type": "string",
+                      "nullable": true,
+                      "enum": ["primary", "secondary", null],
+                      "description": "Host designation: primary host, secondary/co-host, or null for regular participant roles"
+                    },
                     "weight": {
                       "type": "integer",
                       "description": "Display order weight for this slot (lower = higher up)"
@@ -3648,23 +3648,35 @@
               }
             }
           },
-          "host": {
+          "primaryHost": {
             "type": "object",
             "nullable": true,
+            "description": "The primary host of the session — user assigned to the slot with hostRole 'primary'",
             "properties": {
-              "userId": {
-                "type": "integer"
-              },
-              "username": {
-                "type": "string"
-              },
-              "thumbnail": {
-                "type": "string"
+              "userId": { "type": "integer" },
+              "username": { "type": "string" },
+              "thumbnail": { "type": "string" },
+              "roleId": { "type": "string", "description": "The slot ID the primary host is assigned to" },
+              "slot": { "type": "integer", "description": "Slot index" }
+            }
+          },
+          "secondaryHosts": {
+            "type": "array",
+            "description": "Co-hosts — users assigned to slots with hostRole 'secondary'",
+            "items": {
+              "type": "object",
+              "properties": {
+                "userId": { "type": "integer" },
+                "username": { "type": "string" },
+                "thumbnail": { "type": "string" },
+                "roleId": { "type": "string", "description": "The slot ID the secondary host is assigned to" },
+                "slot": { "type": "integer", "description": "Slot index" }
               }
             }
           },
           "participants": {
             "type": "array",
+            "description": "Regular participants — users assigned to slots with no host designation (hostRole is null)",
             "items": {
               "type": "object",
               "properties": {
@@ -3680,18 +3692,18 @@
                   "type": "string",
                   "description": "URL to the user's avatar thumbnail"
                 },
-                "slot": {
-                  "type": "integer",
-                  "description": "The slot index the user is assigned to"
-                },
-                "role": {
+                "roleId": {
                   "type": "string",
-                  "description": "The role/slot ID"
+                  "description": "The slot ID"
                 },
                 "roleName": {
                   "type": "string",
                   "nullable": true,
-                  "description": "The display name of the role/slot"
+                  "description": "Display name of the slot"
+                },
+                "slot": {
+                  "type": "integer",
+                  "description": "The slot index the user is assigned to"
                 },
                 "weight": {
                   "type": "integer",
@@ -4284,101 +4296,45 @@
       "SessionRolesResponse": {
         "type": "object",
         "properties": {
-          "success": {
-            "type": "boolean"
-          },
+          "success": { "type": "boolean" },
           "session": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string",
-                "format": "uuid"
-              },
-              "name": {
-                "type": "string"
-              },
-              "date": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "ownerId": {
-                "type": "string"
-              },
-              "owner": {
-                "type": "object",
-                "properties": {
-                  "userId": {
-                    "type": "string"
-                  },
-                  "username": {
-                    "type": "string"
-                  },
-                  "displayName": {
-                    "type": "string"
-                  },
-                  "picture": {
-                    "type": "string"
-                  }
-                }
-              },
+              "id": { "type": "string", "format": "uuid" },
+              "name": { "type": "string" },
+              "type": { "type": "string" },
+              "date": { "type": "string", "format": "date-time" },
+              "duration": { "type": "integer" },
+              "sessionTypeName": { "type": "string" },
               "roles": {
                 "type": "array",
+                "description": "All role slots defined on this session's type, each with their current assignments",
                 "items": {
                   "type": "object",
                   "properties": {
-                    "roleId": {
-                      "type": "string"
-                    },
-                    "roleName": {
-                      "type": "string"
-                    },
-                    "maxSlots": {
-                      "type": "integer",
-                      "description": "Number of available slots for this role"
-                    },
-                    "weight": {
-                      "type": "integer",
-                      "description": "Display order weight for this role (lower = higher up)"
-                    },
-                    "categoryId": {
+                    "roleId": { "type": "string", "description": "Slot UUID" },
+                    "roleName": { "type": "string", "description": "Display name of the role" },
+                    "hostRole": {
                       "type": "string",
                       "nullable": true,
-                      "description": "ID of the category this role belongs to, or null"
+                      "enum": ["primary", "secondary", null],
+                      "description": "Host designation: primary host, secondary/co-host, or null for regular participant roles"
                     },
-                    "categoryName": {
-                      "type": "string",
-                      "nullable": true,
-                      "description": "Display name of the category, or null for uncategorised roles"
-                    },
-                    "categoryWeight": {
-                      "type": "integer",
-                      "description": "Display order weight of the category (uncategorised roles always appear last)"
-                    },
+                    "maxSlots": { "type": "integer", "description": "Number of available slots for this role" },
+                    "weight": { "type": "integer", "description": "Display order weight (lower = higher up)" },
+                    "categoryId": { "type": "string", "nullable": true, "description": "ID of the category this role belongs to, or null" },
+                    "categoryName": { "type": "string", "nullable": true, "description": "Display name of the category, or null for uncategorised" },
+                    "categoryWeight": { "type": "integer", "description": "Display order weight of the category (uncategorised always last)" },
                     "assignments": {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "properties": {
-                          "slot": {
-                            "type": "integer"
-                          },
-                          "user": {
-                            "type": "object",
-                            "properties": {
-                              "userId": {
-                                "type": "string"
-                              },
-                              "username": {
-                                "type": "string"
-                              },
-                              "displayName": {
-                                "type": "string"
-                              },
-                              "picture": {
-                                "type": "string"
-                              }
-                            }
-                          }
+                          "userId": { "type": "string", "description": "Roblox user ID" },
+                          "username": { "type": "string" },
+                          "displayName": { "type": "string" },
+                          "picture": { "type": "string" },
+                          "slot": { "type": "integer", "description": "Slot index (0-based)" }
                         }
                       }
                     }
@@ -4392,69 +4348,59 @@
       "SessionAssignResponse": {
         "type": "object",
         "properties": {
-          "success": {
-            "type": "boolean"
-          },
-          "message": {
-            "type": "string"
-          },
+          "success": { "type": "boolean" },
+          "message": { "type": "string" },
           "session": {
             "type": "object",
             "properties": {
-              "id": {
-                "type": "string",
-                "format": "uuid"
-              },
-              "name": {
-                "type": "string"
-              },
-              "date": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "ownerId": {
-                "type": "string"
-              },
-              "owner": {
+              "id": { "type": "string", "format": "uuid" },
+              "name": { "type": "string" },
+              "date": { "type": "string", "format": "date-time" },
+              "primaryHost": {
                 "type": "object",
+                "nullable": true,
+                "description": "User assigned to the slot with hostRole 'primary'",
                 "properties": {
-                  "userId": {
-                    "type": "string"
-                  },
-                  "username": {
-                    "type": "string"
-                  },
-                  "displayName": {
-                    "type": "string"
-                  },
-                  "picture": {
-                    "type": "string"
-                  }
+                  "userId": { "type": "string" },
+                  "username": { "type": "string" },
+                  "displayName": { "type": "string" },
+                  "picture": { "type": "string" },
+                  "roleId": { "type": "string", "description": "Slot UUID" },
+                  "slot": { "type": "integer" }
                 }
               },
-              "assignments": {
+              "secondaryHosts": {
                 "type": "array",
+                "description": "Users assigned to slots with hostRole 'secondary'",
                 "items": {
                   "type": "object",
                   "properties": {
-                    "userId": {
-                      "type": "string"
-                    },
-                    "username": {
-                      "type": "string"
-                    },
-                    "displayName": {
-                      "type": "string"
-                    },
-                    "picture": {
-                      "type": "string"
-                    },
-                    "roleId": {
-                      "type": "string"
-                    },
-                    "slot": {
-                      "type": "integer"
-                    }
+                    "userId": { "type": "string" },
+                    "username": { "type": "string" },
+                    "displayName": { "type": "string" },
+                    "picture": { "type": "string" },
+                    "roleId": { "type": "string", "description": "Slot UUID" },
+                    "slot": { "type": "integer" }
+                  }
+                }
+              },
+              "participants": {
+                "type": "array",
+                "description": "Users assigned to slots with no host designation (hostRole is null)",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "userId": { "type": "string" },
+                    "username": { "type": "string" },
+                    "displayName": { "type": "string" },
+                    "picture": { "type": "string" },
+                    "roleId": { "type": "string", "description": "Slot UUID" },
+                    "roleName": { "type": "string", "nullable": true },
+                    "slot": { "type": "integer" },
+                    "weight": { "type": "integer" },
+                    "categoryId": { "type": "string", "nullable": true },
+                    "categoryName": { "type": "string", "nullable": true },
+                    "categoryWeight": { "type": "integer" }
                   }
                 }
               }

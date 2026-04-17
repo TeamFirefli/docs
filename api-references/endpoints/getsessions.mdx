@@ -8,32 +8,47 @@ icon: "calendar"
 
 ## Summary
 
-Fetch workspace sessions organized by date. Filter by date range and session category to find specific events.
-Session 'status' returns are automatically updated every minute. By default, Firefli already runs the current statuses:
+Fetch workspace sessions organised by date. Filter by date range and session category to find specific events.
 
-| **Status**  | **Description**                             |
-| :---------  | :------------------------------------------ |
-| ended       | Session has passed, and ended.              |
-| in-progress | Session start time has been met.            |
-| scheduled   | Session is upcoming.                        |
-| missed      | Session passed with no assignments          |
+Session `status` is computed automatically:
+
+| **Status**    | **Description**                        |
+| :------------ | :------------------------------------- |
+| `scheduled`   | Session is upcoming                    |
+| `in-progress` | Session start time has been met        |
+| `ended`       | Session has passed and ended           |
+| `missed`      | Session passed with no assignments     |
 
 ## Response Structure
 
-Each session object in the response includes:
-- **Session metadata**: ID, name, type, date, duration, status, host, tag
-- **slots array**: Role slots defined on the session type, each including:
-  - `id`: Unique slot identifier
+Each session object includes:
+
+### `type` object
+- `id`, `description`, `category`, `gameId`
+- **`slots`** — role slots defined on the session type:
+  - `id`: Slot identifier (UUID from the role set)
   - `name`: Display name of the role
   - `slots`: Number of available slots
+  - `hostRole`: `"primary"`, `"secondary"`, or `null` — indicates host designation
   - `weight`: Display order weight (lower = higher up)
-  - `categoryId`: ID of the category, or `null` for uncategorised
-  - `categoryName`: Display name of the category, or `null`
-  - `categoryWeight`: Display order weight of the category (uncategorised slots always appear last)
-- **participants array**: Users assigned to the session, each including:
-  - `userId`, `username`, `thumbnail`
-  - `slot`: Slot index the user occupies
-  - `role`: The slot ID
-  - `roleName`: Display name of the slot
-  - `weight`: Weight of the assigned role
-  - `categoryId`, `categoryName`, `categoryWeight`: Category info for the assigned role
+  - `categoryId`, `categoryName`, `categoryWeight`: Category grouping info
+
+### `primaryHost`
+The user assigned to the slot with `hostRole: "primary"`. `null` if unassigned.
+- `userId`, `username`, `thumbnail`
+- `roleId`: The slot ID they are assigned to
+- `slot`: Slot index
+
+### `secondaryHosts`
+Array of users assigned to slots with `hostRole: "secondary"` (co-hosts).
+- `userId`, `username`, `thumbnail`
+- `roleId`: The slot ID they are assigned to
+- `slot`: Slot index
+
+### `participants`
+Array of users assigned to slots with **no host designation** (`hostRole: null`) — regular role assignments only.
+- `userId`, `username`, `thumbnail`
+- `roleId`: The slot ID
+- `roleName`: Display name of the slot
+- `slot`: Slot index
+- `weight`, `categoryId`, `categoryName`, `categoryWeight`

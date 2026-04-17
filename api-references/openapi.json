@@ -274,6 +274,38 @@
         }
       }
     },
+    "/api/public/v1/workspace/{id}/lastreset": {
+      "get": {
+        "summary": "Get Activity Reset Status",
+        "description": "Retrieve the latest activity reset time and the next scheduled reset time for this workspace",
+        "tags": [
+          "activity"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Activity reset status response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityResetStatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/public/v1/workspace/{id}/user/{userid}/pactivity": {
       "get": {
         "summary": "Get Current Activity",
@@ -3301,6 +3333,55 @@
                 }
               }
             }
+          }
+        }
+      },
+      "ActivityResetStatusResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "reset": {
+            "type": "object",
+            "properties": {
+              "lastResetAt": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "previousPeriodStart": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "previousPeriodEnd": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              }
+            }
+          },
+          "schedule": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean"
+              },
+              "day": {
+                "type": "string",
+                "nullable": true
+              },
+              "frequency": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          },
+          "nextResetAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
           }
         }
       },

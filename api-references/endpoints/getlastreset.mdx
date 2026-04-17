@@ -1,0 +1,16 @@
+---
+title: "Get Activity Reset Status"
+openapi: "GET /api/public/v1/workspace/{id}/lastreset"
+description: "Retrieve the most recent activity reset timestamp and the next scheduled reset time."
+tags: ["activity"]
+icon: "calendar-clock"
+---
+
+## Summary
+
+Returns activity reset metadata for a workspace in one response:
+
+- The latest recorded reset time.
+- The prior reset period window (if available).
+- The configured reset schedule.
+- The computed next reset time based on schedule day/frequency.

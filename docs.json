@@ -96,7 +96,8 @@
                 "pages": [
                   "/api-references/endpoints/getactivity",
                   "/api-references/endpoints/getuseractivity",
-                  "/api-references/endpoints/getcurrentactivity"
+                  "/api-references/endpoints/getcurrentactivity",
+                  "/api-references/endpoints/getlastreset"
                 ]
               },
               {
@@ -257,7 +258,8 @@
                 "pages": [
                   "/api-references/endpoints/getactivity",
                   "/api-references/endpoints/getuseractivity",
-                  "/api-references/endpoints/getcurrentactivity"
+                  "/api-references/endpoints/getcurrentactivity",
+                  "/api-references/endpoints/getlastreset"
                 ]
               },
               {

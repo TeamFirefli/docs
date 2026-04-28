@@ -8,4 +8,6 @@ icon: "plus"
 
 ## Summary
 
-Create a new timeoff notice for a workspace member. The notice will be created in pending status awaiting review.
+Create a new timeoff notice for a workspace member.
+
+By default, notices are **auto-approved**. Pass `reviewed: false` in the request body to leave the notice in a pending state, requiring a manager to manually approve or reject it.

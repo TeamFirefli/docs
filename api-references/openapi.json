@@ -965,6 +965,11 @@
                   "reason": {
                     "type": "string",
                     "description": "Reason for timeoff"
+                  },
+                  "reviewed": {
+                    "type": "boolean",
+                    "description": "Whether the notice should be auto-approved. Defaults to `true` (auto-approved). Set to `false` to leave the notice pending for a manager to review.",
+                    "default": true
                   }
                 }
               }

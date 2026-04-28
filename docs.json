@@ -98,7 +98,9 @@
                   "/api-references/endpoints/getactivity",
                   "/api-references/endpoints/getuseractivity",
                   "/api-references/endpoints/getcurrentactivity",
-                  "/api-references/endpoints/getlastreset"
+                  "/api-references/endpoints/getlastreset",
+                  "/api-references/endpoints/startactivity",
+                  "/api-references/endpoints/endactivity"
                 ]
               },
               {
@@ -260,7 +262,9 @@
                   "/api-references/endpoints/getactivity",
                   "/api-references/endpoints/getuseractivity",
                   "/api-references/endpoints/getcurrentactivity",
-                  "/api-references/endpoints/getlastreset"
+                  "/api-references/endpoints/getlastreset",
+                  "/api-references/endpoints/startactivity",
+                  "/api-references/endpoints/endactivity"
                 ]
               },
               {

@@ -432,6 +432,147 @@
         }
       }
     },
+    "/api/public/v1/workspace/{id}/user/{userid}/activity/start": {
+      "post": {
+        "summary": "Start Activity",
+        "description": "Start an activity session for a specific workspace member at the given UTC time.",
+        "tags": [
+          "activity"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "description": "Roblox User ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["time"],
+                "properties": {
+                  "time": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "UTC ISO 8601 timestamp for when the session starts",
+                    "example": "2026-04-28T14:00:00.000Z"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Activity session started",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StartActivityResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or missing parameters"
+          },
+          "401": {
+            "description": "Invalid or missing API key"
+          },
+          "404": {
+            "description": "User not found in this workspace"
+          },
+          "409": {
+            "description": "User already has an active session in this workspace"
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/user/{userid}/activity/end": {
+      "post": {
+        "summary": "End Activity",
+        "description": "End the active activity session for a specific workspace member at the given UTC time.",
+        "tags": [
+          "activity"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "description": "Roblox User ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["time"],
+                "properties": {
+                  "time": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "UTC ISO 8601 timestamp for when the session ends",
+                    "example": "2026-04-28T15:30:00.000Z"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Activity session ended",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EndActivityResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or missing parameters, or end time is before start time"
+          },
+          "401": {
+            "description": "Invalid or missing API key"
+          },
+          "404": {
+            "description": "No active session found for this user in this workspace"
+          }
+        }
+      }
+    },
     "/api/public/v1/workspace/{id}/sessions/calendar": {
       "get": {
         "summary": "Get Sessions",
@@ -3120,6 +3261,46 @@
   },
   "components": {
     "schemas": {
+      "StartActivityResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "session": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "ID of the newly created activity session",
+                "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+              }
+            }
+          }
+        }
+      },
+      "EndActivityResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "session": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "ID of the ended activity session",
+                "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+              }
+            }
+          }
+        }
+      },
       "WorkspaceInfoResponse": {
         "type": "object",
         "properties": {

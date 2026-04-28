@@ -1,0 +1,13 @@
+---
+title: "End Activity"
+openapi: "POST /api/public/v1/workspace/{id}/user/{userid}/activity/end"
+description: "End the active activity session for a workspace member at a specific UTC time."
+tags: ["activity"]
+icon: "square"
+---
+
+## Summary
+
+End the currently active activity session for a specific user in a workspace. The `time` field must be a valid UTC ISO 8601 timestamp and must be after the session's start time.
+
+If the user has no active session in the workspace, the request will return a `404 Not Found` error.

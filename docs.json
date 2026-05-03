@@ -65,7 +65,8 @@
                   "/workspace/oauth",
                   "/workspace/external",
                   "/workspace/notices",
-                  "/workspace/policies"
+                  "/workspace/policies",
+                  "/workspace/bot"
                 ]
               }
             ]
@@ -229,7 +230,8 @@
                   "/workspace/oauth",
                   "/workspace/external",
                   "/workspace/notices",
-                  "/workspace/policies"
+                  "/workspace/policies",
+                  "/workspace/bot"
                 ]
               }
             ]

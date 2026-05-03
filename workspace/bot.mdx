@@ -1,0 +1,75 @@
+---
+title: "Discord Sessions"
+description: "Setup the Discord bot inside your server to post messages and events."
+icon: "bell"
+---
+
+## Getting Started
+Install the bot to your guild using this setup link.
+https://discord.com/oauth2/authorize?client_id=1499467051104866435
+
+### Connecting your Workspace
+<Steps>
+  <Step>
+    <h4>Create an API key</h4>
+    <p>Navigate to the **Settings** -> **Public API** section in your workspace.</p>
+    <p>Create a new API Key and save the value.</p>
+  </Step>
+  <Step>
+    <h4>Run ``/setup credentials`` in any channel</h4>
+    <p>Provide your API Key, Group (Workspace ID) and optionally a base url (for those self hosting).</p>
+  </Step>
+  <Step>
+    <h4>Verify the connection with ``/test``.</h4>
+    <p>This should return All systems operational!</p>
+  </Step>
+</Steps>
+
+
+## Channels
+You can either assign ALL Session types to one channel, or select a channel per type.
+
+### All Sessions
+<Steps>
+  <Step>
+    <h4>Navigate to your preferred channel.</h4>
+  </Step>
+  <Step>
+    <h4>Run ``/setup global``.</h4>
+    <p>All sessions will post to your current channel.</p>
+  </Step>
+</Steps>
+
+### Per-Type Sessions
+<Steps>
+  <Step>
+    <h4>Run ``/setup per-type``.</h4>
+    <p>An embed will appear with buttons.</p>
+  </Step>
+  <Step>
+    <h4>Select a button to edit a type.</h4>
+  </Step>
+  <Step>
+    <h4>Select a designated channel.</h4>
+    <p>Complete this for all session types.</p>
+  </Step>
+  <Step>
+    <h4>Select confirm & save.</h4>
+  </Step>
+</Steps>
+
+## Bot Customisation
+will do soon
+
+## **Need help?**
+<CardGroup cols={3}>
+  <Card title="Github" icon="github" href="https://github.com/teamfirefli/firefli/">
+    Create a Github issue and let us know about bugs!
+  </Card>
+  <Card title="Support" icon="discord" href="https://discord.gg/WtEkchUKqe">
+    Get support from us and members of the community
+  </Card>
+  <Card title="Livechat" icon="mailbox" href="https://www.firefli.net/">
+    Reach out to us directly on our Livechat.
+  </Card>
+</CardGroup>

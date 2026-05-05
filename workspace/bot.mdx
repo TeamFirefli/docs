@@ -29,37 +29,42 @@ https://discord.com/oauth2/authorize?client_id=1499467051104866435
 ## Channels
 You can either assign ALL Session types to one channel, or select a channel per type.
 
-### All Sessions
 <Steps>
   <Step>
-    <h4>Navigate to your preferred channel.</h4>
-  </Step>
-  <Step>
-    <h4>Run ``/setup global``.</h4>
-    <p>All sessions will post to your current channel.</p>
+    <h4>Run ``/setup channels``.</h4>
+    <p>You'll need to insert a session type.</p>
+    <p>Use either global (for all), or pick individual channels for each type e.g. shift/training/event.</p>
   </Step>
 </Steps>
 
-### Per-Type Sessions
+## Images
+You can assign an image to ALL/Individual Session types that will be posted with your sessions
 <Steps>
   <Step>
-    <h4>Run ``/setup per-type``.</h4>
-    <p>An embed will appear with buttons.</p>
-  </Step>
-  <Step>
-    <h4>Select a button to edit a type.</h4>
-  </Step>
-  <Step>
-    <h4>Select a designated channel.</h4>
-    <p>Complete this for all session types.</p>
-  </Step>
-  <Step>
-    <h4>Select confirm & save.</h4>
+    <h4>Run ``/setup image``.</h4>
+    <p>You'll need to insert a session type.</p>
+    <p>* Use either global (for all), or pick individual channels for each type e.g. shift/training/event.</p>
+    <p>* Insert an image url for selected type(s).</p>
   </Step>
 </Steps>
 
 ## Bot Customisation
-will do soon
+There are various different aspects that can be customised on this bot.
+``/setup settings`` will display a full menu.
+
+### require_host
+  True - Requires an assigned host to post notifications
+  False - Does not require a host for notifications
+
+### deletedelay
+  Time (Minutes) - How many minutes after the session concludes should the message delete? (default 0)
+
+### alert
+  Time (Minutes) - How many minutes before the session starts should the message post? (default 0)
+
+### format
+  embed - Post sessions as an embed
+  text - Post sessions as plain text
 
 ## **Need help?**
 <CardGroup cols={3}>

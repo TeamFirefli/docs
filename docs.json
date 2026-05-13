@@ -175,6 +175,16 @@
                   "/api-references/endpoints/postuserbooktermination",
                   "/api-references/endpoints/postuserbookrankchange"
                 ]
+              },
+              {
+                "group": "Moderation",
+                "icon": "shield",
+                "pages": [
+                  "/api-references/endpoints/createmoderationcase",
+                  "/api-references/endpoints/getusermoderationhistory",
+                  "/api-references/endpoints/getlivepunishments",
+                  "/api-references/endpoints/revokemoderationcase"
+                ]
               }
             ]
           }

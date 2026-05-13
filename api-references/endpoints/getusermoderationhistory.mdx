@@ -1,0 +1,23 @@
+---
+title: "Get User Case History"
+openapi: "GET /api/public/v1/workspace/{id}/moderation/user/{userId}"
+description: "Returns moderation cases for a specific Roblox user, up to 200 results ordered by most recent first."
+tags: ["moderation"]
+icon: "shield-search"
+---
+
+## Summary
+
+Fetch the full moderation history for a Roblox user within a workspace. Returns up to 200 cases ordered by most recent first.
+
+Use the `current=true` query parameter to check only **active bans** — this filters to `perm_ban` and `temp_ban` cases that have not expired or been revoked, and cross-checks against the live `PlayerBan` enforcement table.
+
+<Info>
+  Revoked cases include a populated `revoked` object with who revoked the case, when, and why.
+</Info>
+
+## Use Cases
+
+- **Ban check before joining a game** — call with `current=true` to check if a player has an active ban
+- **Appeal review** — fetch the full history to review prior moderation actions
+- **External moderation bots** — sync case data to a Discord bot or external system

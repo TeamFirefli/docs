@@ -3262,6 +3262,229 @@
           }
         }
       }
+    },
+    "/api/public/v1/workspace/{id}/moderation/cases": {
+      "post": {
+        "summary": "Create Moderation Case",
+        "description": "Create a new moderation case for a Roblox user and log an audit entry.",
+        "operationId": "createModerationCase",
+        "tags": ["moderation"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["targetUserId", "authorUserId", "reason"],
+                "properties": {
+                  "targetUserId": { "type": "integer", "description": "Roblox user ID of the target" },
+                  "authorUserId": { "type": "integer", "description": "Roblox user ID of the moderator" },
+                  "reason": { "type": "string", "description": "Short reason for the case" },
+                  "targetUsername": { "type": "string", "description": "Display username of the target" },
+                  "description": { "type": "string", "description": "Detailed description" },
+                  "status": {
+                    "type": "string",
+                    "enum": ["open", "resolved", "appealed", "archived"],
+                    "default": "open"
+                  },
+                  "action": {
+                    "type": "string",
+                    "enum": ["warning", "kick", "timeout", "ban"]
+                  },
+                  "publicNote": { "type": "string" },
+                  "banDuration": { "type": "integer", "description": "Ban duration in seconds" },
+                  "isPermanent": { "type": "boolean", "default": false },
+                  "expiresAt": { "type": "string", "format": "date-time" }
+                }
+              },
+              "example": {
+                "targetUserId": 123456789,
+                "authorUserId": 987654321,
+                "reason": "Exploiting in-game",
+                "action": "ban",
+                "isPermanent": false,
+                "banDuration": 86400,
+                "expiresAt": "2026-05-14T00:00:00Z"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Case created successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ModerationCaseResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequestError" },
+          "401": { "$ref": "#/components/responses/UnauthorizedError" },
+          "405": { "description": "Method not allowed" },
+          "500": { "$ref": "#/components/responses/InternalServerError" }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/moderation/user/{userId}": {
+      "get": {
+        "summary": "Get User Case History",
+        "description": "Returns moderation cases for a specific Roblox user (up to 200, most recent first). Use `current=true` to return only active bans.",
+        "operationId": "getUserModerationHistory",
+        "tags": ["moderation"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "Roblox user ID to look up",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "current",
+            "in": "query",
+            "description": "If true, only returns active (non-expired, non-revoked) bans",
+            "schema": { "type": "boolean" }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "ISO 8601 — filter cases created after this date",
+            "schema": { "type": "string", "format": "date-time" }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "ISO 8601 — filter cases created before this date",
+            "schema": { "type": "string", "format": "date-time" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Case history returned successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserModerationHistoryResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequestError" },
+          "401": { "$ref": "#/components/responses/UnauthorizedError" },
+          "405": { "description": "Method not allowed" },
+          "500": { "$ref": "#/components/responses/InternalServerError" }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/moderation/live": {
+      "get": {
+        "summary": "Get Live Punishments",
+        "description": "Returns all resolved kick and ban cases since the given timestamp that have an active enforcement record. Intended for game servers to poll for punishments to enforce.",
+        "operationId": "getLivePunishments",
+        "tags": ["moderation"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "required": true,
+            "description": "ISO 8601 timestamp — returns punishments resolved after this time",
+            "schema": { "type": "string", "format": "date-time" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Live punishments returned successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/LivePunishmentsResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequestError" },
+          "401": { "$ref": "#/components/responses/UnauthorizedError" },
+          "405": { "description": "Method not allowed" },
+          "500": { "$ref": "#/components/responses/InternalServerError" }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/moderation/cases/{caseId}/revoke": {
+      "post": {
+        "summary": "Revoke Moderation Case",
+        "description": "Revokes a moderation case, recording who revoked it and the reason. A case that has already been revoked cannot be revoked again.",
+        "operationId": "revokeModerationCase",
+        "tags": ["moderation"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "caseId",
+            "in": "path",
+            "required": true,
+            "description": "Unique case ID (CUID)",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["revokedByUserId", "reason"],
+                "properties": {
+                  "revokedByUserId": { "type": "integer", "description": "Roblox user ID of the person revoking the case" },
+                  "reason": { "type": "string", "description": "Reason for the revocation" }
+                }
+              },
+              "example": {
+                "revokedByUserId": 111111111,
+                "reason": "Appeal approved — false positive"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Case revoked successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/RevokeResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequestError" },
+          "401": { "$ref": "#/components/responses/UnauthorizedError" },
+          "404": { "$ref": "#/components/responses/NotFoundError" },
+          "405": { "description": "Method not allowed" },
+          "500": { "$ref": "#/components/responses/InternalServerError" }
+        }
+      }
     }
   },
   "components": {
@@ -5145,6 +5368,118 @@
           "offset": {
             "type": "integer",
             "description": "Number of results skipped"
+          }
+        }
+      },
+      "ModerationCase": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "description": "Unique case ID (CUID)" },
+          "targetUserId": { "type": "integer" },
+          "targetUsername": { "type": "string", "nullable": true },
+          "authorUserId": { "type": "integer" },
+          "reason": { "type": "string" },
+          "description": { "type": "string", "nullable": true },
+          "status": { "type": "string", "enum": ["open", "resolved", "appealed", "archived"] },
+          "action": { "type": "string", "nullable": true, "enum": ["warning", "kick", "timeout", "ban", "temp_ban", "perm_ban"] },
+          "publicNote": { "type": "string", "nullable": true },
+          "banDuration": { "type": "integer", "nullable": true },
+          "isPermanent": { "type": "boolean" },
+          "expiresAt": { "type": "string", "format": "date-time", "nullable": true },
+          "createdAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "ModerationCaseDetailed": {
+        "allOf": [
+          { "$ref": "#/components/schemas/ModerationCase" },
+          {
+            "type": "object",
+            "properties": {
+              "author": {
+                "type": "object",
+                "properties": {
+                  "userId": { "type": "integer" },
+                  "username": { "type": "string", "nullable": true }
+                }
+              },
+              "resolvedAt": { "type": "string", "format": "date-time", "nullable": true },
+              "revoked": {
+                "nullable": true,
+                "type": "object",
+                "properties": {
+                  "at": { "type": "string", "format": "date-time" },
+                  "reason": { "type": "string", "nullable": true },
+                  "by": {
+                    "nullable": true,
+                    "type": "object",
+                    "properties": {
+                      "userId": { "type": "integer" },
+                      "username": { "type": "string", "nullable": true }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ModerationCaseResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "data": { "$ref": "#/components/schemas/ModerationCase" }
+        }
+      },
+      "UserModerationHistoryResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "data": {
+            "type": "object",
+            "properties": {
+              "userId": { "type": "integer" },
+              "total": { "type": "integer" },
+              "cases": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/ModerationCaseDetailed" }
+              }
+            }
+          }
+        }
+      },
+      "LivePunishment": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "userId": { "type": "integer" },
+          "action": { "type": "string", "enum": ["kick", "temp_ban", "perm_ban"] },
+          "reason": { "type": "string" },
+          "isPermanent": { "type": "boolean" },
+          "expiresAt": { "type": "string", "format": "date-time", "nullable": true }
+        }
+      },
+      "LivePunishmentsResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "data": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/LivePunishment" }
+          }
+        }
+      },
+      "RevokeResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "revokedAt": { "type": "string", "format": "date-time" },
+              "revokedBy": { "type": "integer" },
+              "revokeReason": { "type": "string" }
+            }
           }
         }
       }

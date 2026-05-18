@@ -21,3 +21,14 @@ Use the `current=true` query parameter to check only **active bans** — this fi
 - **Ban check before joining a game** — call with `current=true` to check if a player has an active ban
 - **Appeal review** — fetch the full history to review prior moderation actions
 - **External moderation bots** — sync case data to a Discord bot or external system
+
+## Place Restrictions
+
+Each case includes a `placeIds` field — an array of Roblox place ID strings. An empty array means the case applies to **all places**. Use this field when enforcing game-specific bans server-side.
+
+```json
+{
+  "placeIds": ["123456789"],
+  "action": "temp_ban"
+}
+```

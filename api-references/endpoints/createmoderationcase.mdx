@@ -20,5 +20,13 @@ Submit a moderation case against a Roblox user. The case is logged to the audit 
 |---|---|
 | `warning` | Informal warning — no enforcement |
 | `kick` | Kick from the game |
-| `temp_ban` | Temporary Ban (use with or `expiresAt`) |
-| `perm_ban` | Permanant Ban (use with `isPermanent`) |
+| `temp_ban` | Temporary Ban (use with `expiresAt`) |
+| `perm_ban` | Permanent Ban (use with `isPermanent: true`) |
+
+## Place Restrictions
+
+Pass a `placeIds` array of Roblox place IDs (as strings) to restrict the punishment to specific games. Omit the field or pass an empty array to apply the case across **all places**.
+
+| Field | Type | Description |
+|---|---|---|
+| `placeIds` | `string[]` | Roblox place IDs to restrict this case to. Empty = all places. |

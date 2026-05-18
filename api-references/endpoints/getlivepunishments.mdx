@@ -38,7 +38,24 @@ local function pollPunishments()
     local data = HttpService:JSONDecode(result)
     lastPoll = DateTime.now():ToIsoDate()
     for _, punishment in ipairs(data.data) do
-        -- enforce punishment.action on punishment.userId
+        -- Check placeIds: empty array means enforce everywhere
+        local placeIds = punishment.placeIds or {}
+        local appliesToThisPlace = #placeIds == 0
+        if not appliesToThisPlace then
+            for _, pid in ipairs(placeIds) do
+                if tostring(game.PlaceId) == pid then
+                    appliesToThisPlace = true
+                    break
+                end
+            end
+        end
+        if appliesToThisPlace then
+            -- enforce punishment.action on punishment.userId
+        end
     end
 end
 ```
+
+## Place Restrictions
+
+Each punishment includes a `placeIds` field — an array of Roblox place ID strings. An **empty array** means the punishment applies to all places. When `placeIds` is non-empty, only enforce the punishment if `game.PlaceId` matches one of the listed IDs.

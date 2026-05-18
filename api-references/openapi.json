@@ -3298,22 +3298,24 @@
                   },
                   "action": {
                     "type": "string",
-                    "enum": ["warning", "kick", "timeout", "ban"]
+                    "enum": ["warning", "kick", "temp_ban", "perm_ban"]
                   },
                   "publicNote": { "type": "string" },
                   "banDuration": { "type": "integer", "description": "Ban duration in seconds" },
                   "isPermanent": { "type": "boolean", "default": false },
-                  "expiresAt": { "type": "string", "format": "date-time" }
+                  "expiresAt": { "type": "string", "format": "date-time" },
+                  "placeIds": { "type": "array", "items": { "type": "string" }, "description": "Restrict this punishment to specific Roblox place IDs. Omit or pass an empty array for all places.", "example": ["123456789"] }
                 }
               },
               "example": {
                 "targetUserId": 123456789,
                 "authorUserId": 987654321,
                 "reason": "Exploiting in-game",
-                "action": "ban",
+                "action": "temp_ban",
                 "isPermanent": false,
                 "banDuration": 86400,
-                "expiresAt": "2026-05-14T00:00:00Z"
+                "expiresAt": "2026-05-14T00:00:00Z",
+                "placeIds": ["123456789"]
               }
             }
           }
@@ -5381,11 +5383,12 @@
           "reason": { "type": "string" },
           "description": { "type": "string", "nullable": true },
           "status": { "type": "string", "enum": ["open", "resolved", "appealed", "archived"] },
-          "action": { "type": "string", "nullable": true, "enum": ["warning", "kick", "timeout", "ban", "temp_ban", "perm_ban"] },
+          "action": { "type": "string", "nullable": true, "enum": ["warning", "kick", "temp_ban", "perm_ban"] },
           "publicNote": { "type": "string", "nullable": true },
           "banDuration": { "type": "integer", "nullable": true },
           "isPermanent": { "type": "boolean" },
           "expiresAt": { "type": "string", "format": "date-time", "nullable": true },
+          "placeIds": { "type": "array", "items": { "type": "string" }, "description": "Roblox place IDs this punishment is restricted to. Empty array means all places.", "example": ["123456789"] },
           "createdAt": { "type": "string", "format": "date-time" }
         }
       },
@@ -5455,7 +5458,8 @@
           "action": { "type": "string", "enum": ["kick", "temp_ban", "perm_ban"] },
           "reason": { "type": "string" },
           "isPermanent": { "type": "boolean" },
-          "expiresAt": { "type": "string", "format": "date-time", "nullable": true }
+          "expiresAt": { "type": "string", "format": "date-time", "nullable": true },
+          "placeIds": { "type": "array", "items": { "type": "string" }, "description": "Roblox place IDs this punishment is restricted to. Empty array means all places.", "example": [] }
         }
       },
       "LivePunishmentsResponse": {

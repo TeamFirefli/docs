@@ -1,0 +1,23 @@
+---
+title: "Create Recommendation"
+openapi: "POST /api/public/v1/workspace/{workspaceId}/recommendations"
+description: "Create a new recommendation for a workspace member."
+tags: ["recommendations"]
+icon: "plus"
+---
+
+## Summary
+
+Create a new recommendation to recognize member achievements and nominate them for promotions. Requires target user information, reason, and creator identification for audit trails.
+
+## Important Notes
+
+<Warning>
+  The `createdById` field is required to track who created the recommendation. Ensure proper authentication before allowing users to create recommendations.
+</Warning>
+
+## Use Cases
+
+- Build automated recommendation systems based on performance metrics
+- Create nominations via external tools or integrations
+- Implement recommendation workflows in custom dashboards

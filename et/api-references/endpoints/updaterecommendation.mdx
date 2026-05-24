@@ -1,0 +1,26 @@
+---
+title: "Update Recommendation"
+openapi: "PATCH /api/public/v1/workspace/{workspaceId}/recommendations/{recommendationId}"
+description: "Update a recommendation's status or reason with full audit tracking."
+tags: ["recommendations"]
+icon: "pen"
+---
+
+## Summary
+
+Modify recommendation status (approve, reject, archive) or edit the reason text. All changes require user identification for audit trails and track who made changes and when.
+
+## Important Notes
+
+<Warning>
+  **Required Fields:**
+  - When changing `status`: must provide `statusChangedById`
+  - When changing `reason`: must provide `editedById`
+</Warning>
+
+## Status Values
+
+- `active` - Recommendation is open and accepting votes/comments
+- `approved` - Recommendation has been approved
+- `rejected` - Recommendation has been rejected
+- `archived` - Recommendation has been archived

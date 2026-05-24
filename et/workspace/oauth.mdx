@@ -1,0 +1,87 @@
+---
+description: "Signing in could never be easier. Firefli now supports Roblox OAuth allowing users to signin with two clicks!"
+title: "OAuth"
+icon: "key"
+---
+
+<Warning>
+  Roblox only allows up to 10 authenticated users by default.
+
+  You'll need to Verify your application to allow more.\
+  👉 [Click here to learn more](https://create.roblox.com/docs/cloud/auth/oauth2-overview)
+</Warning>
+
+### Open Cloud
+<Steps>
+  <Step>
+    <h4>Create OAuth Application</h4>
+    <p>You'll require an active Open Cloud OAuth Application to link with Firefli. Create an application [here](https://create.roblox.com/dashboard/credentials?activeTab=OAuthTab).</p>
+  </Step>
+  <Step>
+    <h4>Name your application</h4>
+    <p>Name the application name something unique. This will be displayed to everyone that uses it so pick wisely!</p>
+  </Step>
+  <Step>
+    <h4>Save credentials</h4>
+    <p>Save both Client ID and Secret (You'll need this later).</p>
+  </Step>
+  <Step>
+    <h4>Fill out details</h4>
+    <p>Fill out the relevant details, you can use our Policy links. Replace 'instance' with your unique Instance name.</p>
+
+```
+Entry Link:
+https://your.domain.com/login
+
+Privacy Policy:
+https://www.firefli.net/privacy
+
+Terms of Service:
+https://www.firefli.net/terms
+```
+  </Step>
+  <Step>
+    <h4>Select scopes</h4>
+    <p>In the scopes section, select **OpenID** and **Profile**.</p>
+  </Step>
+  <Step>
+    <h4>Setup redirect URL</h4>
+    <p>Setup a redirect URL (e.g. https://your.domain.com/api/auth/roblox/callback).</p>
+  </Step>
+  <Step>
+    <h4>Review and Publish</h4>
+    <p>Press Review and Publish! This will trigger Roblox moderation to test your signin page.</p>
+  </Step>
+</Steps>
+
+### Firefli Settings
+<Steps>
+  <Step>
+    <h4>Enter credentials</h4>
+    <p>You'll need to add your credentials securely to your projects .env</p>
+  </Step>
+  <Step>
+    <h4>Env Variables</h4>
+    <p>ROBLOX_CLIENT_ID – Roblox oAuth ID (e.g. 1312974419555602493 .)</p>
+    <p>ROBLOX_CLIENT_SECRET – Your client secret (e.g. RBX-GLEmbz3yrU.. .)</p>
+    <p>ROBLOX_REDIRECT_URI – Your Domain Callback URI (e.g. https://your.domain.com/api/auth/roblox/callback .)</p>
+    <p>ROBLOX_OAUTH_ONLY – Force oAuth as only login method (e.g. true/false .)</p>
+  </Step>
+  <Step>
+    <h4>Complete!</h4>
+    <p>Firefli will now show a Signin / Signup with Roblox button on your Login page!</p>
+  </Step>
+</Steps>
+
+## **Need help?**
+<CardGroup cols={3}>
+  <Card title="Github" icon="github" href="https://github.com/teamfirefli/firefli/">
+    Create a Github issue and let us know about bugs!
+  </Card>
+  <Card title="Support" icon="discord" href="https://discord.gg/WtEkchUKqe">
+    Get support from us and members of the community
+  </Card>
+  <Card title="Livechat" icon="mailbox" href="https://www.firefli.net/">
+    Reach out to us directly on our Livechat.
+  </Card>
+</CardGroup>

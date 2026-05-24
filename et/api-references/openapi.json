@@ -1,0 +1,5581 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Firefli API",
+    "description": "Firefli workspace management API for members, activity, sessions, content, and alliances",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://app.firefli.net"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/api/public/v1/workspace/{id}/info": {
+      "get": {
+        "summary": "Get Workspace Info",
+        "description": "Retrieve workspace metadata, branding, and member overview.",
+        "tags": [
+          "general"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Workspace info response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceInfoResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/leaderboard": {
+      "get": {
+        "summary": "Get Workspace Leaderboard",
+        "description": "Retrieve workspace leaderboard data including top players by playtime and sessions.",
+        "tags": [
+          "general"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "description": "User ID to include their position in the 'you' object",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Leaderboard response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeaderboardResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/members": {
+      "get": {
+        "summary": "Get Members",
+        "description": "Get all workspace members with their roles and permissions",
+        "tags": [
+          "general"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number (default: 1)",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Items per page (default: 50, max: 100)",
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "description": "Filter by role ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Members list response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MembersResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/birthdays": {
+      "get": {
+        "summary": "Get Birthdays",
+        "description": "Retrieve upcoming birthdays from your workspace members",
+        "tags": [
+          "general"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "referencedate",
+            "in": "query",
+            "description": "Filter by date (e.g., 2024-01-01T00:00:00Z)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "filterDay",
+            "in": "query",
+            "description": "Amount of days requested (e.g., 7)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Birthdays response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BirthdaysResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/activity": {
+      "get": {
+        "summary": "Get Activity",
+        "description": "Retrieve activity logs for workspace members with filtering options",
+        "tags": [
+          "activity"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Filter by start date (e.g., 2024-01-01T00:00:00Z)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "Filter by end date (e.g., 2024-01-31T23:59:59Z)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "Filter by user ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number (default: 1)",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Items per page (default: 50, max: 100)",
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Activity response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/lastreset": {
+      "get": {
+        "summary": "Get Activity Reset Status",
+        "description": "Retrieve the latest activity reset time and the next scheduled reset time for this workspace",
+        "tags": [
+          "activity"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Activity reset status response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActivityResetStatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/user/{userid}/pactivity": {
+      "get": {
+        "summary": "Get Current Activity",
+        "description": "Retrieve detailed activity logs for a specific workspace member",
+        "tags": [
+          "activity"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "description": "User ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User Current activity response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserCurrentActivityResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/user/{userid}/activity": {
+      "get": {
+        "summary": "Get User Activity",
+        "description": "Retrieve detailed activity logs for a specific workspace member",
+        "tags": [
+          "activity"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "description": "User ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Filter by start date",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "Filter by end date",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User activity response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserActivityResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/user/{userid}/activity/start": {
+      "post": {
+        "summary": "Start Activity",
+        "description": "Start an activity session for a specific workspace member at the given UTC time.",
+        "tags": [
+          "activity"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "description": "Roblox User ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["time"],
+                "properties": {
+                  "time": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "UTC ISO 8601 timestamp for when the session starts",
+                    "example": "2026-04-28T14:00:00.000Z"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Activity session started",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StartActivityResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or missing parameters"
+          },
+          "401": {
+            "description": "Invalid or missing API key"
+          },
+          "404": {
+            "description": "User not found in this workspace"
+          },
+          "409": {
+            "description": "User already has an active session in this workspace"
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/user/{userid}/activity/end": {
+      "post": {
+        "summary": "End Activity",
+        "description": "End the active activity session for a specific workspace member at the given UTC time.",
+        "tags": [
+          "activity"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "description": "Roblox User ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["time"],
+                "properties": {
+                  "time": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "UTC ISO 8601 timestamp for when the session ends",
+                    "example": "2026-04-28T15:30:00.000Z"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Activity session ended",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EndActivityResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or missing parameters, or end time is before start time"
+          },
+          "401": {
+            "description": "Invalid or missing API key"
+          },
+          "404": {
+            "description": "No active session found for this user in this workspace"
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/sessions/calendar": {
+      "get": {
+        "summary": "Get Sessions",
+        "description": "Retrieve upcoming and past sessions with date and category filtering",
+        "tags": [
+          "sessions"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Filter by start date",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "Filter by end date",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Filter by session type (lowercase)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sessions response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/wall": {
+      "get": {
+        "summary": "Get Wall",
+        "description": "Retrieve workspace wall posts with pagination and author information",
+        "tags": [
+          "content"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Wall posts response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WallResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Post Wall",
+        "description": "Create a new wall post with optional image attachment",
+        "tags": [
+          "content"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "content",
+                  "authorId"
+                ],
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "description": "Post text"
+                  },
+                  "authorId": {
+                    "type": "integer",
+                    "description": "User ID (must be workspace member)"
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "Image URL"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Post created response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/docs": {
+      "get": {
+        "summary": "Get Documents",
+        "description": "Retrieve all workspace documents and guides with pagination",
+        "tags": [
+          "content"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Documents list response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/docs/{docid}": {
+      "get": {
+        "summary": "Get Document by ID",
+        "description": "Retrieve a specific document with full content, metadata, and author information",
+        "tags": [
+          "content"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "docid",
+            "in": "path",
+            "required": true,
+            "description": "Document ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Document response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/notices": {
+      "get": {
+        "summary": "List Notices",
+        "description": "Retrieve a list of all notices/timeoff requests with optional filtering.",
+        "tags": [
+          "notices"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by status: pending, approved, rejected, active",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "approved",
+                "rejected",
+                "active"
+              ]
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "Filter by specific user ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "Filter by start date (ISO 8601)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "Filter by end date (ISO 8601)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of results (default: 50, max: 100)",
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Pagination offset (default: 0)",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notices list response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticesListResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Notice",
+        "description": "Create a new notice/timeoff request for a user.",
+        "tags": [
+          "notices"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "userId",
+                  "startTime",
+                  "reason"
+                ],
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "User ID"
+                  },
+                  "startTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Start date/time (ISO 8601)"
+                  },
+                  "endTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "End date/time (null for indefinite)",
+                    "nullable": true
+                  },
+                  "reason": {
+                    "type": "string",
+                    "description": "Reason for timeoff"
+                  },
+                  "reviewed": {
+                    "type": "boolean",
+                    "description": "Whether the notice should be auto-approved. Defaults to `true` (auto-approved). Set to `false` to leave the notice pending for a manager to review.",
+                    "default": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Notice created response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/notices/{noticeId}": {
+      "get": {
+        "summary": "Get Specific Notice",
+        "description": "Retrieve detailed information about a specific notice.",
+        "tags": [
+          "notices"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "noticeId",
+            "in": "path",
+            "required": true,
+            "description": "Notice UUID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notice response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Notice Status",
+        "description": "Update the status of a notice to approve, reject, or modify details.",
+        "tags": [
+          "notices"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "noticeId",
+            "in": "path",
+            "required": true,
+            "description": "Notice UUID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "approved": {
+                    "type": "boolean",
+                    "description": "Approve (true) or reject (false) the notice"
+                  },
+                  "reviewComment": {
+                    "type": "string",
+                    "description": "Comment from reviewer"
+                  },
+                  "endTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Update end date (null for indefinite)",
+                    "nullable": true
+                  },
+                  "revoked": {
+                    "type": "boolean",
+                    "description": "Revoke the notice"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Notice updated response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Stop Active Notice",
+        "description": "Immediately stop an active notice by setting end time to now.",
+        "tags": [
+          "notices"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "noticeId",
+            "in": "path",
+            "required": true,
+            "description": "Notice UUID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notice stopped response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "notice": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "userId": {
+                          "type": "integer"
+                        },
+                        "endTime": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/notices/user/{userId}": {
+      "get": {
+        "summary": "Get User's Notices",
+        "description": "Retrieve all notices for a specific user with optional filtering.",
+        "tags": [
+          "notices"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "User ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by status: pending, approved, rejected, active",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "approved",
+                "rejected",
+                "active"
+              ]
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "description": "Filter by start date (ISO 8601)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "Filter by end date (ISO 8601)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User notices response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserNoticesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/notices/summary": {
+      "get": {
+        "summary": "Get Summary Statistics",
+        "description": "Retrieve summary statistics for all notices in the workspace.",
+        "tags": [
+          "notices"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notice summary response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoticeSummaryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/v1/workspace/{id}/allies": {
+      "get": {
+        "summary": "Get Alliances",
+        "description": "Retrieve all workspace alliances with representatives and recent visit history",
+        "tags": [
+          "allies"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Alliances response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlliancesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/sessions/{sessionId}/roles": {
+      "get": {
+        "summary": "Get Session Roles",
+        "description": "Retrieve a session with all role assignments and slot information.",
+        "tags": [
+          "sessions"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sessionId",
+            "in": "path",
+            "required": true,
+            "description": "Session UUID",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Session with roles response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionRolesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/sessions/{sessionId}/assign": {
+      "post": {
+        "summary": "Assign Users to Session Roles",
+        "description": "Assign or unassign users to session roles, or update the session host.",
+        "tags": [
+          "sessions"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sessionId",
+            "in": "path",
+            "required": true,
+            "description": "Session UUID",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["action", "userId", "roleId", "slot"],
+                "properties": {
+                  "action": {
+                    "type": "string",
+                    "enum": ["assign", "unassign"],
+                    "description": "Whether to assign or unassign the user"
+                  },
+                  "userId": {
+                    "type": "string",
+                    "description": "Roblox user ID of the user to assign/unassign"
+                  },
+                  "roleId": {
+                    "type": "string",
+                    "description": "Slot UUID from the session type (use GET /sessions/sets or GET /sessions/{sessionId}/roles to get slot IDs)"
+                  },
+                  "slot": {
+                    "type": "integer",
+                    "description": "Zero-based slot index within the role"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Session updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionAssignResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/sessions/sets": {
+      "get": {
+        "summary": "Get Session Role Sets",
+        "description": "Retrieve all active session role sets (role templates) for a workspace. Use the returned IDs in roleSetIds when creating sessions inline.",
+        "tags": [
+          "sessions"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Role sets retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "roleSets": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "string", "format": "uuid", "description": "Role set UUID — use this in roleSetIds" },
+                          "name": { "type": "string", "description": "Role display name" },
+                          "hostRole": { "type": "string", "nullable": true, "enum": ["primary", "secondary", null], "description": "Host designation: primary host, secondary/co-host, or null for regular participant" },
+                          "slots": { "type": "integer", "description": "Number of slots for this role" },
+                          "weight": { "type": "integer", "description": "Display order weight (lower = higher)" },
+                          "groupRoles": { "type": "array", "items": { "type": "integer" }, "description": "Eligible Roblox group role IDs" },
+                          "category": {
+                            "nullable": true,
+                            "type": "object",
+                            "properties": {
+                              "id": { "type": "string", "format": "uuid" },
+                              "name": { "type": "string" },
+                              "weight": { "type": "integer" }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/sessions/create-unscheduled": {
+      "post": {
+        "summary": "Create Unscheduled Session",
+        "description": "Create an unscheduled session, optionally creating a new session type inline using role set IDs from Get Session Role Sets.",
+        "tags": [
+          "sessions"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "date"
+                ],
+                "properties": {
+                  "sessionTypeId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Existing session type ID (use this OR sessionType, not both)"
+                  },
+                  "sessionType": {
+                    "type": "object",
+                    "description": "Create session type inline (use this OR sessionTypeId, not both)",
+                    "required": [
+                      "name"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Session type name"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Session type description"
+                      },
+                      "roleSetIds": {
+                        "type": "array",
+                        "description": "Array of role set UUIDs from Get Session Role Sets. Defines the role slots for the session including primary/secondary host designations.",
+                        "items": {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      },
+                      "statues": {
+                        "type": "array",
+                        "description": "Custom status definitions",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": { "type": "string" },
+                            "name": { "type": "string" },
+                            "color": { "type": "string" },
+                            "timeAfter": { "type": "integer", "description": "Minutes after session start" }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Session date (YYYY-MM-DD)"
+                  },
+                  "time": {
+                    "type": "string",
+                    "description": "Session time in HH:MM format (24-hour, UTC)"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Custom session name (overrides session type name)"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Session type category",
+                    "default": "other"
+                  },
+                  "ownerId": {
+                    "type": "string",
+                    "description": "Session host/owner user ID"
+                  },
+                  "duration": {
+                    "type": "integer",
+                    "description": "Session duration in minutes",
+                    "default": 30
+                  },
+                  "sessionTagId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Session tag ID for categorization"
+                  },
+                  "logs": {
+                    "type": "array",
+                    "description": "Initial status log entries",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "action"
+                      ],
+                      "properties": {
+                        "action": {
+                          "type": "string",
+                          "description": "Log action/status"
+                        },
+                        "metadata": {
+                          "type": "object",
+                          "description": "Additional log metadata"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Session created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionCreateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/sessions/create-scheduled": {
+      "post": {
+        "summary": "Create Scheduled Session",
+        "description": "Create a scheduled session, optionally creating a new session type and schedule inline using role set IDs from Get Session Role Sets.",
+        "tags": [
+          "sessions"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "date"
+                ],
+                "properties": {
+                  "scheduleId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Existing schedule ID (use this OR sessionType, not both)"
+                  },
+                  "sessionType": {
+                    "type": "object",
+                    "description": "Create session type and schedule inline (use this OR scheduleId, not both)",
+                    "required": [
+                      "name",
+                      "schedule"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Session type name"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Session type description"
+                      },
+                      "roleSetIds": {
+                        "type": "array",
+                        "description": "Array of role set UUIDs from Get Session Role Sets. Defines the role slots for the session including primary/secondary host designations.",
+                        "items": {
+                          "type": "string",
+                          "format": "uuid"
+                        }
+                      },
+                      "statues": {
+                        "type": "array",
+                        "description": "Custom status definitions",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": { "type": "string" },
+                            "name": { "type": "string" },
+                            "color": { "type": "string" },
+                            "timeAfter": { "type": "integer", "description": "Minutes after session start" }
+                          }
+                        }
+                      },
+                      "schedule": {
+                        "type": "object",
+                        "required": [
+                          "days",
+                          "hour",
+                          "minute"
+                        ],
+                        "properties": {
+                          "days": {
+                            "type": "array",
+                            "description": "Days of week (0=Sunday, 6=Saturday)",
+                            "items": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 6
+                            }
+                          },
+                          "hour": {
+                            "type": "integer",
+                            "description": "Hour in 24-hour format (UTC)",
+                            "minimum": 0,
+                            "maximum": 23
+                          },
+                          "minute": {
+                            "type": "integer",
+                            "description": "Minute",
+                            "minimum": 0,
+                            "maximum": 59
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Session date (YYYY-MM-DD) - must match a day in schedule"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Custom session name (overrides session type name)"
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Session type category",
+                    "default": "other"
+                  },
+                  "ownerId": {
+                    "type": "string",
+                    "description": "Session host/owner user ID"
+                  },
+                  "duration": {
+                    "type": "integer",
+                    "description": "Session duration in minutes",
+                    "default": 30
+                  },
+                  "sessionTagId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Session tag ID for categorization"
+                  },
+                  "logs": {
+                    "type": "array",
+                    "description": "Initial status log entries",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "action"
+                      ],
+                      "properties": {
+                        "action": {
+                          "type": "string",
+                          "description": "Log action/status"
+                        },
+                        "metadata": {
+                          "type": "object",
+                          "description": "Additional log metadata"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Session created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionCreateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/userbook/note": {
+      "post": {
+        "summary": "Create Note",
+        "description": "Add a note entry to a user's logbook.",
+        "tags": [
+          "userbook"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "userId",
+                  "reason"
+                ],
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "Roblox user ID"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "description": "Note content"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Note entry created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBookEntryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/userbook/warning": {
+      "post": {
+        "summary": "Create Warning",
+        "description": "Add a warning entry to a user's logbook.",
+        "tags": [
+          "userbook"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "userId",
+                  "reason"
+                ],
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "Roblox user ID"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "description": "Warning reason"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Warning entry created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBookEntryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/userbook/promotion": {
+      "post": {
+        "summary": "Create Promotion",
+        "description": "Add a promotion entry to a user's logbook and rank them up one rank if a ranking system is configured.",
+        "tags": [
+          "userbook"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "userId",
+                  "reason"
+                ],
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "Roblox user ID"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "description": "Promotion reason"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Promotion entry created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBookEntryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/userbook/demotion": {
+      "post": {
+        "summary": "Create Demotion",
+        "description": "Add a demotion entry to a user's logbook and rank them down one rank if a ranking system is configured.",
+        "tags": [
+          "userbook"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "userId",
+                  "reason"
+                ],
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "Roblox user ID"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "description": "Demotion reason"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Demotion entry created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBookEntryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/userbook/termination": {
+      "post": {
+        "summary": "Create Termination",
+        "description": "Add a termination entry to a user's logbook. Sets rank to lowest and removes workspace roles if a ranking system is configured.",
+        "tags": [
+          "userbook"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "userId",
+                  "reason"
+                ],
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "Roblox user ID"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "description": "Termination reason"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Termination entry created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBookTerminationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/userbook/rank-change": {
+      "post": {
+        "summary": "Create Rank Change",
+        "description": "Add a rank change entry to a user's logbook and set them to a specific rank if a ranking system is configured.",
+        "tags": [
+          "userbook"
+        ],
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "userId",
+                  "reason",
+                  "targetRank"
+                ],
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "Roblox user ID"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "description": "Rank change reason"
+                  },
+                  "targetRank": {
+                    "type": "integer",
+                    "description": "Target role number to set the user to"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Rank change entry created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBookEntryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/userbook/entries": {
+      "get": {
+        "summary": "Get Userbook Entries",
+        "description": "Returns userbook entries (warnings, promotions, demotions, terminations, rank changes, notes) for the specified workspace with full author and user details.",
+        "tags": [
+          "userbook"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "description": "Filter entries for a specific user ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "description": "Filter by entry type",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "warning",
+                "promotion",
+                "demotion",
+                "termination",
+                "rank-change",
+                "resignation",
+                "note"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Number of entries to return (default: 50, max: 100)",
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "description": "Number of entries to skip for pagination",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "includeRedacted",
+            "in": "query",
+            "required": false,
+            "description": "Include redacted entries",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Userbook entries response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBookEntriesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/recommendations": {
+      "get": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "List recommendations",
+        "description": "Get a paginated list of recommendations with optional filtering",
+        "operationId": "listRecommendations",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "active",
+                "approved",
+                "rejected",
+                "archived"
+              ]
+            },
+            "description": "Filter by recommendation status"
+          },
+          {
+            "name": "targetUserId",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Filter by target user ID"
+          },
+          {
+            "name": "createdById",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Filter by creator user ID"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "maximum": 100
+            },
+            "description": "Maximum number of results to return"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of results to skip"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "createdAt",
+                "updatedAt"
+              ],
+              "default": "createdAt"
+            },
+            "description": "Field to sort by"
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            },
+            "description": "Sort order"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendationListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Create recommendation",
+        "description": "Create a new recommendation for a member",
+        "operationId": "createRecommendation",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRecommendationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Recommendation created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "recommendation": {
+                      "$ref": "#/components/schemas/Recommendation"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/recommendations/{recommendationId}": {
+      "get": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Get recommendation",
+        "description": "Get a specific recommendation with votes and comments",
+        "operationId": "getRecommendation",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "recommendation": {
+                      "$ref": "#/components/schemas/RecommendationDetailed"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Update recommendation",
+        "description": "Update recommendation status or reason",
+        "operationId": "updateRecommendation",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRecommendationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Recommendation updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "recommendation": {
+                      "$ref": "#/components/schemas/Recommendation"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Delete recommendation",
+        "description": "Delete a recommendation (also deletes all votes and comments)",
+        "operationId": "deleteRecommendation",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "deletedById"
+                ],
+                "properties": {
+                  "deletedById": {
+                    "type": "integer",
+                    "description": "User ID of the person deleting the recommendation"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Recommendation deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Recommendation deleted successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/recommendations/{recommendationId}/vote": {
+      "get": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "List votes",
+        "description": "Get all votes for a recommendation",
+        "operationId": "listVotes",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VoteListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Add vote",
+        "description": "Add a vote to a recommendation",
+        "operationId": "addVote",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "userId"
+                ],
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "User ID of the person voting"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Vote added successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "vote": {
+                      "$ref": "#/components/schemas/Vote"
+                    },
+                    "voteCount": {
+                      "type": "integer",
+                      "description": "Total number of votes"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "409": {
+            "description": "User has already voted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "error": {
+                      "type": "string",
+                      "example": "User has already voted on this recommendation"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Remove vote",
+        "description": "Remove a vote from a recommendation",
+        "operationId": "removeVote",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "userId"
+                ],
+                "properties": {
+                  "userId": {
+                    "type": "integer",
+                    "description": "User ID of the person removing their vote"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Vote removed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Vote removed successfully"
+                    },
+                    "voteCount": {
+                      "type": "integer",
+                      "description": "Updated total number of votes"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/recommendations/{recommendationId}/comments": {
+      "get": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "List comments",
+        "description": "Get all comments for a recommendation",
+        "operationId": "listComments",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "maximum": 100
+            },
+            "description": "Maximum number of results to return"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of results to skip"
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            },
+            "description": "Sort order by creation date"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Add comment",
+        "description": "Add a comment to a recommendation",
+        "operationId": "addComment",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCommentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Comment added successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "comment": {
+                      "$ref": "#/components/schemas/Comment"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{workspaceId}/recommendations/{recommendationId}/comments/{commentId}": {
+      "get": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Get comment",
+        "description": "Get a specific comment",
+        "operationId": "getComment",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Comment ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "comment": {
+                      "$ref": "#/components/schemas/Comment"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Update comment",
+        "description": "Update a comment's content or image",
+        "operationId": "updateComment",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Comment ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCommentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Comment updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "comment": {
+                      "$ref": "#/components/schemas/Comment"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Recommendations"
+        ],
+        "summary": "Delete comment",
+        "description": "Delete a comment from a recommendation",
+        "operationId": "deleteComment",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Workspace group ID"
+          },
+          {
+            "name": "recommendationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Recommendation ID"
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "Comment ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "authorId"
+                ],
+                "properties": {
+                  "authorId": {
+                    "type": "integer",
+                    "description": "User ID of the person deleting the comment"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Comment deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Comment deleted successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/moderation/cases": {
+      "post": {
+        "summary": "Create Moderation Case",
+        "description": "Create a new moderation case for a Roblox user and log an audit entry.",
+        "operationId": "createModerationCase",
+        "tags": ["moderation"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["targetUserId", "authorUserId", "reason"],
+                "properties": {
+                  "targetUserId": { "type": "integer", "description": "Roblox user ID of the target" },
+                  "authorUserId": { "type": "integer", "description": "Roblox user ID of the moderator" },
+                  "reason": { "type": "string", "description": "Short reason for the case" },
+                  "targetUsername": { "type": "string", "description": "Display username of the target" },
+                  "description": { "type": "string", "description": "Detailed description" },
+                  "status": {
+                    "type": "string",
+                    "enum": ["open", "resolved", "appealed", "archived"],
+                    "default": "open"
+                  },
+                  "action": {
+                    "type": "string",
+                    "enum": ["warning", "kick", "temp_ban", "perm_ban"]
+                  },
+                  "publicNote": { "type": "string" },
+                  "banDuration": { "type": "integer", "description": "Ban duration in seconds" },
+                  "isPermanent": { "type": "boolean", "default": false },
+                  "expiresAt": { "type": "string", "format": "date-time" },
+                  "placeIds": { "type": "array", "items": { "type": "string" }, "description": "Restrict this punishment to specific Roblox place IDs. Omit or pass an empty array for all places.", "example": ["123456789"] }
+                }
+              },
+              "example": {
+                "targetUserId": 123456789,
+                "authorUserId": 987654321,
+                "reason": "Exploiting in-game",
+                "action": "temp_ban",
+                "isPermanent": false,
+                "banDuration": 86400,
+                "expiresAt": "2026-05-14T00:00:00Z",
+                "placeIds": ["123456789"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Case created successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ModerationCaseResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequestError" },
+          "401": { "$ref": "#/components/responses/UnauthorizedError" },
+          "405": { "description": "Method not allowed" },
+          "500": { "$ref": "#/components/responses/InternalServerError" }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/moderation/user/{userId}": {
+      "get": {
+        "summary": "Get User Case History",
+        "description": "Returns moderation cases for a specific Roblox user (up to 200, most recent first). Use `current=true` to return only active bans.",
+        "operationId": "getUserModerationHistory",
+        "tags": ["moderation"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "Roblox user ID to look up",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "current",
+            "in": "query",
+            "description": "If true, only returns active (non-expired, non-revoked) bans",
+            "schema": { "type": "boolean" }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "ISO 8601 — filter cases created after this date",
+            "schema": { "type": "string", "format": "date-time" }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "ISO 8601 — filter cases created before this date",
+            "schema": { "type": "string", "format": "date-time" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Case history returned successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserModerationHistoryResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequestError" },
+          "401": { "$ref": "#/components/responses/UnauthorizedError" },
+          "405": { "description": "Method not allowed" },
+          "500": { "$ref": "#/components/responses/InternalServerError" }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/moderation/live": {
+      "get": {
+        "summary": "Get Live Punishments",
+        "description": "Returns all resolved kick and ban cases since the given timestamp that have an active enforcement record. Intended for game servers to poll for punishments to enforce.",
+        "operationId": "getLivePunishments",
+        "tags": ["moderation"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "required": true,
+            "description": "ISO 8601 timestamp — returns punishments resolved after this time",
+            "schema": { "type": "string", "format": "date-time" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Live punishments returned successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/LivePunishmentsResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequestError" },
+          "401": { "$ref": "#/components/responses/UnauthorizedError" },
+          "405": { "description": "Method not allowed" },
+          "500": { "$ref": "#/components/responses/InternalServerError" }
+        }
+      }
+    },
+    "/api/public/v1/workspace/{id}/moderation/cases/{caseId}/revoke": {
+      "post": {
+        "summary": "Revoke Moderation Case",
+        "description": "Revokes a moderation case, recording who revoked it and the reason. A case that has already been revoked cannot be revoked again.",
+        "operationId": "revokeModerationCase",
+        "tags": ["moderation"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Workspace ID",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "caseId",
+            "in": "path",
+            "required": true,
+            "description": "Unique case ID (CUID)",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["revokedByUserId", "reason"],
+                "properties": {
+                  "revokedByUserId": { "type": "integer", "description": "Roblox user ID of the person revoking the case" },
+                  "reason": { "type": "string", "description": "Reason for the revocation" }
+                }
+              },
+              "example": {
+                "revokedByUserId": 111111111,
+                "reason": "Appeal approved — false positive"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Case revoked successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/RevokeResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequestError" },
+          "401": { "$ref": "#/components/responses/UnauthorizedError" },
+          "404": { "$ref": "#/components/responses/NotFoundError" },
+          "405": { "description": "Method not allowed" },
+          "500": { "$ref": "#/components/responses/InternalServerError" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "StartActivityResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "session": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "ID of the newly created activity session",
+                "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+              }
+            }
+          }
+        }
+      },
+      "EndActivityResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "session": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "ID of the ended activity session",
+                "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+              }
+            }
+          }
+        }
+      },
+      "WorkspaceInfoResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "workspace": {
+            "type": "object",
+            "properties": {
+              "groupId": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "logo": {
+                "type": "string"
+              },
+              "memberCount": {
+                "type": "integer"
+              },
+              "roles": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Role"
+                }
+              }
+            }
+          }
+        }
+      },
+      "MembersResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Member"
+            }
+          },
+          "total": {
+            "type": "integer"
+          },
+          "page": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "pages": {
+            "type": "integer"
+          }
+        }
+      },
+      "BirthdaysResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "birthdays": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Birthday"
+            }
+          },
+          "total": {
+            "type": "integer"
+          },
+          "filterDays": {
+            "type": "integer"
+          },
+          "referenceDate": {
+            "type": "string"
+          }
+        }
+      },
+      "ActivityResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "sessions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ActivitySession"
+            }
+          },
+          "total": {
+            "type": "integer"
+          },
+          "page": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "pages": {
+            "type": "integer"
+          }
+        }
+      },
+      "UserActivityResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "activity": {
+            "type": "object",
+            "properties": {
+              "totalSessions": {
+                "type": "integer"
+              },
+              "totalDuration": {
+                "type": "integer"
+              },
+              "averageDuration": {
+                "type": "integer"
+              },
+              "totalMessages": {
+                "type": "integer"
+              },
+              "sessions": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ActivitySession"
+                }
+              }
+            }
+          }
+        }
+      },
+      "UserCurrentActivityResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "userId": {
+                "type": "integer"
+              },
+              "username": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              },
+              "role": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "resetInfo": {
+            "type": "object",
+            "properties": {
+              "lastResetDate": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "resetById": {
+                "type": "integer",
+                "nullable": true
+              }
+            }
+          },
+          "activity": {
+            "type": "object",
+            "properties": {
+              "sessions": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ActivitySession"
+                }
+              },
+              "totalSessions": {
+                "type": "integer"
+              },
+              "totalActivityTime": {
+                "type": "integer"
+              },
+              "averageSessionLength": {
+                "type": "integer"
+              },
+              "notices": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ActivityResetStatusResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "reset": {
+            "type": "object",
+            "properties": {
+              "lastResetAt": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "previousPeriodStart": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              },
+              "previousPeriodEnd": {
+                "type": "string",
+                "format": "date-time",
+                "nullable": true
+              }
+            }
+          },
+          "schedule": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean"
+              },
+              "day": {
+                "type": "string",
+                "nullable": true
+              },
+              "frequency": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          },
+          "nextResetAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "SessionsResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "sessions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Session"
+            }
+          },
+          "sessionsByDate": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Session"
+              }
+            }
+          },
+          "dateRange": {
+            "type": "object",
+            "properties": {
+              "startDate": {
+                "type": "string",
+                "format": "date"
+              },
+              "endDate": {
+                "type": "string",
+                "format": "date"
+              }
+            }
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      },
+      "WallResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "posts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Post"
+            }
+          },
+          "total": {
+            "type": "integer"
+          },
+          "page": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "pages": {
+            "type": "integer"
+          }
+        }
+      },
+      "PostResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "post": {
+            "$ref": "#/components/schemas/Post"
+          }
+        }
+      },
+      "DocumentsResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Document"
+            }
+          },
+          "total": {
+            "type": "integer"
+          },
+          "page": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "pages": {
+            "type": "integer"
+          }
+        }
+      },
+      "DocumentResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "document": {
+            "$ref": "#/components/schemas/Document"
+          }
+        }
+      },
+      "AlliancesResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "allies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Alliance"
+            }
+          },
+          "total": {
+            "type": "integer"
+          },
+          "page": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "pages": {
+            "type": "integer"
+          }
+        }
+      },
+      "Role": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "permissions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Member": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer"
+          },
+          "username": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "thumbnail": {
+            "type": "string"
+          },
+          "role": {
+            "$ref": "#/components/schemas/Role"
+          }
+        }
+      },
+      "Birthday": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer"
+          },
+          "username": {
+            "type": "string"
+          },
+          "birthdayDay": {
+            "type": "integer"
+          },
+          "birthdayMonth": {
+            "type": "integer"
+          },
+          "daysAway": {
+            "type": "integer"
+          },
+          "nextBirthday": {
+            "type": "string"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer"
+          },
+          "username": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "thumbnail": {
+            "type": "string"
+          }
+        }
+      },
+      "ActivitySession": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "username": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "duration": {
+            "type": "integer"
+          },
+          "messages": {
+            "type": "integer"
+          }
+        }
+      },
+      "Session": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "startedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "ended": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "type": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string"
+              },
+              "gameId": {
+                "type": "integer"
+              },
+              "slots": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "slots": {
+                      "type": "integer"
+                    },
+                    "hostRole": {
+                      "type": "string",
+                      "nullable": true,
+                      "enum": ["primary", "secondary", null],
+                      "description": "Host designation: primary host, secondary/co-host, or null for regular participant roles"
+                    },
+                    "weight": {
+                      "type": "integer",
+                      "description": "Display order weight for this slot (lower = higher up)"
+                    },
+                    "categoryId": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "ID of the category this slot belongs to, or null"
+                    },
+                    "categoryName": {
+                      "type": "string",
+                      "nullable": true,
+                      "description": "Display name of the category, or null for uncategorised slots"
+                    },
+                    "categoryWeight": {
+                      "type": "integer",
+                      "description": "Display order weight of the category (uncategorised slots always appear last)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "tag": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "color": {
+                "type": "string",
+                "description": "Hex color code for the tag"
+              }
+            }
+          },
+          "primaryHost": {
+            "type": "object",
+            "nullable": true,
+            "description": "The primary host of the session — user assigned to the slot with hostRole 'primary'",
+            "properties": {
+              "userId": { "type": "integer" },
+              "username": { "type": "string" },
+              "thumbnail": { "type": "string" },
+              "roleId": { "type": "string", "description": "The slot ID the primary host is assigned to" },
+              "slot": { "type": "integer", "description": "Slot index" }
+            }
+          },
+          "secondaryHosts": {
+            "type": "array",
+            "description": "Co-hosts — users assigned to slots with hostRole 'secondary'",
+            "items": {
+              "type": "object",
+              "properties": {
+                "userId": { "type": "integer" },
+                "username": { "type": "string" },
+                "thumbnail": { "type": "string" },
+                "roleId": { "type": "string", "description": "The slot ID the secondary host is assigned to" },
+                "slot": { "type": "integer", "description": "Slot index" }
+              }
+            }
+          },
+          "participants": {
+            "type": "array",
+            "description": "Regular participants — users assigned to slots with no host designation (hostRole is null)",
+            "items": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "integer",
+                  "description": "The user's Roblox user ID"
+                },
+                "username": {
+                  "type": "string",
+                  "description": "The user's Roblox username"
+                },
+                "thumbnail": {
+                  "type": "string",
+                  "description": "URL to the user's avatar thumbnail"
+                },
+                "roleId": {
+                  "type": "string",
+                  "description": "The slot ID"
+                },
+                "roleName": {
+                  "type": "string",
+                  "nullable": true,
+                  "description": "Display name of the slot"
+                },
+                "slot": {
+                  "type": "integer",
+                  "description": "The slot index the user is assigned to"
+                },
+                "weight": {
+                  "type": "integer",
+                  "description": "Display order weight of the assigned role"
+                },
+                "categoryId": {
+                  "type": "string",
+                  "nullable": true,
+                  "description": "ID of the category for the assigned role, or null"
+                },
+                "categoryName": {
+                  "type": "string",
+                  "nullable": true,
+                  "description": "Display name of the category for the assigned role, or null"
+                },
+                "categoryWeight": {
+                  "type": "integer",
+                  "description": "Display order weight of the assigned role's category"
+                }
+              }
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "scheduled",
+              "in-progress",
+              "ended",
+              "missed"
+            ]
+          }
+        }
+      },
+      "Post": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "author": {
+            "$ref": "#/components/schemas/User"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "image": {
+            "type": "string"
+          }
+        }
+      },
+      "Document": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "author": {
+            "$ref": "#/components/schemas/User"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "LeaderboardResponse": {
+        "type": "object",
+        "properties": {
+          "playtime": {
+            "type": "object",
+            "properties": {
+              "top_three": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "description": "User ID"
+                    },
+                    "position": {
+                      "type": "integer",
+                      "description": "Leaderboard position"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "description": "Total playtime in minutes"
+                    },
+                    "in_game": {
+                      "type": "boolean",
+                      "description": "Whether user is currently in game"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "you": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "Your user ID"
+              },
+              "position": {
+                "type": "integer",
+                "description": "Your leaderboard position"
+              },
+              "total": {
+                "type": "integer",
+                "description": "Your total playtime in minutes"
+              },
+              "in_game": {
+                "type": "boolean",
+                "description": "Whether you are currently in game"
+              }
+            }
+          },
+          "sessions": {
+            "type": "object",
+            "properties": {
+              "top_three": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "description": "User ID"
+                    },
+                    "position": {
+                      "type": "integer",
+                      "description": "Leaderboard position"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "description": "Total number of sessions"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Alliance": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "logo": {
+            "type": "string"
+          },
+          "representatives": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "role": {
+                  "type": "string"
+                },
+                "contact": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "recentVisits": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "notes": {
+                  "type": "string"
+                },
+                "attendees": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Notice": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Notice UUID"
+          },
+          "userId": {
+            "type": "integer",
+            "description": "User ID"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "userId": {
+                "type": "integer"
+              },
+              "username": {
+                "type": "string"
+              },
+              "displayname": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            }
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Start date/time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "End date/time (null for indefinite)"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for timeoff"
+          },
+          "approved": {
+            "type": "boolean",
+            "description": "Whether the notice is approved"
+          },
+          "reviewed": {
+            "type": "boolean",
+            "description": "Whether the notice has been reviewed"
+          },
+          "revoked": {
+            "type": "boolean",
+            "description": "Whether the notice has been revoked"
+          },
+          "reviewComment": {
+            "type": "string",
+            "description": "Comment from reviewer"
+          }
+        }
+      },
+      "NoticesListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "notices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Notice"
+            }
+          },
+          "total": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "offset": {
+            "type": "integer"
+          }
+        }
+      },
+      "NoticeResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "notice": {
+            "$ref": "#/components/schemas/Notice"
+          }
+        }
+      },
+      "UserNoticesResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "userId": {
+                "type": "integer"
+              },
+              "username": {
+                "type": "string"
+              },
+              "displayname": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              }
+            }
+          },
+          "notices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "startTime": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "endTime": {
+                  "type": "string",
+                  "format": "date-time",
+                  "nullable": true
+                },
+                "reason": {
+                  "type": "string"
+                },
+                "approved": {
+                  "type": "boolean"
+                },
+                "reviewed": {
+                  "type": "boolean"
+                },
+                "revoked": {
+                  "type": "boolean"
+                },
+                "reviewComment": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "total": {
+            "type": "integer"
+          }
+        }
+      },
+      "NoticeSummaryResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "summary": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "description": "Total notices"
+              },
+              "pending": {
+                "type": "integer",
+                "description": "Pending notices awaiting review"
+              },
+              "approved": {
+                "type": "integer",
+                "description": "Approved notices"
+              },
+              "rejected": {
+                "type": "integer",
+                "description": "Rejected notices"
+              },
+              "active": {
+                "type": "integer",
+                "description": "Currently active notices"
+              }
+            }
+          }
+        }
+      },
+      "UserBookEntry": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Entry UUID"
+          },
+          "userId": {
+            "type": "string",
+            "description": "Roblox user ID"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "note",
+              "warning",
+              "promotion",
+              "demotion",
+              "termination",
+              "rank_change"
+            ],
+            "description": "Entry type"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason or notes for the entry"
+          },
+          "adminId": {
+            "type": "string",
+            "description": "Admin user ID who created the entry"
+          },
+          "workspaceGroupId": {
+            "type": "integer",
+            "description": "Workspace ID"
+          },
+          "rankBefore": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Rank number before the action (null if no ranking configured)"
+          },
+          "rankAfter": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Rank number after the action (null if no ranking configured)"
+          },
+          "rankNameBefore": {
+            "type": "string",
+            "nullable": true,
+            "description": "Rank name before the action"
+          },
+          "rankNameAfter": {
+            "type": "string",
+            "nullable": true,
+            "description": "Rank name after the action"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the entry was created"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the entry was last updated"
+          },
+          "redacted": {
+            "type": "boolean",
+            "description": "Whether this entry has been redacted"
+          },
+          "redactedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "When the entry was redacted"
+          },
+          "redactedBy": {
+            "type": "string",
+            "nullable": true,
+            "description": "ID of the admin who redacted the entry"
+          },
+          "admin": {
+            "type": "object",
+            "description": "Admin user who created the entry",
+            "properties": {
+              "userid": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "picture": {
+                "type": "string",
+                "description": "URL to admin's profile picture"
+              }
+            }
+          },
+          "user": {
+            "type": "object",
+            "description": "User the entry is for",
+            "properties": {
+              "userid": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "picture": {
+                "type": "string",
+                "description": "URL to user's profile picture"
+              }
+            }
+          }
+        }
+      },
+      "UserBookEntryResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "entry": {
+            "$ref": "#/components/schemas/UserBookEntry"
+          }
+        }
+      },
+      "UserBookTerminationResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "entry": {
+            "$ref": "#/components/schemas/UserBookEntry"
+          },
+          "terminated": {
+            "type": "boolean",
+            "description": "Whether the user was terminated (always true for this endpoint)"
+          }
+        }
+      },
+      "UserBookEntriesResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserBookEntry"
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "description": "Total number of entries available"
+              },
+              "limit": {
+                "type": "integer",
+                "description": "Number of entries returned in this response"
+              },
+              "offset": {
+                "type": "integer",
+                "description": "Number of entries skipped"
+              },
+              "hasMore": {
+                "type": "boolean",
+                "description": "Whether there are more entries available"
+              }
+            }
+          }
+        }
+      },
+      "SessionRolesResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "session": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string", "format": "uuid" },
+              "name": { "type": "string" },
+              "type": { "type": "string" },
+              "date": { "type": "string", "format": "date-time" },
+              "duration": { "type": "integer" },
+              "sessionTypeName": { "type": "string" },
+              "roles": {
+                "type": "array",
+                "description": "All role slots defined on this session's type, each with their current assignments",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "roleId": { "type": "string", "description": "Slot UUID" },
+                    "roleName": { "type": "string", "description": "Display name of the role" },
+                    "hostRole": {
+                      "type": "string",
+                      "nullable": true,
+                      "enum": ["primary", "secondary", null],
+                      "description": "Host designation: primary host, secondary/co-host, or null for regular participant roles"
+                    },
+                    "maxSlots": { "type": "integer", "description": "Number of available slots for this role" },
+                    "weight": { "type": "integer", "description": "Display order weight (lower = higher up)" },
+                    "categoryId": { "type": "string", "nullable": true, "description": "ID of the category this role belongs to, or null" },
+                    "categoryName": { "type": "string", "nullable": true, "description": "Display name of the category, or null for uncategorised" },
+                    "categoryWeight": { "type": "integer", "description": "Display order weight of the category (uncategorised always last)" },
+                    "assignments": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "userId": { "type": "string", "description": "Roblox user ID" },
+                          "username": { "type": "string" },
+                          "displayName": { "type": "string" },
+                          "picture": { "type": "string" },
+                          "slot": { "type": "integer", "description": "Slot index (0-based)" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "SessionAssignResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "message": { "type": "string" },
+          "session": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string", "format": "uuid" },
+              "name": { "type": "string" },
+              "date": { "type": "string", "format": "date-time" },
+              "primaryHost": {
+                "type": "object",
+                "nullable": true,
+                "description": "User assigned to the slot with hostRole 'primary'",
+                "properties": {
+                  "userId": { "type": "string" },
+                  "username": { "type": "string" },
+                  "displayName": { "type": "string" },
+                  "picture": { "type": "string" },
+                  "roleId": { "type": "string", "description": "Slot UUID" },
+                  "slot": { "type": "integer" }
+                }
+              },
+              "secondaryHosts": {
+                "type": "array",
+                "description": "Users assigned to slots with hostRole 'secondary'",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "userId": { "type": "string" },
+                    "username": { "type": "string" },
+                    "displayName": { "type": "string" },
+                    "picture": { "type": "string" },
+                    "roleId": { "type": "string", "description": "Slot UUID" },
+                    "slot": { "type": "integer" }
+                  }
+                }
+              },
+              "participants": {
+                "type": "array",
+                "description": "Users assigned to slots with no host designation (hostRole is null)",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "userId": { "type": "string" },
+                    "username": { "type": "string" },
+                    "displayName": { "type": "string" },
+                    "picture": { "type": "string" },
+                    "roleId": { "type": "string", "description": "Slot UUID" },
+                    "roleName": { "type": "string", "nullable": true },
+                    "slot": { "type": "integer" },
+                    "weight": { "type": "integer" },
+                    "categoryId": { "type": "string", "nullable": true },
+                    "categoryName": { "type": "string", "nullable": true },
+                    "categoryWeight": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "SessionCreateResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "session": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "duration": {
+                "type": "integer"
+              },
+              "sessionType": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "slots": {
+                    "type": "array"
+                  },
+                  "statues": {
+                    "type": "array"
+                  }
+                }
+              },
+              "owner": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "displayName": {
+                    "type": "string"
+                  },
+                  "picture": {
+                    "type": "string"
+                  }
+                }
+              },
+              "sessionTag": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "color": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Recommendation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique recommendation ID"
+          },
+          "targetUserId": {
+            "type": "integer",
+            "description": "User ID being recommended"
+          },
+          "targetUsername": {
+            "type": "string",
+            "description": "Username of the recommended user"
+          },
+          "targetPicture": {
+            "type": "string",
+            "nullable": true,
+            "description": "Profile picture URL of the recommended user"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for the recommendation"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "approved",
+              "rejected",
+              "archived"
+            ],
+            "description": "Current status of the recommendation"
+          },
+          "createdById": {
+            "type": "integer",
+            "description": "User ID who created the recommendation"
+          },
+          "createdByName": {
+            "type": "string",
+            "nullable": true,
+            "description": "Name of the user who created the recommendation"
+          },
+          "editedById": {
+            "type": "integer",
+            "nullable": true,
+            "description": "User ID who last edited the recommendation"
+          },
+          "editedByName": {
+            "type": "string",
+            "nullable": true,
+            "description": "Name of the user who last edited"
+          },
+          "editedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "When the recommendation was last edited"
+          },
+          "statusChangedById": {
+            "type": "integer",
+            "nullable": true,
+            "description": "User ID who last changed the status"
+          },
+          "statusChangedByName": {
+            "type": "string",
+            "nullable": true,
+            "description": "Name of the user who last changed the status"
+          },
+          "statusChangedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "When the status was last changed"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the recommendation was created"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the recommendation was last updated"
+          },
+          "voteCount": {
+            "type": "integer",
+            "description": "Number of votes"
+          },
+          "commentCount": {
+            "type": "integer",
+            "description": "Number of comments"
+          }
+        }
+      },
+      "RecommendationDetailed": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Recommendation"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "votes": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Vote"
+                }
+              },
+              "comments": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Comment"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Vote": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique vote ID"
+          },
+          "recommendationId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Recommendation ID this vote belongs to"
+          },
+          "userId": {
+            "type": "integer",
+            "description": "User ID who voted"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the vote was created"
+          }
+        }
+      },
+      "Comment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique comment ID"
+          },
+          "recommendationId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Recommendation ID this comment belongs to"
+          },
+          "authorId": {
+            "type": "integer",
+            "description": "User ID of the comment author"
+          },
+          "authorName": {
+            "type": "string",
+            "nullable": true,
+            "description": "Name of the comment author"
+          },
+          "authorPicture": {
+            "type": "string",
+            "nullable": true,
+            "description": "Profile picture URL of the author"
+          },
+          "content": {
+            "type": "string",
+            "description": "Comment text content"
+          },
+          "image": {
+            "type": "string",
+            "nullable": true,
+            "description": "Optional image URL attached to the comment"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the comment was created"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the comment was last updated"
+          }
+        }
+      },
+      "CreateRecommendationRequest": {
+        "type": "object",
+        "required": [
+          "targetUserId",
+          "targetUsername",
+          "reason",
+          "createdById"
+        ],
+        "properties": {
+          "targetUserId": {
+            "type": "integer",
+            "description": "User ID being recommended"
+          },
+          "targetUsername": {
+            "type": "string",
+            "description": "Username of the recommended user"
+          },
+          "targetPicture": {
+            "type": "string",
+            "description": "Profile picture URL (optional)"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for the recommendation"
+          },
+          "createdById": {
+            "type": "integer",
+            "description": "User ID creating the recommendation"
+          },
+          "createdByName": {
+            "type": "string",
+            "description": "Name of the creator (optional)"
+          }
+        }
+      },
+      "UpdateRecommendationRequest": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "approved",
+              "rejected",
+              "archived"
+            ],
+            "description": "New status (requires statusChangedById)"
+          },
+          "statusChangedById": {
+            "type": "integer",
+            "description": "User ID changing the status (required if status is provided)"
+          },
+          "statusChangedByName": {
+            "type": "string",
+            "description": "Name of the user changing status (optional)"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Updated reason (requires editedById)"
+          },
+          "editedById": {
+            "type": "integer",
+            "description": "User ID editing the recommendation (required if reason is provided)"
+          },
+          "editedByName": {
+            "type": "string",
+            "description": "Name of the editor (optional)"
+          }
+        }
+      },
+      "CreateCommentRequest": {
+        "type": "object",
+        "required": [
+          "authorId",
+          "content"
+        ],
+        "properties": {
+          "authorId": {
+            "type": "integer",
+            "description": "User ID of the comment author"
+          },
+          "authorName": {
+            "type": "string",
+            "description": "Name of the author (optional)"
+          },
+          "authorPicture": {
+            "type": "string",
+            "description": "Profile picture URL (optional)"
+          },
+          "content": {
+            "type": "string",
+            "maxLength": 2000,
+            "description": "Comment text (max 2000 characters)"
+          },
+          "image": {
+            "type": "string",
+            "description": "Image URL (optional)"
+          }
+        }
+      },
+      "UpdateCommentRequest": {
+        "type": "object",
+        "required": [
+          "authorId"
+        ],
+        "properties": {
+          "authorId": {
+            "type": "integer",
+            "description": "User ID updating the comment"
+          },
+          "content": {
+            "type": "string",
+            "maxLength": 2000,
+            "description": "Updated comment text (max 2000 characters)"
+          },
+          "image": {
+            "type": "string",
+            "nullable": true,
+            "description": "Updated image URL"
+          }
+        }
+      },
+      "RecommendationListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "recommendations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Recommendation"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "description": "Total number of recommendations"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Number of results per page"
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Number of results skipped"
+          }
+        }
+      },
+      "VoteListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "votes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Vote"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "description": "Total number of votes"
+          }
+        }
+      },
+      "CommentListResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "comments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Comment"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "description": "Total number of comments"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Number of results per page"
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Number of results skipped"
+          }
+        }
+      },
+      "ModerationCase": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "description": "Unique case ID (CUID)" },
+          "targetUserId": { "type": "integer" },
+          "targetUsername": { "type": "string", "nullable": true },
+          "authorUserId": { "type": "integer" },
+          "reason": { "type": "string" },
+          "description": { "type": "string", "nullable": true },
+          "status": { "type": "string", "enum": ["open", "resolved", "appealed", "archived"] },
+          "action": { "type": "string", "nullable": true, "enum": ["warning", "kick", "temp_ban", "perm_ban"] },
+          "publicNote": { "type": "string", "nullable": true },
+          "banDuration": { "type": "integer", "nullable": true },
+          "isPermanent": { "type": "boolean" },
+          "expiresAt": { "type": "string", "format": "date-time", "nullable": true },
+          "placeIds": { "type": "array", "items": { "type": "string" }, "description": "Roblox place IDs this punishment is restricted to. Empty array means all places.", "example": ["123456789"] },
+          "createdAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "ModerationCaseDetailed": {
+        "allOf": [
+          { "$ref": "#/components/schemas/ModerationCase" },
+          {
+            "type": "object",
+            "properties": {
+              "author": {
+                "type": "object",
+                "properties": {
+                  "userId": { "type": "integer" },
+                  "username": { "type": "string", "nullable": true }
+                }
+              },
+              "resolvedAt": { "type": "string", "format": "date-time", "nullable": true },
+              "revoked": {
+                "nullable": true,
+                "type": "object",
+                "properties": {
+                  "at": { "type": "string", "format": "date-time" },
+                  "reason": { "type": "string", "nullable": true },
+                  "by": {
+                    "nullable": true,
+                    "type": "object",
+                    "properties": {
+                      "userId": { "type": "integer" },
+                      "username": { "type": "string", "nullable": true }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ModerationCaseResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "data": { "$ref": "#/components/schemas/ModerationCase" }
+        }
+      },
+      "UserModerationHistoryResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "data": {
+            "type": "object",
+            "properties": {
+              "userId": { "type": "integer" },
+              "total": { "type": "integer" },
+              "cases": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/ModerationCaseDetailed" }
+              }
+            }
+          }
+        }
+      },
+      "LivePunishment": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "userId": { "type": "integer" },
+          "action": { "type": "string", "enum": ["kick", "temp_ban", "perm_ban"] },
+          "reason": { "type": "string" },
+          "isPermanent": { "type": "boolean" },
+          "expiresAt": { "type": "string", "format": "date-time", "nullable": true },
+          "placeIds": { "type": "array", "items": { "type": "string" }, "description": "Roblox place IDs this punishment is restricted to. Empty array means all places.", "example": [] }
+        }
+      },
+      "LivePunishmentsResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "data": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/LivePunishment" }
+          }
+        }
+      },
+      "RevokeResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "revokedAt": { "type": "string", "format": "date-time" },
+              "revokedBy": { "type": "integer" },
+              "revokeReason": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "responses": {
+      "UnauthorizedError": {
+        "description": "Authentication failed or API key missing",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Invalid API key"
+                }
+              }
+            }
+          }
+        }
+      },
+      "BadRequestError": {
+        "description": "Invalid request parameters",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Missing required fields"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NotFoundError": {
+        "description": "Resource not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Recommendation not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "InternalServerError": {
+        "description": "Internal server error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "error": {
+                  "type": "string",
+                  "example": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

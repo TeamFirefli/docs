@@ -1,0 +1,19 @@
+---
+title: "Revoke Moderation Case"
+openapi: "POST /api/public/v1/workspace/{id}/moderation/cases/{caseId}/revoke"
+description: "Revoke a moderation case, recording who revoked it and why."
+tags: ["moderation"]
+icon: "shield-off"
+---
+
+## Summary
+
+Revoke a moderation case by its ID. A revocation records the moderator responsible and their reason, and is logged to the audit trail.
+
+<Warning>
+  A case that has already been revoked cannot be revoked again — the endpoint returns `400` if `revokedAt` is already set.
+</Warning>
+
+<Info>
+  Revoking a case does **not** automatically lift an active ban from the `PlayerBan` table. You may need to separately remove the ban enforcement if applicable.
+</Info>

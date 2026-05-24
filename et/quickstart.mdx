@@ -1,0 +1,62 @@
+---
+title: "Quickstart"
+description: "Professional documentation for Firefli's workspace automation platform."
+version: "v1.0 (beta)"
+icon: "play"
+---
+
+<div className="flex items-center gap-2 mb-4">
+  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-800 text-sm font-semibold text-slate-100">
+    1
+  </span>
+  <h3 className="!mt-0">Choose your deployment option</h3>
+</div>
+<Steps>
+  <Step>
+    <h4>Choose your preferred deployment</h4>
+    <Accordion title="View all deployment options">
+      <CardGroup cols={2}>
+        <Card title="Firefli Portal" icon="cloud" accent="primary">
+          Launch in seconds with a fully managed stack optimized for Firefli. Auto-updates, backups, and SSL are included.
+          <Divider />
+          <strong>Best for:</strong> Teams that want instant access without infrastructure work.
+        </Card>
+        <Card title="Self-host" icon="server">
+          Full control over performance, networking, and compliance. Works with Docker, Docker Compose, or bare Metal.
+          <Divider />
+          <strong>Best for:</strong> Advanced teams with internal hosting policies.
+        </Card>
+      </CardGroup>
+      
+      <Info>
+        Each lane shares the same admin experiences, so you can prototype on Firefli or self-host later.
+      </Info>
+    </Accordion>
+  </Step>
+</Steps>
+
+<div className="flex items-center gap-2 mb-4">
+  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-800 text-sm font-semibold text-slate-100">
+    2
+  </span>
+  <h3 className="!mt-0">Invite collaborators</h3>
+</div>
+<Steps>
+  <Step>
+    <h4>Send invites</h4>
+    <p>Go to **Workspace → Members → Invites** and send magic links or set role-based permissions.</p>
+  </Step>
+</Steps>
+
+## **Quicklinks**
+<CardGroup cols={3}>
+  <Card title="Github" icon="github" href="https://github.com/teamfirefli/firefli/">
+    View the brains of the operation!
+  </Card>
+  <Card title="Support" icon="bug" href="https://discord.gg/WtEkchUKqe">
+    Get support and let us know about bugs!
+  </Card>
+  <Card title="Changelog" icon="sparkles" href="https://feedback.firefli.net/changelog/">
+    View our Features and Updates!
+  </Card>
+</CardGroup>

@@ -1,0 +1,129 @@
+---
+title: "Create Scheduled Session"
+openapi: "POST /api/public/v1/workspace/{workspaceId}/sessions/create-scheduled"
+description: "Create a scheduled session, optionally creating a new session type and schedule inline using role set IDs."
+tags: ["sessions"]
+icon: "calendar-check"
+---
+
+## Summary
+
+Create a scheduled session that is part of a recurring schedule. You can reference an existing schedule by ID or create a new session type with schedule inline. Role slots are defined using role set IDs from the workspace — use [Get Session Role Sets](/api-references/endpoints/getsessionrolesets) first to retrieve available IDs.
+
+## Two Creation Modes
+
+### Mode 1: Use Existing Schedule
+
+Reference an existing schedule by ID:
+
+```json
+{
+  "scheduleId": "existing-schedule-uuid",
+  "date": "2026-03-15"
+}
+```
+
+The session will be created for the specified date using the schedule's configured time and session type.
+
+### Mode 2: Create Session Type + Schedule Inline
+
+Define a new session type with schedule using role set IDs:
+
+```json
+{
+  "sessionType": {
+    "name": "Weekly Training",
+    "description": "Recurring training sessions",
+    "roleSetIds": [
+      "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+    ],
+    "schedule": {
+      "days": [1, 3, 5],
+      "hour": 14,
+      "minute": 30
+    }
+  },
+  "date": "2026-03-17"
+}
+```
+
+This creates both the session type (with role slots derived from the role sets) and schedule, then creates a session for the specified date.
+
+## Parameters
+
+### Required
+- **date**: Session date in YYYY-MM-DD format
+- **scheduleId** OR **sessionType**: Must provide one (not both)
+
+### Optional
+- **name**: Custom session name (overrides session type name)
+- **type**: Session category (default: `"other"`)
+- **ownerId**: Session host user ID (Roblox user ID)
+- **duration**: Session length in minutes (default: 30)
+- **sessionTagId**: Tag UUID for categorisation
+- **logs**: Array of initial log entries
+
+## Session Type with Schedule (inline creation)
+
+- **name** *(required)*: Session type name
+- **description**: Session type description
+- **roleSetIds**: Array of role set UUIDs from [Get Session Role Sets](/api-references/endpoints/getsessionrolesets). Each role set defines the role name, host designation (primary/secondary/none), slot count, and eligible Roblox group roles. Omit or pass an empty array for a session with no role slots.
+- **statues**: Array of custom status definitions
+  - `id`: Status identifier
+  - `name`: Status display name
+  - `color`: Status colour
+  - `timeAfter`: Minutes after session start when this status activates
+- **schedule** *(required for inline creation)*:
+  - `days`: Array of weekday numbers (0=Sunday, 1=Monday, ..., 6=Saturday)
+  - `hour`: Hour in 24-hour UTC format (0–23)
+  - `minute`: Minute (0–59)
+
+## Date Validation
+
+The `date` parameter must fall on one of the days specified in the schedule. For example:
+
+- If schedule has `days: [1, 3, 5]` (Monday, Wednesday, Friday)
+- The date must be a Monday, Wednesday, or Friday
+- Otherwise the request will fail with a validation error
+
+## Activity Logging
+
+The endpoint automatically creates:
+1. A `session_created` log entry with creation metadata including schedule ID
+2. Any additional log entries provided in the `logs` array
+
+## Example: Weekly Combat Training
+
+```json
+{
+  "sessionType": {
+    "name": "Combat Training",
+    "description": "Weekly combat skills development",
+    "roleSetIds": [
+      "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+    ],
+    "statues": [
+      {"id": "completed", "name": "Completed", "color": "green", "timeAfter": 0},
+      {"id": "cancelled", "name": "Cancelled", "color": "red", "timeAfter": 0}
+    ],
+    "schedule": {
+      "days": [2, 4],
+      "hour": 18,
+      "minute": 0
+    }
+  },
+  "date": "2026-03-10",
+  "ownerId": "123456",
+  "duration": 90
+}
+```
+
+This creates:
+1. A new session type "Combat Training" with role slots from the specified role sets
+2. A recurring schedule for Tuesdays and Thursdays at 6:00 PM UTC
+3. A session instance for the specified date (which must be a Tuesday or Thursday)
+
+Future sessions can be created using `scheduleId` mode with the returned schedule UUID.
+

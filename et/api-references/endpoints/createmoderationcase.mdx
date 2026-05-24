@@ -1,0 +1,32 @@
+---
+title: "Create Moderation Case"
+openapi: "POST /api/public/v1/workspace/{id}/moderation/cases"
+description: "Create a new moderation case for a Roblox user and log an audit entry."
+tags: ["moderation"]
+icon: "shield-plus"
+---
+
+## Summary
+
+Submit a moderation case against a Roblox user. The case is logged to the audit trail and the target user is automatically upserted into the system if they don't already exist.
+
+<Info>
+  The `action` field records the intended punishment type. Use `perm_ban` for permanant bans, `kick` for kicks, `temp_ban` for temporary bans, or `warning` for warnings without enforcement.
+</Info>
+
+## Actions
+
+| Value | Description |
+|---|---|
+| `warning` | Informal warning — no enforcement |
+| `kick` | Kick from the game |
+| `temp_ban` | Temporary Ban (use with `expiresAt`) |
+| `perm_ban` | Permanent Ban (use with `isPermanent: true`) |
+
+## Place Restrictions
+
+Pass a `placeIds` array of Roblox place IDs (as strings) to restrict the punishment to specific games. Omit the field or pass an empty array to apply the case across **all places**.
+
+| Field | Type | Description |
+|---|---|---|
+| `placeIds` | `string[]` | Roblox place IDs to restrict this case to. Empty = all places. |

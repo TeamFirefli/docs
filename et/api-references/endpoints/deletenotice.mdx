@@ -1,0 +1,11 @@
+---
+title: "Stop Active Notice"
+openapi: "DELETE /api/public/v1/workspace/{workspaceId}/notices/{noticeId}"
+description: "Immediately stop an active notice by setting end time to now."
+tags: ["notices"]
+icon: "stop"
+---
+
+## Summary
+
+Stop an active notice immediately. This sets the `endTime` to the current timestamp and marks the notice as revoked.

@@ -4,9 +4,9 @@
   "name": "Firefli",
   "irons.library": "tabler",
   "colors": {
-    "primary": "#3498db",
-    "light": "#3498db",
-    "dark": "#3498db"
+    "primary": "#9300df",
+    "light": "#9300df",
+    "dark": "#9300df"
   },
   "favicon": "/favicon.ico",
   "logo": {

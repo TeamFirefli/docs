@@ -1,0 +1,202 @@
+---
+title: "Ise hostimise seadistamine"
+description: "Selles juhendis, jalutame su läbi sinu Firefli üksuse seadistuse ja üleval hoidmise. Väiksematele kogukondadele soovitame kasutada Cloud-seadistust, sest see on palju lihtsam alustamiseks. Suurematele kogukondadele või kogukondadele, kes soovivad oluliselt muuta Fireflid võivad saada kasu ise hostimisest."
+icon: "server"
+---
+
+### Firefli paigaldamine sinu serveris
+
+<Warning>
+  Sul läheb vaja põhiteadmisi terminali kasutuses ja NextJS's.\
+  Team Firefli **ei vastuta** seadistamise käigus või kasutamises ilmunud kasutaja vigades.
+</Warning>
+
+### Eeltingimused
+
+- Arvuti, millel on võimalik käivitada käsureaülesandeid (nt Ubuntu)
+- Root õigused
+- PostgreSQL andmebaas
+- Pakettide haldus (nt pnpm) 
+- Domeeni ja SSL krüpteerimine
+
+### Firefli seadistamine
+
+Kui oled ühenduses oma serveriga, järgi allolevat käskude juhendit sinu käsurea (Terminal/Console) seansis.
+
+<Steps>
+  <Step>
+    <h4>Uuenda server</h4>
+
+```
+sudo apt update
+sudo apt upgrade
+```
+  </Step>
+
+  <Step>
+    <h4>Paigalda vajalikud paketid</h4>
+
+```
+sudo apt install git curl build-essential -y
+```
+  </Step>
+
+  <Step>
+    <h4>Paigalda Node.js (v20+) ja sinu pakettihaldaja.</h4>
+
+```
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt install -y nodejs
+```
+  </Step>
+
+  <Step>
+    <h4>Paigalda PostgresSQL</h4>
+
+```
+sudo apt install postgresql postgresql-contrib -y
+sudo systemctl enable --now postgresql
+```
+  </Step>
+
+  <Step>
+    <h4>Loo PostgreSQL kasutaja ja andmebaas</h4>
+
+```
+sudo -u postgres psql
+```
+
+```
+CREATE USER firefliuser WITH PASSWORD 'tugevparool';
+CREATE DATABASE fflidb OWNER firefliuser;
+\q
+```
+
+<Note>
+  Ära unusta vahetada "tugevparool" sinu enda tugeva unikaalse parooliga.
+</Note>
+  </Step>
+
+  <Step>
+    <h4>Klooni Firefli projekt</h4>
+
+```
+git clone https://github.com/TeamFirefli/firefli && cd firefli
+```
+  </Step>
+
+  <Step>
+    <h4>Paigalda Firefli sõltuvad programmid</h4>
+
+<CodeGroup>
+
+```pnpm pnpm
+pnpm install
+```
+
+</CodeGroup>
+  </Step>
+
+  <Step>
+    <h4>Loo `.env` konfiguratsiooni fail</h4>
+
+```
+nano .env
+```
+
+<p>Kleebi järgnev:</p>
+
+```
+DATABASE_URL="postgresql://firefliuser:tugevparool@localhost:5432/fflidb" - Sinu ühenduse sõne (nt hostitud Supabase, Railway, Neon, jne abil.)
+SESSION_SECRET="" - Tugev salajane sõne (nt genereeritud openssl rand -base64 32 abil)
+ENCRYPTION_KEY="" - Krüpteeri sinu Discordi integratsioon (nt genereeritud openssl rand -base64 32 abil)
+NEXTAUTH_URL="" - Sinu domeeni/ühenduse URL (nt https://domeen.domeen.com - ära pane / lõppu.)
+```
+
+<Tip>
+  Ära unusta vahetada "tugevparool" sinu enda tugeva unikaalse parooliga, mida valisid enne.
+  Genereeri 32/64-täheline seansivõti siin: [1Password Generator](https://1password.com/password-generator/)
+</Tip>
+
+<p>**Salvesta ja sule (Ctrl + X -\> Y -\> Enter)**</p>
+  </Step>
+
+  <Step>
+    <h4>Käivita andmebaas</h4>
+
+```
+npx prisma migrate deploy && npx prisma generate
+```
+  </Step>
+
+  <Step>
+    <h4>Ehita Firefli</h4>
+
+<CodeGroup>
+
+```pnpm pnpm
+pnpm run build
+```
+
+</CodeGroup>
+  </Step>
+
+  <Step>
+    <h4>Käivita Firefli</h4>
+
+<CodeGroup>
+
+
+```pnpm pnpm
+pnpm run start
+```
+
+</CodeGroup>
+  </Step>
+
+  <Step>
+    <h4>Sõida Fireflid taustal PM2 abil **(SOOVITATUD)**</h4>
+
+```
+npm install -g pm2
+```
+
+```
+pm2 start pnpm --name="Firefli" -- start
+```
+
+```
+pm2 startup
+pm2 save
+```
+
+<Warning>
+  Ära unusta ehitada oma andmebaas, muidu ei ole sul võimalik oma töötuba kasutada.
+</Warning>
+  </Step>
+
+  <Step>
+    <h4>Lõpeta seadistamine veebiliidese kaudu</h4>
+
+    <p>1. Mine https://sinu.domeen.ee - Pead olema SSL</p>
+    <p>2. Sisesta oma **Roblox Kogukonna ID**</p>
+    <p>3. Sisesta oma **Roblox kasutajanimi** ja parool</p>
+    <p>4. 🎉 Kõik valmis!</p>
+  </Step>
+</Steps>
+
+### Tahad teha oma sünkroniseerimise automaatseks?
+Vaata meie automatsiooni seadistamise juhendit [siin](https://docs.firefli.net/et/deployment/automation).
+
+## **Kiirlingid**
+<CardGroup cols={3}>
+  <Card title="Github" icon="github" href="https://github.com/TeamFirefli/firefli">
+    Vaata meie projekti ajusid (mitte päris ajusid)!
+  </Card>
+  <Card title="Tugi" icon="bug" href="https://discord.gg/WtEkchUKqe">
+    Leia tuge ja anna meile teada tarkvaravigadest!
+  </Card>
+  <Card title="Muutmislogi" icon="sparkles" href="https://feedback.firefli.net/changelog">
+    Uuri meie funktsioone ja uuendusi!
+  </Card>
+</CardGroup>

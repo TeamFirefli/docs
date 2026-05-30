@@ -1,0 +1,86 @@
+---
+title: "Firefli Documentation"
+description: "Professional documentation for Firefli and its Human Resource Management systems."
+version: "v1.0"
+icon: "home"
+---
+
+<Hero>
+  <Hero.Title>We are Team Firefli<br/>Home of Firefli</Hero.Title>
+  <Hero.Subtitle>
+    Automate workspace management, member activity, and session planning with a modern platform built for Roblox communities.
+  </Hero.Subtitle>
+  <Hero.Actions>
+    <Button kind="primary" href="/quickstart">Launch in 3 minutes</Button>
+    <Button kind="outline" href="/api-references/introduction">Explore the API</Button>
+  </Hero.Actions>
+</Hero>
+
+<img 
+  className="block dark:hidden" 
+  src="/images/welcome.png" 
+  alt="Light mode interface"
+/>
+
+<img 
+  className="hidden dark:block" 
+  src="/images/welcome.png" 
+  alt="Dark mode interface"
+/>
+
+<CardGroup cols={3} gap="large">
+  <Card title="Trusted infrastructure" icon="shield" accent="primary">
+    Firefli scales to thousands of members, keeps data encrypted at rest, and comes with uptime SLAs.
+  </Card>
+  <Card title="Extensible APIs" icon="puzzle">
+    Build integrations, automate reports, and trigger actions with RESTful endpoints made for bots and admin tools.
+  </Card>
+  <Card title="Community-first" icon="heart" accent="accent">
+    Open source from the ground up-contribute, fork, or deploy instantly acrossl, Docker, or our provider.
+  </Card>
+</CardGroup>
+
+<Info>
+  We're polishing this experience daily. If you see outdated instructions, create an issue in our [GitHub repository](https://github.com/TeamFirefli/firefli/).
+</Info>
+
+## Platform essentials
+
+<Grid cols={3} gap="medium">
+  <Card title="Workspace intelligence" icon="brain">
+    Track member activity, sessions, and feature flags with fine-grained permissions per role.
+  </Card>
+  <Card title="Content management" icon="folder">
+    Publish docs, wall posts, and announcements via API or admin panel with high-res media.
+  </Card>
+  <Card title="Developer tools" icon="wrench">
+    SDKs and CLI tooling make it easy to scaffold integrations, produce audits, or export data.
+  </Card>
+</Grid>
+
+<Warning>
+  Firefli is evolving rapidly. Some guides refer to work-in-progress features - check release notes in [changelog](https://feedback.firefli.net/changelog) for the latest deployments.
+</Warning>
+
+## Get oriented
+
+<CardGroup cols={3} gap="medium">
+  <Card title="Quickstart" accent="primary" href="/quickstart" icon="rocket">
+    Run the 3-minute onboarding that walks you through provisioning a workspace and calling your first API.
+  </Card>
+  <Card title="Workspace guides" accent="accent" href="/workspace/invitations" icon="map">
+    Deep dives on permissions, activity tracking, feature flags, invitations, and integrations.
+  </Card>
+  <Card title="API reference" accent="secondary" href="/api-references/introduction" icon="terminal">
+    Explore endpoint guides, code samples, and reusable callouts to keep integrations stable.
+  </Card>
+</CardGroup>
+
+<CardGroup cols={2} gap="medium">
+  <Card title="Community" icon="users" href="https://discord.gg/WtEkchUKqe">
+    Join the Discord channel for announcements, support, and API use cases.
+  </Card>
+  <Card title="Updates" icon="rss" href="https://feedback.firefli.net/changelog">
+    Follow product releases, bug fixes, and roadmap updates.
+  </Card>
+</CardGroup>

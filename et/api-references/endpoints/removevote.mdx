@@ -1,0 +1,17 @@
+---
+title: "Remove Vote"
+openapi: "DELETE /api/public/v1/workspace/{workspaceId}/recommendations/{recommendationId}/vote"
+description: "Remove a user's vote from a recommendation."
+tags: ["recommendations"]
+icon: "thumbs-down"
+---
+
+## Summary
+
+Remove a previously cast vote from a recommendation. Requires the user ID of the person whose vote should be removed.
+
+## Use Cases
+
+- Allow users to change their mind and retract support
+- Implement vote management in custom UIs
+- Clean up votes from users who leave the workspace

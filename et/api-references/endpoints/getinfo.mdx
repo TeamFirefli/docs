@@ -1,0 +1,15 @@
+---
+title: "Get Workspace Info"
+openapi: "GET /api/public/v1/workspace/{id}/info"
+description: "Retrieve workspace metadata, branding, and member overview."
+tags: ["general"]
+icon: "info"
+---
+
+## Summary
+
+Return the canonical workspace object for the specified workspace ID. Use this endpoint to display workspace branding or seed dashboards.
+
+<Info>
+  Cached results update every 30 seconds—expect eventual consistency for member counts and role changes.
+</Info>

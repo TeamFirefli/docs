@@ -1,0 +1,227 @@
+{
+    "language": "et",
+    "tabs": [
+      {
+        "tab": "Ülevaade",
+        "icon": "compass",
+        "groups": [
+          {
+            "group": "Esimesed Astmed",
+            "icon": "rocket",
+            "pages": [
+               "/et/index",
+               "/et/quickstart"
+            ]
+        },
+        {
+            "group": "Paigaldus",
+            "icon": "cloud-upload",
+            "pages": [
+                "/et/deployment/selfhost",
+                "/et/deployment/docker",
+                "/et/deployment/automation"
+            ]
+        },
+        {
+            "group": "Töötuba",
+            "icon": "castle",
+            "pages": [
+                "/et/workspace/invitations",
+                "/et/workspace/permissions",
+                "/et/workspace/activity",
+                "/et/workspace/sessions",
+                "/et/workspace/flags",
+                "/et/workspace/oauth",
+                "/et/workspace/external",
+                "/et/workspace/notices",
+                "/et/workspace/policies",
+                "/et/workspace/bot"
+            ]
+        }
+    ]
+},
+{
+    "tab": "API Viide",
+    "icon": "code",
+    "groups": [
+        {
+            "group": "Ülevaade",
+            "icon": "search",
+            "pages": [
+                "/et/api-references/introduction"
+            ]
+        },
+        {
+            "group": "Üldine",
+            "icon": "archive",
+            "pages": [
+                "/et/api-references/endpoints/getinfo",
+                "/et/api-references/endpoints/getleaderboard",
+                "/et/api-references/endpoints/getmembers",
+                "/et/api-references/endpoints/getbirthdays"
+            ]
+        },
+        {
+            "group": "Tegevus",
+            "icon": "watch",
+            "pages": [
+                "/et/api-references/endpoints/getactivity",
+                "/et/api-references/endpoints/getuseractivity",
+                "/et/api-references/endpoints/getcurrentactivity",
+                "/et/api-references/endpoints/getlastreset",
+                "/et/api-references/endpoints/startactivity",
+                "/et/api-references/endpoints/endactivity"
+            ]
+        },
+        {
+            "group": "Seansid",
+            "icon": "clock",
+            "pages": [
+                "/et/api-references/endpoints/getsessions",
+                "/et/api-references/endpoints/getsessionrolesets",
+                "/et/api-references/endpoints/getsessionroles",
+                "/et/api-references/endpoints/assignsessionroles",
+                "/et/api-references/endpoints/createunscheduledsession",
+                "/et/api-references/endpoints/createscheduledsession"
+            ]
+        },
+        {
+            "group": "Sisu",
+            "icon": "file",
+            "pages": [
+                "/et/api-references/endpoints/getwall",
+                "/et/api-references/endpoints/postwall",
+                "/et/api-references/endpoints/getdocs",
+                "/et/api-references/endpoints/getdocid"
+            ]
+        },
+        {
+            "group": "Partnerid",
+            "icon": "handshake",
+            "pages": [
+                "/et/api-references/endpoints/getalliances"
+            ]
+        },
+        {
+            "group": "Märkmed",
+            "icon": "calendar-days",
+            "pages": [
+                "/et/api-references/endpoints/getnotices",
+                "/et/api-references/endpoints/postnotices",
+                "/et/api-references/endpoints/getnotice",
+                "/et/api-references/endpoints/patchnotice",
+                "/et/api-references/endpoints/deletenotice",
+                "/et/api-references/endpoints/getusernotices",
+                "/et/api-references/endpoints/getnoticesummary"
+            ]
+        },
+        {
+            "group": "Soovitused",
+
+            "icon": "star",
+
+            "pages": [
+
+                "/et/api-references/endpoints/listrecommendations",
+
+                "/et/api-references/endpoints/createrecommendation",
+
+                "/et/api-references/endpoints/getrecommendation",
+
+                "/et/api-references/endpoints/updaterecommendation",
+
+                "/et/api-references/endpoints/deleterecommendation",
+
+                "/et/api-references/endpoints/listvotes",
+
+                "/et/api-references/endpoints/addvote",
+
+                "/et/api-references/endpoints/removevote",
+
+                "/et/api-references/endpoints/listcomments",
+
+                "/et/api-references/endpoints/addcomment",
+
+                "/et/api-references/endpoints/getcomment"
+
+            ]
+        },
+        {
+            "group": "Päevik",
+            "icon": "book",
+            "pages": [
+
+                "/et/api-references/endpoints/getuserbookentries",
+
+                "/et/api-references/endpoints/postuserbooknote",
+
+                "/et/api-references/endpoints/postuserbookwarning",
+
+                "/et/api-references/endpoints/postuserbookpromotion",
+
+                "/et/api-references/endpoints/postuserbookdemotion",
+
+                "/et/api-references/endpoints/postuserbooktermination",
+
+                "/et/api-references/endpoints/postuserbookrankchange"
+
+            ]
+
+        },
+
+        {
+
+
+            "group": "Modereerimine",
+
+            "icon": "shield",
+
+            "pages": [
+
+                "/et/api-references/endpoints/createmoderationcase",
+
+                "/et/api-references/endpoints/getusermoderationhistory",
+
+                "/et/api-references/endpoints/getlivepunishments",
+
+                "/et/api-references/endpoints/revokemoderationcase"
+
+            ]
+
+        }
+
+    ]
+
+}
+
+],
+
+"global": {
+
+    "anchors": [
+
+        {
+
+            "anchor": "Kogukond",
+
+            "href": "https://discord.gg/WtEkchUKqe",
+
+            "icon": "discord"
+
+        },
+
+        {
+
+            "anchor": "Muutmislogi",
+
+            "href": "https://feedback.firefli.net/changelog",
+
+            "icon": "newspaper"
+
+        }
+
+    ]
+
+}
+
+}

@@ -1,0 +1,80 @@
+---
+title: "Discord Sessions"
+description: "Setup the Discord bot inside your server to post messages and events."
+icon: "bell"
+---
+
+## Getting Started
+Install the bot to your guild using this setup link.
+https://discord.com/oauth2/authorize?client_id=1499467051104866435
+
+### Connecting your Workspace
+<Steps>
+  <Step>
+    <h4>Create an API key</h4>
+    <p>Navigate to the **Settings** -> **Public API** section in your workspace.</p>
+    <p>Create a new API Key and save the value.</p>
+  </Step>
+  <Step>
+    <h4>Run ``/setup credentials`` in any channel</h4>
+    <p>Provide your API Key, Group (Workspace ID) and optionally a base url (for those self hosting).</p>
+  </Step>
+  <Step>
+    <h4>Verify the connection with ``/test``.</h4>
+    <p>This should return All systems operational!</p>
+  </Step>
+</Steps>
+
+
+## Channels
+You can either assign ALL Session types to one channel, or select a channel per type.
+
+<Steps>
+  <Step>
+    <h4>Run ``/setup channels``.</h4>
+    <p>You'll need to insert a session type.</p>
+    <p>Use either global (for all), or pick individual channels for each type e.g. shift/training/event.</p>
+  </Step>
+</Steps>
+
+## Images
+You can assign an image to ALL/Individual Session types that will be posted with your sessions
+<Steps>
+  <Step>
+    <h4>Run ``/setup image``.</h4>
+    <p>You'll need to insert a session type.</p>
+    <p>* Use either global (for all), or pick individual channels for each type e.g. shift/training/event.</p>
+    <p>* Insert an image url for selected type(s).</p>
+  </Step>
+</Steps>
+
+## Bot Customisation
+There are various different aspects that can be customised on this bot.
+``/setup settings`` will display a full menu.
+
+### require_host
+  True - Requires an assigned host to post notifications
+  False - Does not require a host for notifications
+
+### deletedelay
+  Time (Minutes) - How many minutes after the session concludes should the message delete? (default 0)
+
+### alert
+  Time (Minutes) - How many minutes before the session starts should the message post? (default 0)
+
+### format
+  embed - Post sessions as an embed
+  text - Post sessions as plain text
+
+## **Need help?**
+<CardGroup cols={3}>
+  <Card title="Github" icon="github" href="https://github.com/teamfirefli/firefli/">
+    Create a Github issue and let us know about bugs!
+  </Card>
+  <Card title="Support" icon="discord" href="https://discord.gg/WtEkchUKqe">
+    Get support from us and members of the community
+  </Card>
+  <Card title="Livechat" icon="mailbox" href="https://www.firefli.net/">
+    Reach out to us directly on our Livechat.
+  </Card>
+</CardGroup>

@@ -1,0 +1,96 @@
+---
+title: "Automatiseerimine (Cronjobs)"
+description: "Fireflil on 5 valmis cronjobi, mis saavad taustal muudatusi teha."
+icon: "briefcase"
+---
+
+Automatiseerimine on valikuline ja seda teostatakse sõltumatult Fireflist.\
+Without these, you'll need to manually refresh certain aspects of your Workspace. Ilma nendeta pead sa manuaalselt värskendama mõningaid aspekte sinu Töötoas.
+
+Sa pead ainult need ülesse seadma, kui sa ise hostid.\
+Me teeme seda sinu jaoks [Äpis](https://www.firefli.net/).
+
+<Warning>
+  Sa pead kasutama versiooni Firefli 1.0.1 või hilisemat.
+</Warning>
+
+### Ise Hostimine
+
+See osa on kõigile, kes käitavad Fireflid dedikeeritud või virtuaalsel Linuxi-baseeritud opereerimissüsteemil.
+
+<Steps>
+  <Step>
+    <h4>Loo automeerimise environment fail</h4>
+    <p>Sinu algkaustas, loo fail nimega .automation_env</p>
+
+   ```
+   nano /root/.automation_env
+   ```
+  </Step>
+  <Step>
+    <h4>Sisesta salavõti</h4>
+    <p>Sisesta 32-täheline salavõti ja salvesta (**X** -\> **Y** -\> **Enter**).</p>
+
+   ```
+   export CRON_SECRET='VÕTI_SIIA'
+   ```
+  </Step>
+  <Step>
+    <h4>Lisa Fireflisse .env</h4>
+    <p>Järgmisena on sul vaja see lisada Fireflisse **.env** and salvesta (**X** -\> **Y** -\> **Enter**).</p>
+
+   ```
+   nano /root/firefli/.env
+   ```
+
+   ```
+   CRON_SECRET="VÕTI_SIIA"
+   ```
+  </Step>
+  <Step>
+    <h4>Sisesta Crontabi</h4>
+    <p>Järgmisena on vaja sisestada kood **Crontabi.**</p>
+
+   ```
+   crontab -e
+   ```
+
+   <p>Faili põhjas kleebi järgmist. Kindlasti ära unusta muuta URL sinu enda omaks.\ Kui valmis, salvesta. (**X** -\> **Y** -\> **Enter**)</p>
+
+   ```
+   * * * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://sinu.domeen.ee/api/cron/update-sessions' -H "x-cron-secret: $CRON_SECRET" | /usr/bin/jq -r || true
+   0 * * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://sinu.domeen.ee/api/cron/update-roles' -H "x-cron-secret: $CRON_SECRET" | /usr/bin/jq -r || true
+   0 0 * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://sinu.domeen.ee/api/cron/birthdays' -H "x-cron-secret: $CRON_SECRET" | /usr/bin/jq -r || true
+   0 2 * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://sinu.domeen.ee/api/cron/reset-activity' -H "x-cron-secret: $CRON_SECRET" | /usr/bin/jq -r || true
+   0 */4 * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://sinu.domeen.ee/api/cron/update-users' -H "x-cron-secret: $CRON_SECRET" | /usr/bin/jq -r || true
+   ```
+
+   Kui kasutad .env's NEXT_MULTI't, siis palun kasuta järgmist cronjobi rollide uuendamiseks.
+   ```
+   */15 * * * * . /root/.automation_env && /usr/bin/curl -fsS -X POST 'https://sinu.domeen.ee/api/cron/update-roles' -H "x-cron-secret: $CRON_SECRET" | /usr/bin/jq -r || true
+   ```
+  </Step>
+  <Step>
+    <h4>Valmis!</h4>
+    <p>- Sinu grupirollid sünkroniseerivad nüüd automaatselt iga tund lisades uusi liikmeid sinu Töötuppa.</p>
+    <p>- Sinu seansside staatused nüüd uuendatakse vastavalt staatuse seadistusele, mis laiendab teie API-arenduse võimalusi.</p>
+    <p>- Teie sünnipäevi teatatakse nüüd Discordis keskööl (UTC).</p>
+    <p>- Tegevus nullitakse nüüd vastavalt seadetes määratud sagedusele.</p>
+    <p>- Kasutajanimed ja kuvanimed uuendatakse iga 4 tunni järel.</p>
+  </Step>
+</Steps>
+
+## Järgmisena
+
+<CardGroup cols={3} gap="medium">
+  <Card title="Ise hostimise paigaldamine" icon="server" href="/et/quickstart">
+    Kiirseadistamise juhend.
+  </Card>
+  <Card title="Ise hostimise paigaldamine" icon="server" href="/et/deployment/selfhost">
+    Tutvuge kogu ise hostimise kontrollnimekirjaga, et veenduda, et teie keskkond on valmis.
+  </Card>
+  <Card title="Tegevuse & rollide APId" icon="brackets" href="/et/api-references/introduction">
+    Kombineeri automeerimine avalike APIdega, et ehitada töölaudasid, roboteid või väliseid tööriiste.
+  </Card>
+
+</CardGroup>

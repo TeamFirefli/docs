@@ -1,0 +1,107 @@
+---
+title: "Sessions"
+description: "Display and organise trainings, sessions, events and more with our Sessions feature."
+icon: "clock"
+---
+
+## Overview
+to be written
+
+## Sessions Setup
+Before you dive in and create sessions, you need to create a primary hosting role.
+
+### Creating Roles and Role groups
+Roles are defined into 3 categories.
+- Primary host
+- Secondary host
+- Participant (All others)
+
+Each session must have a Primary host assigned, this will act as the 'Host'.
+Optionally, you may also create a Secondary host which acts as a 'Co-Host' style role.
+
+These can be setup in **Settings** → **Sessions**.
+
+These roles then can be assigned a role 'categories' which allows you to quickly toggle sets of roles on and off while creating/editing sessions.
+Each category can be assigned a weight which will effect the order it displays on a session card.
+0 - Top of the list
+1000 - Bottom of the list
+
+Within groups, role orders can be changed to suit your needs.
+Every session role can be assigned a Firefli rank, allowing you to control who can claim each role.
+
+### Creating Session Tags
+Session tags allow you to further define a type within a type.
+You may host different types of trainings e.g. Store Assistant or Security.
+These can be assigned (with permission) to a specific session type, instead of making a long session name.
+
+### Creating Sessions
+to be continued
+
+## Session Board
+Firefli now has an open-source sessions board, allowing you easily to display trainings/events inside your game.
+Thanks to @TiiLxm / Planetary for creating the original template.
+
+<Steps>
+  <Step>
+    <h4>Download the Module</h4>
+    <p>Download the latest module from the **Sessions** panel.</p>
+  </Step>
+  <Step>
+    <h4>Insert into Roblox Studio</h4>
+    <p>In Roblox Studio, right-click **Workspace → Insert from File** and choose the module.</p>
+  </Step>
+  <Step>
+    <h4>Configure the script</h4>
+    <p>Locate the generated `Firefli | Sessions Board` folder, open `Boards`, then your `SessionsBoard`.</p>
+  </Step>
+  <Step>
+    <h4>Navigate to Config</h4>
+    <p>Each `SessionsBoard` should have its own 'Config' file. This allows you to easily configure more than one by duplicating the group.</p>
+    <p>Insert your API Key, created in **Settings** -> **Public API**.</p>
+    <p>Define your groups workspace id (group id).</p>
+    <p>Configure other variabled in the Config file ONLY.</p>
+  </Step>
+  <Step>
+    <h4>Publish your place</h4>
+    <p>Save and publish your place.</p>
+    <Warning>
+      Roblox requires HTTPS for outgoing requests. Enable HTTPS in Studio before saving the script. Need help? [Roblox HTTPS docs](https://create.roblox.com/docs/security/https-requests).
+    </Warning>
+  </Step>
+</Steps>
+
+### Troubleshooting checklist
+- ✅ Script enabled in Roblox Studio.
+- ✅ HTTPS service turned on in your game settings.
+- ✅ Configuration values correct aside from secrets (do not modify `URL` or `AUTH`).
+- 🛠 Self-hosted? Check your Firefli server logs for HTTP/timeout issues.
+
+### Getting support
+- **Firefli App**: Use the live chat in the dashboard for fast replies.
+- **Self-hosted**: Join [Discord](https://discord.gg/firefli) (support channel) and include `X-Request-ID` from the Firefli logs if you hit API errors.
+
+## Next steps
+<CardGroup cols={3} gap="medium">
+  <Card title="Tune permissions" icon="lock" href="/workspace/permissions">
+    Align activity tracking with role-based access in your workspace.
+  </Card>
+  <Card title="Configure feature flags" icon="flag" href="/workspace/featureflags">
+    Enable workspace features like Sessions, Documents, and Alliances to unlock advanced capabilities.
+  </Card>
+  <Card title="Explore the Activity API" icon="chart-line" href="/api-references/endpoints/getactivity">
+    Pull activity data into dashboards, reports, or custom bots.
+  </Card>
+</CardGroup>
+
+## **Need help?**
+<CardGroup cols={3}>
+  <Card title="Github" icon="github" href="https://github.com/teamfirefli/firefli/">
+    Create a Github issue and let us know about bugs!
+  </Card>
+  <Card title="Support" icon="discord" href="https://discord.gg/firefli">
+    Get support from us and members of the community
+  </Card>
+  <Card title="Livechat" icon="mailbox" href="https://www.firefli.net/">
+    Reach out to us directly on our Livechat.
+  </Card>
+</CardGroup>

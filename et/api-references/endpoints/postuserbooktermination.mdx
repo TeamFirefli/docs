@@ -1,0 +1,11 @@
+---
+title: "Create Termination"
+openapi: "POST /api/public/v1/workspace/{workspaceId}/userbook/termination"
+description: "Add a termination entry to a user's logbook, set their rank to lowest, and remove workspace roles."
+tags: ["userbook"]
+icon: "ban"
+---
+
+## Summary
+
+Create a termination entry in a user's logbook. If a ranking system is configured, the user will be set to the lowest rank. Their workspace roles and rank record will also be removed.

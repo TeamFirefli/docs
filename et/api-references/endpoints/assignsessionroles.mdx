@@ -1,0 +1,67 @@
+---
+title: "Assign Session Roles"
+openapi: "POST /api/public/v1/workspace/{workspaceId}/sessions/{sessionId}/assign"
+description: "Assign or unassign users to session role slots."
+tags: ["sessions"]
+icon: "user-plus"
+---
+
+## Summary
+
+Assign or unassign users to specific role slots within a session. Use [Get Session Roles](/api-references/endpoints/getsessionroles) to retrieve valid slot IDs and slot indices for the session.
+
+All operations are logged as audit entries.
+
+## Request Body
+
+All four fields are required:
+
+| Field | Type | Description |
+| :---- | :--- | :---------- |
+| `action` | `"assign"` \| `"unassign"` | Whether to add or remove the user |
+| `userId` | string | Roblox user ID — does not need to be a workspace member |
+| `roleId` | string (UUID) | Slot UUID from the session type. Get this from [Get Session Roles](/api-references/endpoints/getsessionroles) or [Get Session Role Sets](/api-references/endpoints/getsessionrolesets) |
+| `slot` | integer | Zero-based slot index within the role |
+
+### Assign a user
+
+```json
+{
+  "action": "assign",
+  "userId": "12345678",
+  "roleId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "slot": 0
+}
+```
+
+### Unassign a user
+
+```json
+{
+  "action": "unassign",
+  "userId": "12345678",
+  "roleId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "slot": 0
+}
+```
+
+## Response
+
+Returns the full updated session split by host designation:
+
+### `primaryHost`
+The user currently in the `"primary"` host slot, or `null` if unassigned.
+- `userId`, `username`, `displayName`, `picture`
+- `roleId` — slot UUID
+- `slot` — slot index
+
+### `secondaryHosts`
+Array of users in `"secondary"` host slots (co-hosts).
+- Same shape as `primaryHost`
+
+### `participants`
+Array of users in regular slots (`hostRole: null`).
+- `userId`, `username`, `displayName`, `picture`
+- `roleId`, `roleName`, `slot`
+- `weight`, `categoryId`, `categoryName`, `categoryWeight`
+

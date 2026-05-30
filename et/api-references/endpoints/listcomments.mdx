@@ -1,0 +1,17 @@
+---
+title: "List Comments"
+openapi: "GET /api/public/v1/workspace/{workspaceId}/recommendations/{recommendationId}/comments"
+description: "Retrieve all comments on a recommendation with pagination."
+tags: ["recommendations"]
+icon: "comments"
+---
+
+## Summary
+
+Fetch all comments for a recommendation with pagination and sort order controls. Comments include author information, content, optional images, and timestamps.
+
+## Pagination
+
+- Default: 50 comments per page
+- Maximum: 100 comments per page
+- Use `offset` to skip results for pagination

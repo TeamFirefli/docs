@@ -1,0 +1,13 @@
+---
+title: "Start Activity"
+openapi: "POST /api/public/v1/workspace/{id}/user/{userid}/activity/start"
+description: "Start an activity session for a workspace member at a specific UTC time."
+tags: ["activity"]
+icon: "play"
+---
+
+## Summary
+
+Start an activity session for a specific user in a workspace. The session will be marked as active until it is explicitly ended via the End Activity endpoint.
+
+The `time` field must be a valid UTC ISO 8601 timestamp. If the user already has an active session in the workspace, the request will be rejected with a `409 Conflict`.
